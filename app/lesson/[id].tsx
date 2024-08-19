@@ -8,6 +8,7 @@ import Markdown from "react-native-markdown-display";
 
 interface Lesson {
   id: string;
+  title: string;
   text: string;
   words: string[];
   voiceTextFileUrl: string;
@@ -26,7 +27,7 @@ const LessonPage: React.FC = () => {
       try {
         const docRef = doc(db, "lessons", id as string);
         const docSnap = await getDoc(docRef);
-
+        
         if (docSnap.exists()) {
           const lesson = {
             id: docSnap.id,
@@ -88,7 +89,7 @@ const LessonPage: React.FC = () => {
   return (
     <ScrollView className="p-6 bg-white">
       <View className="mb-6">
-        <Text className="text-3xl font-bold mb-4">Lesson: {lesson.id}</Text>
+        <Text className="text-3xl font-bold mb-4">Lesson.{lesson.id} {lesson.title}</Text>
 
         {lesson.voiceTextFileUrl && (
           <View className="mb-3 flex flex-row justify-between">

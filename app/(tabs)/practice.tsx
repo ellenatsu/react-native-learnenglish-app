@@ -1,13 +1,35 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 
-const Practice = () => {
+const PracticePage: React.FC = () => {
+  const router = useRouter();
+
   return (
-    <View>
-      <Text>Practice page: offer another entry for daily practice. and entry for whole words, whole sentences practice</Text>
-      <Text>use the flip card strucutre. have 2 flip card piles, and enter practice.</Text>
-    </View>
-  )
-}
+    <View className="flex-1 justify-center items-center bg-white">
+      
+      <TouchableOpacity
+        className="bg-blue-500 p-6 mb-6 rounded-lg w-3/4"
+        onPress={() => router.push('/practice/daily')}
+      >
+        <Text className="text-white text-3xl text-center">Daily Practice</Text>
+      </TouchableOpacity>
 
-export default Practice
+      <TouchableOpacity
+        className="bg-red-500 p-6 mb-6 rounded-lg w-3/4"
+        onPress={() => router.push('/practice/marked-words')}
+      >
+        <Text className="text-white text-3xl text-center">Marked Words Practice</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        className="bg-green-500 p-6 rounded-lg w-3/4"
+        onPress={() => router.push('/practice/all-words')}
+      >
+        <Text className="text-white text-3xl text-center">All Words Practice</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+export default PracticePage;

@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
-import { collection, query,  getDocs } from "firebase/firestore";
-import 'firebase/firestore';
-import { db } from '../../utils/firebase/firebase';
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
+import { collection, query, getDocs, addDoc } from "firebase/firestore";
+import "firebase/firestore";
+import { db } from "../../utils/firebase/firebase";
 
 interface Lesson {
   id: string;
-  text: string;
+  title: string;
   words: string[];
-  voiceTextFileUrl: string;
-  voiceWordsFileUrl: string;
 }
 
 const Textbook: React.FC = () => {
@@ -18,19 +16,20 @@ const Textbook: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
+
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        const q = query(collection(db, 'lessons'));
+        const q = query(collection(db, "lessons"));
         const querySnapshot = await getDocs(q);
-        const lessonsList = querySnapshot.docs.map(doc => ({
+        const lessonsList = querySnapshot.docs.map((doc) => ({
           id: doc.id as string,
           ...doc.data(),
         })) as Lesson[];
 
         setLessons(lessonsList);
       } catch (error) {
-        console.error('Error fetching lessons:', error);
+        console.error("Error fetching lessons:", error);
       } finally {
         setLoading(false);
       }
@@ -39,15 +38,12 @@ const Textbook: React.FC = () => {
     fetchLessons();
   }, []);
 
+
+ 
+
   if (loading) {
     return <Text>Loading...</Text>;
   }
-
-  //to get lesson preview
-  const renderLessonPreview = (text: string) => {
-    const wordsArray = text.split(' ');
-    return wordsArray.slice(0, 5).join(' ') + (wordsArray.length > 5 ? '...' : '');
-  };
 
   return (
     <View className="p-4 bg-white">
@@ -57,14 +53,16 @@ const Textbook: React.FC = () => {
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => router.push(`/lesson/${item.id}`)}>
             <View className="mb-4 p-4 border border-gray-300 rounded-lg bg-gray-100">
-              <Text className="text-lg font-bold mb-2">Lesson {item.id}</Text>
-              {/* <Text className="text-sm text-gray-700">{renderLessonPreview(item.text)}</Text> */}
+              <Text className="text-lg font-bold mb-2">
+                Lesson.{item.id} {item.title}
+              </Text>
             </View>
           </TouchableOpacity>
         )}
       />
     </View>
   );
+
 };
 
 export default Textbook;
