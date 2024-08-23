@@ -46,7 +46,7 @@ const Textbook: React.FC = () => {
   }
 
   return (
-    <View className="p-4 bg-white">
+    <View className="pt-40 p-4 bg-white">
       <FlatList
         data={lessons}
         keyExtractor={(item) => item.id}

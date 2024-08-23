@@ -83,7 +83,7 @@ const TabsLayout = () => {
           name="textbook"
           options={{
             title: "Textbook",
-            headerShown: false,
+            headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.bookmark}
@@ -98,7 +98,7 @@ const TabsLayout = () => {
           name="profile"
           options={{
             title: "Profile",
-            headerShown: false,
+            headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.profile}

@@ -1,9 +1,8 @@
-import { View, Text } from 'react-native'
 import React from 'react'
-import FlipCardPractice from '@/components/flipcard';
+import FlipCard from '@/components/flipcard';
 
 const DailyPractice = () => {
-    return <FlipCardPractice numWords={10} />;
+    return <FlipCard mode="daily" />;
 }
 
 export default DailyPractice

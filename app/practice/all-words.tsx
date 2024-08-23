@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import FlipCardPractice from '@/components/flipcard';
+import FlipCard from '@/components/flipcard';
 
 const AllWordsPractice = () => {
     //write it to another collections
-  return <FlipCardPractice numWords="all" />;
+  return <FlipCard mode="all-words" />;
 }
 
 export default AllWordsPractice
