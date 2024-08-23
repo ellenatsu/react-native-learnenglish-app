@@ -7,6 +7,7 @@ import { db } from '@/utils/firebase/firebase';
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -20,8 +21,9 @@ const SignUp: React.FC = () => {
       try {
         await addDoc(collection(db, 'users'), {
             uid: user.uid,
+            name: name,
             email: user.email,
-            practicedDays: 0,
+            practicedDates: [],
             wordsPracticed: [],
             bookmarkedItems: {
               words: [],
@@ -43,6 +45,14 @@ const SignUp: React.FC = () => {
 
   return (
     <View className='flex p-5 align-center gap-3'>
+      <TextInput
+        placeholder="Name"
+        value={name}
+        onChangeText={setName}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        className='p-3 text-xl mb-3'
+      />
       <TextInput
         placeholder="Email"
         value={email}

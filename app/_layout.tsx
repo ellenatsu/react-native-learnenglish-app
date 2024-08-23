@@ -15,6 +15,8 @@ export default function RootLayout() {
       <Stack.Screen name="practice/marked-words" options={{ title: 'Marked Words Practice' }} />
       <Stack.Screen name="practice/all-words" options={{ title: 'All Words Practice' }} />
       <Stack.Screen name="practice/finish" options={{ title: 'Congrats!' }} />
+
+      <Stack.Screen name="profile/bookmark" options={{ title: 'Bookmarked Words' }} />
     </Stack>
   );
 }

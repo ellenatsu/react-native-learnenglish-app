@@ -1,15 +1,17 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
-import { UserData } from "@/types/types";
+import { UserData, Word } from "@/types/types";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/utils/firebase/firebase";
 import { router } from "expo-router";
+import { set } from "date-fns";
 
-const ProfilePage = () => {
+const BookmarkPage = () => {
   //retrieve user data
   const user = getAuth().currentUser;
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [bookmarkedWords, setBookmarkedWords] = useState<Word[]>([]);
 
   //will refetch new data in bookmark component
   useEffect(() => {
@@ -30,7 +32,8 @@ const ProfilePage = () => {
         } as UserData;
 
         if (fetchedUserData) {
-          setUserData(fetchedUserData);
+            setUserData(fetchedUserData);
+            setBookmarkedWords(fetchedUserData.bookmarkedItems.words || []);
         }
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -39,6 +42,12 @@ const ProfilePage = () => {
 
     fetchUser();
   }, [user]);
+
+  //toggle bookmark
+    const toggleBookmark = async (currentWord: Word) => {
+ //TODO: implement toggle bookmark
+    };
+    
 
   if (!user) {
     return (
@@ -57,7 +66,7 @@ const ProfilePage = () => {
     );
   }
 
-  if (user && !userData) {
+  if(user && !userData){
     return (
       <View className="flex-1 justify-center items-center bg-white">
         <Text className="text-lg">Loading...</Text>
@@ -65,27 +74,31 @@ const ProfilePage = () => {
     );
   }
 
+
+  if (bookmarkedWords.length === 0) {
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <Text className="text-lg">No bookmarked words found.</Text>
+      </View>
+    );
+  }
+
   return (
     <View className="flex-1 p-4 bg-white">
-      <Text className="text-lg mb-2">Name: {userData?.name}</Text>
-      <Text className="text-lg mb-2">Email: {userData?.email}</Text>
-      <Text className="text-lg mb-2">
-        Practiced Days: {userData?.practicedDates.length}
-      </Text>
-      <Text className="text-lg mb-2">
-        Words Practiced: {userData?.wordsPracticed.length}
-      </Text>
+    <Text className="text-3xl font-bold mb-4">Bookmarked Words</Text>
+    <FlatList
+      data={bookmarkedWords}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <View className="p-4 mb-2 bg-gray-100 rounded-lg">
+          <Text className="text-lg font-bold">{item.name}</Text>
+          <Text className="text-sm">Chinese: {item.chinese}</Text>
+          <Text className="text-sm">English: {item.english}</Text>
+        </View>
+      )}
+    />
+  </View>
+  )
+}
 
-      <TouchableOpacity
-        className="bg-blue-500 p-4 rounded-lg mt-6"
-        onPress={() => router.push("/profile/bookmark")}
-      >
-        <Text className="text-white text-center text-lg">
-          View Bookmarked Words
-        </Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-export default ProfilePage;
+export default BookmarkPage

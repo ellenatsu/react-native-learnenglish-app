@@ -1,6 +1,7 @@
 export interface UserData {
     id: string;
     uid: string;
+    name: string;
     email: string;
     practicedDates: string[]; // Array of dates (e.g., ["2024-08-19"])
     wordsPracticed: Word[]; // Array of word IDs or word strings

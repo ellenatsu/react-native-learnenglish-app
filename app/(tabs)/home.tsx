@@ -8,80 +8,75 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/utils/firebase/firebase";
 import { useFocusEffect } from "@react-navigation/native";
 import { getLocalDate } from "@/utils/date";
-
+import { useIsFocused } from "@react-navigation/native"; // Use this hook to check if the screen is focused
 
 const HomePage: React.FC = () => {
   const user = getAuth().currentUser;
   const todayDate = getLocalDate();
   const [userData, setUserData] = useState<UserData | null>(null);
   //for calendar
-  const [markedDates, setMarkedDates] = useState<{
-    [date: string]: any;
-  }>({});
+  const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({});
   const [loading, setLoading] = useState<boolean>(true);
-
   const [isTodayPracticed, setIsTodayPracticed] = useState(false);
 
+  const isFocused = useIsFocused(); // Check if the screen is currently focused
+
   //fetch practiced date data
-  useFocusEffect(
-    React.useCallback(() => {
-    const fetchUser = async () => {
-      try {
-        const querySnapshot = await getDocs(
-          query(collection(db, "users"), where("uid", "==", user?.uid))
-        );
-        //if cannot find user data
-        if (querySnapshot.empty) {
-          console.log("No user data found");
+  useEffect(() => {
+    if (isFocused) {
+      const fetchUser = async () => {
+        setLoading(true);
+        try {
+          const querySnapshot = await getDocs(
+            query(collection(db, "users"), where("uid", "==", user?.uid))
+          );
+          //if cannot find user data
+          if (querySnapshot.empty) {
+            console.log("No user data found");
+          }
+
+          const userdoc = querySnapshot.docs[0];
+          const fetchedUserData = {
+            id: userdoc.id as string,
+            ...userdoc.data(),
+          } as UserData;
+
+          if (fetchedUserData) {
+            setUserData(fetchedUserData);
+            markPracticedDates(userData?.practicedDates || [], todayDate);
+          }
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        } finally {
+          setLoading(false);
         }
+      };
 
-        const userdoc = querySnapshot.docs[0];
-        const fetchedUserData = {
-          id: userdoc.id as string,
-          ...userdoc.data(),
-        } as UserData;
-
-        if (fetchedUserData) {
-          setUserData(fetchedUserData);
-          markPracticedDates(userData?.practicedDates || [], todayDate);
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }finally{
-        setLoading(false)
-      }
-    };
-
-    fetchUser();
-
-    return () => {
-      setMarkedDates({});
-      setIsTodayPracticed(false);
-    };
-  }, [user])
-);
+      fetchUser();
+    }
+  }, [isFocused, user]); // Re-run this effect whenever the page is focused
 
   const markPracticedDates = (dates: string[], today: string) => {
     const newMarkedDates: { [date: string]: any } = {};
     console.log("today", today);
 
-     // Add blue background for marked dates
-     dates.forEach((date) => {
+    // Add blue background for marked dates
+    dates.forEach((date) => {
       newMarkedDates[date] = {
         selected: true,
-        selectedColor: '#87ceeb', // Blue background
+        marked: true,
+        selectedColor: "#87ceeb", // Blue background
       };
     });
 
     // Ensure today always has a red dot
     if (newMarkedDates[today]) {
       setIsTodayPracticed(true);
-    } else{
+    } else {
       newMarkedDates[today] = {};
     }
 
-    newMarkedDates[today].dots = [{ key: 'today', color: 'red' }]; // Red dot for today
-
+    newMarkedDates[today].dots = [{ key: "today", color: "red" }]; // Red dot for today
 
     setMarkedDates(newMarkedDates);
   };
@@ -96,15 +91,7 @@ const HomePage: React.FC = () => {
     }
   };
 
-  if(loading){
-    return (
-      <View className="flex-1 justify-center items-center bg-white">
-        <Text className="text-lg">Loading...</Text>
-      </View>
-    )
-  }
-
-  if (user && !userData) {
+  if (user && (loading || !userData)) {
     return (
       <View className="flex-1 justify-center items-center bg-white">
         <Text className="text-lg">Loading...</Text>
@@ -113,9 +100,12 @@ const HomePage: React.FC = () => {
   }
 
   return (
-    <View className="pt-40 flex gap-8">
+    <View className="pt-20 flex gap-8">
       {user ? (
         <View className="flex gap-3 text-xl p-2 items-center">
+          <Text className="text-3xl font-bold mb-4">
+            Welcome, {userData?.name}
+          </Text>
           {isTodayPracticed ? (
             <Text className="text-2xl font-semibold mb-4 text-green-600">
               You've done today's practice! Good job!
@@ -152,7 +142,7 @@ const HomePage: React.FC = () => {
           </TouchableOpacity>
         </View>
       ) : (
-        <View>
+        <View className="items-center pt-40">
           <TouchableOpacity
             className="p-2 bg-gray-200 rounded-lg"
             onPress={() => router.push("/auth/login")}
