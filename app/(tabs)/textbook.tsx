@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
-import { collection, query, getDocs, addDoc } from "firebase/firestore";
+import { collection, query, getDocs } from "firebase/firestore";
 import "firebase/firestore";
 import { db } from "../../utils/firebase/firebase";
 
@@ -16,7 +16,6 @@ const Textbook: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
-
   useEffect(() => {
     const fetchLessons = async () => {
       try {
@@ -26,6 +25,13 @@ const Textbook: React.FC = () => {
           id: doc.id as string,
           ...doc.data(),
         })) as Lesson[];
+
+        // Sort the lessons by numeric part of the ID
+        lessonsList.sort((a, b) => {
+          const numA = parseInt(a.id.replace(/\D/g, ""), 10); // Extract number from 'l1', 'l2', etc.
+          const numB = parseInt(b.id.replace(/\D/g, ""), 10);
+          return numA - numB; // Compare numerically
+        });
 
         setLessons(lessonsList);
       } catch (error) {
@@ -37,9 +43,6 @@ const Textbook: React.FC = () => {
 
     fetchLessons();
   }, []);
-
-
- 
 
   if (loading) {
     return <Text>Loading...</Text>;
@@ -62,7 +65,6 @@ const Textbook: React.FC = () => {
       />
     </View>
   );
-
 };
 
 export default Textbook;

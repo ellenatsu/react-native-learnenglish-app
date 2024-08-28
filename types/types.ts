@@ -26,4 +26,10 @@ export interface UserData {
     chinese: string;
     english: string;
   }
+
+  export interface DictWord {
+    word: string;
+    meaning: string;
+    phonetic: string;
+  }
   

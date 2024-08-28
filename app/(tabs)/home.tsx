@@ -1,10 +1,11 @@
-import { View, Text } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, Button, TouchableOpacity } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
 import { useFocusEffect } from "@react-navigation/native";
 import { getLocalDate } from "@/utils/date";
 import { useCustomUserContext } from "@/hooks/useCustomUserContext";
-
+import { Redirect, router } from "expo-router";
+import { getAuth } from "firebase/auth";
 
 const HomePage: React.FC = () => {
   const todayDate = getLocalDate();
@@ -16,11 +17,10 @@ const HomePage: React.FC = () => {
 
   // Use useFocusEffect to refetch data when the Home screen is focused
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       refetchUserData(); // Refetch user data whenever the screen is focused
-    }, [])
+    }, [refetchUserData])
   );
-
 
   // Use useEffect to update markedDates and isTodayPracticed when userData changes
   useEffect(() => {
@@ -51,20 +51,33 @@ const HomePage: React.FC = () => {
     }
   }, []);
 
-  // const handleSignOut = async () => {
-  //   try {
-  //     await getAuth().signOut();
-  //     console.log("sign out successful");
-  //     router.push("/auth/login");
-  //   } catch (error) {
-  //     console.log("error sign out", error);
-  //   }
-  // };
+  const handleSignOut = async () => {
+    try {
+      await getAuth().signOut();
+      console.log("sign out successful");
+      router.push("/auth/login");
+    } catch (error) {
+      console.log("error sign out", error);
+    }
+  };
 
   if (loading) {
     return (
       <View className="flex-1 justify-center items-center bg-white">
         <Text className="text-lg">Loading...</Text>
+      </View>
+    );
+  }
+
+  if (!loading && !userData) {
+    return (
+      <View className="flex items-center p-20">
+        <TouchableOpacity
+          className="p-3 text-xl mb-3"
+          onPress={() => router.push("/auth/login")}
+        >
+          <Text className="text-xl">Go login in</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -103,6 +116,7 @@ const HomePage: React.FC = () => {
             Words Practiced: {userData?.wordsPracticed.length}
           </Text>
         </View>
+        <Button title="Sign Out" onPress={handleSignOut} />
       </View>
     </View>
   );
