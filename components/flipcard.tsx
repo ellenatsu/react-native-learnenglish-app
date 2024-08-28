@@ -10,11 +10,12 @@ import {
 } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { getAuth } from "firebase/auth";
 import { db } from "@/utils/firebase/firebase";
 import { UserData, Word } from "@/types/types";
 import { router, useRouter } from "expo-router";
 import { getLocalDate } from "@/utils/date";
+import { UNIQUE_USER_ID } from "@/constants/constants";
+import { getAuth } from "firebase/auth";
 
 interface FlipCardProps {
   mode: "all-words" | "daily" | "marked-words";
@@ -83,7 +84,7 @@ const FlipCard: React.FC<FlipCardProps> = ({ mode }) => {
       }
     };
     fetchUser();
-  }, [user, mode]);
+  }, [mode]);
 
   //fetch words collection
   const fetchWords = async (mode: string) => {

@@ -1,66 +1,45 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
-import { getAuth } from "firebase/auth";
-import { UserData } from "@/types/types";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase";
+import React from "react";
+
 import { router } from "expo-router";
+
+import { useCustomUserContext } from "@/hooks/useCustomUserContext";
 
 const ProfilePage = () => {
   //retrieve user data
-  const user = getAuth().currentUser;
-  const [userData, setUserData] = useState<UserData | null>(null);
+  // const user = getAuth().currentUser;
+  const { userData, loading } = useCustomUserContext();
 
-  //will refetch new data in bookmark component
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const querySnapshot = await getDocs(
-          query(collection(db, "users"), where("uid", "==", user?.uid))
-        );
-        //if cannot find user data
-        if (querySnapshot.empty) {
-          console.log("No user data found");
-        }
 
-        const userdoc = querySnapshot.docs[0];
-        const fetchedUserData = {
-          id: userdoc.id as string,
-          ...userdoc.data(),
-        } as UserData;
+  // if (!user) {
+  //   return (
+  //     <View className="flex-1 justify-center items-center bg-white">
+  //       <Text className="text-lg">Please login to view profile</Text>
+  //       <View className="items-center pt-40">
+  //         <TouchableOpacity
+  //           className="p-2 bg-gray-200 rounded-lg"
+  //           onPress={() => router.push("/auth/login")}
+  //         >
+  //           <Text className="text-xl">Go Sign In</Text>
+  //         </TouchableOpacity>
+  //       </View>
+        
+  //     </View>
+  //   );
+  // }
 
-        if (fetchedUserData) {
-          setUserData(fetchedUserData);
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-
-    fetchUser();
-  }, [user]);
-
-  if (!user) {
+  if (loading) {
     return (
       <View className="flex-1 justify-center items-center bg-white">
-        <Text className="text-lg">Please login to view profile</Text>
-        <View className="items-center pt-40">
-          <TouchableOpacity
-            className="p-2 bg-gray-200 rounded-lg"
-            onPress={() => router.push("/auth/login")}
-          >
-            <Text className="text-xl">Go Sign In</Text>
-          </TouchableOpacity>
-        </View>
-        
+        <Text className="text-lg">Loading...</Text>
       </View>
     );
   }
 
-  if (user && !userData) {
+  if (!userData) {
     return (
       <View className="flex-1 justify-center items-center bg-white">
-        <Text className="text-lg">Loading...</Text>
+        <Text className="text-lg">No user data available.</Text>
       </View>
     );
   }
@@ -83,6 +62,13 @@ const ProfilePage = () => {
         <Text className="text-white text-center text-lg">
           View Bookmarked Words
         </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        className="bg-green-500 p-4 rounded-lg mt-6"
+        onPress={() => router.push("/profile/practiced-words")}
+      >
+        <Text className="text-white text-center text-lg">View Practiced Words</Text>
       </TouchableOpacity>
     </View>
   );

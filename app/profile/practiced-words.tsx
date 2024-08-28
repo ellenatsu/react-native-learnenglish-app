@@ -3,16 +3,16 @@ import React, { useEffect, useState } from "react";
 import { UserData, Word } from "@/types/types";
 import { useCustomUserContext } from "@/hooks/useCustomUserContext";
 
-const BookmarkPage = () => {
+const PracticedWordsPage = () => {
   //retrieve user data
   const { userData, loading } = useCustomUserContext();
-  const [bookmarkedWords, setBookmarkedWords] = useState<Word[]>([]);
+  const [practicedWords, setPracticedWords] = useState<Word[]>([]);
 
 
     // Use useEffect to set data
     useEffect(() => {
       if (userData) {
-        setBookmarkedWords(userData.bookmarkedItems.words || []);
+        setPracticedWords(userData.wordsPracticed || []);
       }
     }, []);
 
@@ -34,25 +34,25 @@ const BookmarkPage = () => {
   if(!userData){
     return (
       <View className="flex-1 justify-center items-center bg-white">
-        <Text className="text-lg">Loading...</Text>
+        <Text className="text-lg">No user found</Text>
       </View>
     );
   }
 
 
-  if (bookmarkedWords.length === 0) {
+  if (practicedWords.length === 0) {
     return (
       <View className="flex-1 justify-center items-center bg-white">
-        <Text className="text-lg">No bookmarked words found.</Text>
+        <Text className="text-lg">No words found, start practicing!</Text>
       </View>
     );
   }
 
   return (
     <View className="flex-1 p-4 bg-white">
-    <Text className="text-3xl font-bold mb-4">Bookmarked Words</Text>
+    <Text className="text-3xl font-bold mb-4">Practiced Words</Text>
     <FlatList
-      data={bookmarkedWords}
+      data={practicedWords}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <View className="p-4 mb-2 bg-gray-100 rounded-lg">
@@ -66,4 +66,5 @@ const BookmarkPage = () => {
   )
 }
 
-export default BookmarkPage
+
+export default PracticedWordsPage
