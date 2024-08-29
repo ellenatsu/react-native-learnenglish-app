@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection } from 'firebase/firestore';
+import {  signInWithEmailAndPassword } from "firebase/auth";
+
 import { router } from 'expo-router';
-import { db } from '@/utils/firebase/firebase';
+import { auth, } from '@/utils/firebase/firebase';
 
 
 
@@ -13,7 +13,7 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState('');
 
   const handleLogin = async () => {
-    const auth = getAuth();
+
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       // Navigate to the main part of the app or show success message

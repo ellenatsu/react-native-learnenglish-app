@@ -5,7 +5,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { getLocalDate } from "@/utils/date";
 import { useCustomUserContext } from "@/hooks/useCustomUserContext";
 import { Redirect, router } from "expo-router";
-import { getAuth } from "firebase/auth";
+import { auth } from "@/utils/firebase/firebase";
 
 const HomePage: React.FC = () => {
   const todayDate = getLocalDate();
@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
 
   const handleSignOut = async () => {
     try {
-      await getAuth().signOut();
+      await auth.signOut();
       console.log("sign out successful");
       router.push("/auth/login");
     } catch (error) {

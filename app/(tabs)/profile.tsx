@@ -7,7 +7,6 @@ import { useCustomUserContext } from "@/hooks/useCustomUserContext";
 
 const ProfilePage = () => {
   //retrieve user data
-  // const user = getAuth().currentUser;
   const { userData, loading } = useCustomUserContext();
 
 

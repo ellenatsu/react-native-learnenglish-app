@@ -10,7 +10,7 @@ export default function RootLayout() {
 
         <Stack.Screen
           name="lesson/[id]"
-          options={{ title: "Lesson Details" }}
+          options={({ route }) => ({ title: `Lesson ${(route.params as { id: string })?.id}` })}
         />
 
         <Stack.Screen name="auth/login" options={{ title: "Login" }} />
@@ -18,7 +18,7 @@ export default function RootLayout() {
 
         <Stack.Screen
           name="practice/daily"
-          options={{ title: "Daily Practice" }}
+          options={{ title: "Daily FlipCard Practice" }}
         />
         <Stack.Screen
           name="practice/marked-words"

@@ -3,7 +3,7 @@ import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { router } from 'expo-router';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '@/utils/firebase/firebase';
+import { auth, db } from '@/utils/firebase/firebase';
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +12,7 @@ const SignUp: React.FC = () => {
   const [error, setError] = useState('');
 
   const handleSignUp = async () => {
-    const auth = getAuth();
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       // Navigate to the main part of the app or show success message

@@ -7,12 +7,11 @@ import React, {
   useCallback,
 } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase";
+import { auth, db } from "@/utils/firebase/firebase";
 import { UserData } from "@/types/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { UNIQUE_USER_ID } from "@/constants/constants";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { set } from "date-fns";
+import { onAuthStateChanged } from "firebase/auth";
+
 
 interface UserContextType {
   userData: UserData | null;
@@ -38,13 +37,10 @@ interface UserProviderProps {
 export const UserProvider: React.FC<UserProviderProps> = ({
   children,
 }: UserProviderProps) => {
-  const user = getAuth().currentUser;
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchUserData = useCallback(async () => {
-
-    const auth = getAuth();
     const user = auth.currentUser;
 
     if (user) {
@@ -91,7 +87,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({
 
     // Initialize onAuthStateChanged listener
   useEffect(() => {
-    const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         fetchUserData(); // Fetch user data if the user is authenticated

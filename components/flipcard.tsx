@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { db } from "@/utils/firebase/firebase";
+import { auth, db } from "@/utils/firebase/firebase";
 import { UserData, Word } from "@/types/types";
 import { router, useRouter } from "expo-router";
 import { getLocalDate } from "@/utils/date";
@@ -27,7 +27,7 @@ interface FlipCardProps {
 //update bookmark status in users collection.
 
 const FlipCard: React.FC<FlipCardProps> = ({ mode }) => {
-  const user = getAuth().currentUser;
+  const user = auth.currentUser;
   //params
   const [userData, setUserData] = useState<UserData | null>(null);
   const [words, setWords] = useState<Word[]>([]);
