@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import {
   collection,
@@ -13,10 +20,16 @@ import { db } from "@/utils/firebase/firebase";
 import Markdown from "react-native-markdown-display";
 import { LessonWord } from "@/types/types";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { fa4, faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+import {
+  fa4,
+  faArrowsRotate,
+  faHandPointRight,
+} from "@fortawesome/free-solid-svg-icons";
 import AudioPlayer from "@/components/audioplayer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { set } from "date-fns";
+import { useWordStore } from "@/store/useWordStore";
+import FlipCard from "@/components/flipcard";
 
 interface Lesson {
   id: string;
@@ -29,13 +42,19 @@ interface Lesson {
 
 const LessonPage: React.FC = () => {
   const [lesson, setLesson] = useState<Lesson | null>(null);
-  const [wordDetails, setWordDetails] = useState<LessonWord[]>([]);
+  const { words, fetchWords } = useWordStore();
+  const [lessonWordsList, setLessonWordsList] = useState<LessonWord[]>([]);
 
   const [loading, setLoading] = useState<boolean>(true);
   const { id } = useLocalSearchParams();
 
+  //for practice modal
+  const [modalVisible, setModalVisible] = useState(false);
+
+  // ************ Fetch & refetch lesson data from Firestore ************
   useEffect(() => {
     const fetchLesson = async () => {
+      setLoading(true);
       try {
         //see if already cached
         const cachedLesson = await AsyncStorage.getItem(`lesson_${id}`);
@@ -45,7 +64,7 @@ const LessonPage: React.FC = () => {
           return;
         }
 
-        refetchLessons();
+        await refetchLessons();
       } catch (error) {
         console.error("Error fetching lesson:", error);
       } finally {
@@ -60,8 +79,6 @@ const LessonPage: React.FC = () => {
 
   const refetchLessons = async () => {
     try {
-      setLoading(true);
-
       //force to fetch from database
       const docRef = doc(db, "lessons", id as string);
       const docSnap = await getDoc(docRef);
@@ -80,87 +97,67 @@ const LessonPage: React.FC = () => {
       }
     } catch (error) {
       console.error("Error refetching lesson:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
-  //fetch words in dictionary and get better definition
-  const words = lesson?.words as Array<string>;
-
+  // ************ build words list with details from words store  ************
   useEffect(() => {
-    const getWordDetails = async () => {
-      if (lesson && lesson.words) {
-        const details: LessonWord[] = [];
+    if (lesson) {
+      buildLessonWordsList(); // Build the words list once the lesson is set
+    }
+  }, [lesson, words]);
+  //fetch words in dictionary and get better definition
+  const buildLessonWordsList = async () => {
+    if (!lesson) {
+      return;
+    }
 
-        for (const word of words) {
-          //check cache
-          const cachedDetail = await AsyncStorage.getItem(`word_${word}`);
-          if (cachedDetail) {
-            details.push(JSON.parse(cachedDetail));
-          } else {
-            // Fetch from Firestore if not cached
-            refetchWordDetails(word, details);
-          }
-        }
+    if (!words || words.length === 0) {
+      console.error("No words available in the store, start fetching....");
+      fetchWords();
+      return;
+    }
 
-        setWordDetails(details);
+    const cachedLessonWords = await AsyncStorage.getItem(
+      `lessonWords_${lesson.id}`
+    );
+
+    // If lesson words are already cached, use them
+    if (cachedLessonWords) {
+      setLessonWordsList(JSON.parse(cachedLessonWords));
+      return;
+    }
+
+    const lessonWords = lesson.words;
+    const lessonWordsList: LessonWord[] = [];
+
+    lessonWords.forEach((word) => {
+      const wordDetails = words.find((w) => w.word === word);
+      if (wordDetails) {
+        lessonWordsList.push(wordDetails);
       }
-    };
+    });
 
-    getWordDetails();
-  }, [lesson]);
-
-  const handleRefetch = async () => {
-    setWordDetails([]); // Clear previous word details before refetching
-    await refetchLessons();
-
-    const updatedLesson = lesson; // Ensure lesson is updated after refetch
-    if (!updatedLesson) {
-      return;
+    // Cache the lessonWordsList after building it
+    if (lessonWordsList.length > 0) {
+      await AsyncStorage.setItem(
+        `lessonWords_${lesson.id}`,
+        JSON.stringify(lessonWordsList)
+      );
     }
 
-    const words = updatedLesson.words as Array<string>;
-    if (!words) {
-      return;
-    }
-
-    for (const word of words) {
-      refetchWordDetails(word, []);
-    }
+    setLessonWordsList(lessonWordsList);
   };
 
-  const refetchWordDetails = async (word: string, details: LessonWord[]) => {
-    try {
-      let wordData: LessonWord = {
-        word: "",
-        meaning: "",
-        phonetic: "",
-        audioUrl: "",
-      };
-      const q = query(
-        collection(db, "textbook-words"),
-        where("word", "==", word)
-      );
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        // Directly access the first document
-        const doc = querySnapshot.docs[0];
-        const data = doc.data();
-        wordData = {
-          word: data.word,
-          meaning: data.meaning,
-          phonetic: data.phonetic,
-          audioUrl: data.audioUrl,
-        } as LessonWord;
-
-        setWordDetails((prevDetails) => [...prevDetails, wordData]);
-        await AsyncStorage.setItem(`word_${word}`, JSON.stringify(wordData));
-      }
-    } catch (error) {
-      console.error("Error fetching word details:", error);
+  // ************ Handle refetching lesson data ********
+  const handleRefetch = async () => {
+    if (!lesson) {
+      return;
     }
+    //clear cache and list before refetch
+    setLessonWordsList([]);
+    await AsyncStorage.removeItem(`lessonWords_${lesson.id}`);
+    await refetchLessons();
   };
 
   if (loading) {
@@ -179,7 +176,7 @@ const LessonPage: React.FC = () => {
         {lesson.voiceTextFileUrl && (
           <AudioPlayer
             audioUri={lesson.voiceTextFileUrl}
-            title="Text Audio"
+            title="Listen to Text"
             size={32}
           />
         )}
@@ -197,20 +194,45 @@ const LessonPage: React.FC = () => {
         {lesson.voiceWordsFileUrl && (
           <AudioPlayer
             audioUri={lesson.voiceWordsFileUrl}
-            title="Word Audio"
+            title="Listen to Words"
             size={32}
           />
         )}
+        {/* TODO: Add practice words button */}
+        <TouchableOpacity
+          className="bg-blue-400 items-center m-5"
+          onPress={() => setModalVisible(true)}
+        >
+          <Text className="text-2xl pr-2 border-b border-gray-500">
+            Go To Practice <FontAwesomeIcon icon={faHandPointRight} size={24} />
+          </Text>
+        </TouchableOpacity>
+        
+        <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}  
+        onRequestClose={() => setModalVisible(false)}  // Close modal on back button
+      >
+        <View style={styles.modalBackground}>
+          {/* Modal Content */}
+          <View style={styles.modalContent}>
+            <FlipCard wordList={lessonWordsList} modalMode={true} />
+
+            {/* Button to close modal */}
+            <TouchableOpacity
+              className="bg-black m-10 p-4 rounded-lg mt-5 items-center"
+              onPress={() => setModalVisible(false)}
+            >
+              <Text className="text-white text-lg">CLOSE</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
         <View className="flex gap-2">
-          {/* TODO: Add practice words button */}
-          {/* <TouchableOpacity onPress={()=>{}}>
-            <Text className="pr-2 border-b border-gray-500">
-              Practice words
-            </Text>
-          </TouchableOpacity> */}
-          {wordDetails.map((word, index) => (
+          {lessonWordsList.map((word, index) => (
             <View
-              className="flex flex-row items-baseline gap-2 border-dotted border-b border-gray-300 p-2"
+              className="flex flex-row items-baseline gap-1 border-dotted border-b border-gray-300 pr-2"
               key={index.toString()}
             >
               <Text className="text-xl text-black">{word.word}</Text>
@@ -250,6 +272,23 @@ const markdownStyles = {
   },
   paragraph: {
     marginBottom: 10,
+  },
+};
+
+const styles = {
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',  // Semi-transparent background (50% opacity)
+  },
+  modalContent: {
+    width: '90%',
+    height: '70%',
+    backgroundColor: 'white',
+    padding: 5,
+    borderRadius: 10,
+    elevation: 5,  // For shadow on Android
   },
 };
 

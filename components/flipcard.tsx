@@ -12,6 +12,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 interface FlipCardProps {
   wordList: LessonWord[];
+  modalMode?:boolean;
 }
 
 //pass to flipcard component: words list and user id
@@ -19,7 +20,7 @@ interface FlipCardProps {
 //retrieve words and meaning from words collection.
 //update bookmark status in users collection.
 
-const FlipCard = ({ wordList } : FlipCardProps) => {
+const FlipCard = ({ wordList, modalMode=false } : FlipCardProps) => {
   //params
   const { userData, updateBookmarkedWords, updatePracticedDates } =
     useUserStore();
@@ -34,6 +35,9 @@ const FlipCard = ({ wordList } : FlipCardProps) => {
 
   //handle finish and upload practice data
   const handleFinish = async () => {
+    if(modalMode){
+      return;
+    }
     setPracticeCompleted(true); // Mark practice as completed
 
     const today = getLocalDate();
@@ -140,7 +144,7 @@ const FlipCard = ({ wordList } : FlipCardProps) => {
 
       <View className="flex-row justify-between w-full px-10">
         <TouchableOpacity
-          className="bg-gray-100 p-4 rounded-lg"
+          className="bg-gray-50 p-4 rounded-lg"
           onPress={handlePrevious}
           disabled={currentWordIndex === 0}
         >
@@ -155,11 +159,18 @@ const FlipCard = ({ wordList } : FlipCardProps) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className="bg-gray-100 p-4 rounded-lg"
+          className="bg-gray-50 p-4 rounded-lg"
           onPress={handleNext}
         >
-          <Text className="text-black text-lg">
-            {currentWordIndex === length - 1 ? "Finish" : "Next"}
+  
+          <Text className={`${
+              (modalMode && currentWordIndex === length-1)
+                ? "text-white text-lg"
+                : "text-black text-lg"
+            }`}>
+            {currentWordIndex === length - 1 
+              ? "Finish"
+              : "Next"}
           </Text>
         </TouchableOpacity>
       </View>

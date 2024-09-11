@@ -67,7 +67,7 @@ const AudioPlayer = ({
   }, [sound]);
 
   return (
-    <View className="flex flex-row justify-between gap-2 mb-2 p-3">
+    <View className="flex flex-row gap-2">
       <Text className="text-xl font-semibold text-blue-700">{title}</Text>
       <TouchableOpacity onPress={playAudio}>
         <FontAwesomeIcon

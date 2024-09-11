@@ -11,21 +11,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { UserData } from "@/types/types";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+import { faArrowsRotate, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useWordStore } from "@/store/useWordStore";
 
 const HomePage: React.FC = () => {
   const todayDate = getLocalDate();
   //zustand user data
-  const {
-    userData,
-    fetchUserData,
-    refreshUserData,
-    loading,
-    logout,
-  } = useUserStore();
+  const { userData, fetchUserData, refreshUserData, loading, logout } =
+    useUserStore();
 
-  const { words, fetchWords, refreshWords } = useWordStore();
+  const { fetchWords, refreshWords } = useWordStore();
 
   //for calendar
   const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({});
@@ -91,7 +86,7 @@ const HomePage: React.FC = () => {
 
   const handlePullUpdate = async () => {
     refreshWords();
-  }
+  };
 
   if (loading) {
     return (
@@ -120,18 +115,15 @@ const HomePage: React.FC = () => {
         <Text className="text-3xl font-bold mb-4">
           Welcome, {userData?.name}
         </Text>
-        <View className="flex flex-row gap-1">
-          <TouchableOpacity onPress={handleUserRefresh} className="bg-purple-300 p-2">
-            <Text className="border-b text-xl">
-              Refresh User Info
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handlePullUpdate} className="bg-purple-300 p-2">
-            <Text className="border-b text-xl">
-              Get Latest Update
-            </Text>
-          </TouchableOpacity>
-        </View>
+
+        <TouchableOpacity
+          onPress={handlePullUpdate}
+          className="bg-purple-300 p-2"
+        >
+          <Text className="border-b text-xl">
+            Get Latest Update <FontAwesomeIcon icon={faDownload} />
+          </Text>
+        </TouchableOpacity>
 
         {isTodayPracticed ? (
           <Text className="text-2xl font-semibold mb-4 text-green-600">
@@ -153,10 +145,18 @@ const HomePage: React.FC = () => {
             textMonthFontWeight: "bold",
           }}
         />
-        <View className="w-full p-4 bg-gray-100 rounded-lg shadow-md mb-3">
+        <View className="flex flex-row gap-3 w-full p-4 bg-gray-100 rounded-lg shadow-md mb-3">
           <Text className="text-lg">
             Practiced Days: {userData?.practicedDates.length}
           </Text>
+          <TouchableOpacity
+            onPress={handleUserRefresh}
+            className="bg-purple-200 p-2"
+          >
+            <Text className="border-b text-l">
+              Refresh <FontAwesomeIcon icon={faArrowsRotate} />
+            </Text>
+          </TouchableOpacity>
         </View>
         <Button title="Sign Out" onPress={handleSignOut} />
       </View>

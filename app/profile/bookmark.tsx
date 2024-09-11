@@ -7,14 +7,7 @@ import { useUserStore } from "@/store/useUserStore";
 const BookmarkPage = () => {
   //retrieve user data
   const { userData, updateBookmarkedWords } = useUserStore();
-  const [bookmarkedWords, setBookmarkedWords] = useState<string[]>([]);
-
-    // Use useEffect to set data
-    useEffect(() => {
-      if (userData) {
-        setBookmarkedWords(userData.bookmarkedWords || []);
-      }
-    }, []);
+  const bookmarkedWords = userData?.bookmarkedWords || [];  
 
 
 
