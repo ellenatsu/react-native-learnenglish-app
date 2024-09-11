@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, ScrollView } from "react-native";
+import { View, Text, Button, ScrollView, TouchableOpacity } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import {
   collection,
@@ -10,12 +10,13 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase/firebase";
-import { Audio } from "expo-av";
 import Markdown from "react-native-markdown-display";
-import { DictWord } from "@/types/types";
+import { LessonWord } from "@/types/types";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { fa4 } from "@fortawesome/free-solid-svg-icons";
+import { fa4, faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import AudioPlayer from "@/components/audioplayer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { set } from "date-fns";
 
 interface Lesson {
   id: string;
@@ -28,30 +29,23 @@ interface Lesson {
 
 const LessonPage: React.FC = () => {
   const [lesson, setLesson] = useState<Lesson | null>(null);
-  const [wordDetails, setWordDetails] = useState<DictWord[]>([]);
-  const [remainingWords, setRemainingWords] = useState<string[]>([]);
+  const [wordDetails, setWordDetails] = useState<LessonWord[]>([]);
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const { id } = useLocalSearchParams();
 
   useEffect(() => {
     const fetchLesson = async () => {
       try {
-        const docRef = doc(db, "lessons", id as string);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          const lesson = {
-            id: docSnap.id,
-            ...docSnap.data(),
-          } as Lesson;
-          setLesson(lesson);
-        } else {
-          // docSnap.data() will be undefined in this case
-          console.log("No such document!");
+        //see if already cached
+        const cachedLesson = await AsyncStorage.getItem(`lesson_${id}`);
+        if (cachedLesson) {
+          setLesson(JSON.parse(cachedLesson));
+          setLoading(false);
+          return;
         }
+
+        refetchLessons();
       } catch (error) {
         console.error("Error fetching lesson:", error);
       } finally {
@@ -64,73 +58,110 @@ const LessonPage: React.FC = () => {
     }
   }, [id]);
 
+  const refetchLessons = async () => {
+    try {
+      setLoading(true);
+
+      //force to fetch from database
+      const docRef = doc(db, "lessons", id as string);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const lesson = {
+          id: docSnap.id,
+          ...docSnap.data(),
+        } as Lesson;
+        setLesson(lesson);
+        //cache the lesson
+        await AsyncStorage.setItem(`lesson_${id}`, JSON.stringify(lesson));
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such lesson document!");
+      }
+    } catch (error) {
+      console.error("Error refetching lesson:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   //fetch words in dictionary and get better definition
   const words = lesson?.words as Array<string>;
+
   useEffect(() => {
-    const fetchAndCacheWordDetails = async () => {
-      const details: DictWord[] = [];
-      //for not found
-      for (const word of words) {
-        //TODO: add caching
-        // const cachedDetail = storage.getString(word);
-        // if (cachedDetail) {
-        //   // Use cached detail if available
-        //   details[word] = JSON.parse(cachedDetail);
-        // } else {
-        // Fetch from Firestore if not cached
-        const q = query(
-          collection(db, "dictionary"),
-          where("word", "==", word)
-        );
-        const querySnapshot = await getDocs(q);
+    const getWordDetails = async () => {
+      if (lesson && lesson.words) {
+        const details: LessonWord[] = [];
 
-        if (!querySnapshot.empty) {
-          // Directly access the first document
-          const doc = querySnapshot.docs[0];
-          const data = doc.data();
-          details.push({
-            word: data.word,
-            meaning: data.mean,
-            phonetic: data.phonetic_symbol,
-          });
-        } else {
-          const q = query(collection(db, "words"), where("name", "==", word));
-          const querySnapshot = await getDocs(q);
-
-          if (!querySnapshot.empty) {
-            // Directly access the first document
-            const doc = querySnapshot.docs[0];
-            const data = doc.data();
-            details.push({
-              word: data.name,
-              meaning: data.chinese,
-              phonetic: "",
-            });
+        for (const word of words) {
+          //check cache
+          const cachedDetail = await AsyncStorage.getItem(`word_${word}`);
+          if (cachedDetail) {
+            details.push(JSON.parse(cachedDetail));
           } else {
-            console.log("Word not found in dictionary and word: ", word);
+            // Fetch from Firestore if not cached
+            refetchWordDetails(word, details);
           }
         }
-        //TODO: Cache the data in MMKV or AsyncStorage
-      }
 
-      setWordDetails(details);
+        setWordDetails(details);
+      }
     };
 
-    if (!lesson || !lesson.words) {
-      return; // If no lesson or words are available, exit early
-    }
-
-    fetchAndCacheWordDetails();
+    getWordDetails();
   }, [lesson]);
 
+  const handleRefetch = async () => {
+    setWordDetails([]); // Clear previous word details before refetching
+    await refetchLessons();
 
-  useEffect(() => {
-    return sound
-      ? () => {
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
+    const updatedLesson = lesson; // Ensure lesson is updated after refetch
+    if (!updatedLesson) {
+      return;
+    }
+
+    const words = updatedLesson.words as Array<string>;
+    if (!words) {
+      return;
+    }
+
+    for (const word of words) {
+      refetchWordDetails(word, []);
+    }
+  };
+
+  const refetchWordDetails = async (word: string, details: LessonWord[]) => {
+    try {
+      let wordData: LessonWord = {
+        word: "",
+        meaning: "",
+        phonetic: "",
+        audioUrl: "",
+      };
+      const q = query(
+        collection(db, "textbook-words"),
+        where("word", "==", word)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        // Directly access the first document
+        const doc = querySnapshot.docs[0];
+        const data = doc.data();
+        wordData = {
+          word: data.word,
+          meaning: data.meaning,
+          phonetic: data.phonetic,
+          audioUrl: data.audioUrl,
+        } as LessonWord;
+
+        setWordDetails((prevDetails) => [...prevDetails, wordData]);
+        await AsyncStorage.setItem(`word_${word}`, JSON.stringify(wordData));
+      }
+    } catch (error) {
+      console.error("Error fetching word details:", error);
+    }
+  };
 
   if (loading) {
     return <Text className="text-center text-lg">Loading...</Text>;
@@ -143,13 +174,20 @@ const LessonPage: React.FC = () => {
   return (
     <ScrollView className="p-6 bg-white ">
       <View className="flex g-3 mb-6">
-        <Text className="text-3xl font-bold mb-4">
-          {lesson.title}
-        </Text>
+        <Text className="text-3xl font-bold mb-4">{lesson.title}</Text>
 
         {lesson.voiceTextFileUrl && (
-          <AudioPlayer audioUri={lesson.voiceTextFileUrl} title="Text Audio" />
+          <AudioPlayer
+            audioUri={lesson.voiceTextFileUrl}
+            title="Text Audio"
+            size={32}
+          />
         )}
+        <TouchableOpacity onPress={handleRefetch}>
+          <Text className="pr-2 border-b border-gray-500">
+            Refresh <FontAwesomeIcon icon={faArrowsRotate} />
+          </Text>
+        </TouchableOpacity>
         <View className="p-4 bg-gray-100 border border-gray-300 rounded-lg">
           <Markdown style={markdownStyles}>{lesson.text}</Markdown>
         </View>
@@ -160,22 +198,34 @@ const LessonPage: React.FC = () => {
           <AudioPlayer
             audioUri={lesson.voiceWordsFileUrl}
             title="Word Audio"
+            size={32}
           />
         )}
         <View className="flex gap-2">
+          {/* TODO: Add practice words button */}
+          {/* <TouchableOpacity onPress={()=>{}}>
+            <Text className="pr-2 border-b border-gray-500">
+              Practice words
+            </Text>
+          </TouchableOpacity> */}
           {wordDetails.map((word, index) => (
             <View
-              className="flex flex-row items-baseline gap-2"
+              className="flex flex-row items-baseline gap-2 border-dotted border-b border-gray-300 p-2"
               key={index.toString()}
             >
-              <Text className="text-xl text-ellipsis text-black">{word.word}</Text>
+              <Text className="text-xl text-black">{word.word}</Text>
               {word.phonetic && (
-                  <Text className="text-base text-gray-500">
-                    ({word.phonetic})
-                    <FontAwesomeIcon icon={fa4} style={{ color: "#d0398a" }} />
-                  </Text>
+                <Text className="text-base text-gray-500">
+                  ({word.phonetic})
+                </Text>
               )}
-              <Text className="pl-4 text-base text-gray-800">
+              {/* {word.audioUrl && (
+                <AudioPlayer audioUri={word.audioUrl} title="" size={16} />
+              )} */}
+              <Text
+                className="pl-2 text-base text-gray-800"
+                style={{ flex: 1 }}
+              >
                 {word.meaning}
               </Text>
             </View>

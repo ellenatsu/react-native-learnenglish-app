@@ -1,26 +1,48 @@
 import { View, Text, Button, TouchableOpacity } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
-import { useFocusEffect } from "@react-navigation/native";
+
 import { getLocalDate } from "@/utils/date";
-import { useCustomUserContext } from "@/hooks/useCustomUserContext";
-import { Redirect, router } from "expo-router";
-import { auth } from "@/utils/firebase/firebase";
+
+import { router } from "expo-router";
+import { auth, db } from "@/utils/firebase/firebase";
+import { useUserStore } from "@/store/useUserStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { UserData } from "@/types/types";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+import { useWordStore } from "@/store/useWordStore";
 
 const HomePage: React.FC = () => {
   const todayDate = getLocalDate();
+  //zustand user data
+  const {
+    userData,
+    fetchUserData,
+    refreshUserData,
+    loading,
+    logout,
+  } = useUserStore();
+
+  const { words, fetchWords, refreshWords } = useWordStore();
 
   //for calendar
   const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({});
   const [isTodayPracticed, setIsTodayPracticed] = useState(false);
-  const { userData, loading, refetchUserData } = useCustomUserContext();
 
-  // Use useFocusEffect to refetch data when the Home screen is focused
-  useFocusEffect(
-    useCallback(() => {
-      refetchUserData(); // Refetch user data whenever the screen is focused
-    }, [refetchUserData])
-  );
+  //get user id
+  const userId = auth.currentUser?.uid || "";
+
+  //fetch user data
+  useEffect(() => {
+    fetchUserData(userId); // Fetch user data on page load
+  }, [fetchUserData, userId]);
+
+  //fetch words
+  useEffect(() => {
+    fetchWords();
+  }, [fetchWords]);
 
   // Use useEffect to update markedDates and isTodayPracticed when userData changes
   useEffect(() => {
@@ -54,12 +76,22 @@ const HomePage: React.FC = () => {
   const handleSignOut = async () => {
     try {
       await auth.signOut();
+      //zustand logout
+      logout();
       console.log("sign out successful");
       router.push("/auth/login");
     } catch (error) {
       console.log("error sign out", error);
     }
   };
+
+  const handleUserRefresh = () => {
+    refreshUserData(userId);
+  };
+
+  const handlePullUpdate = async () => {
+    refreshWords();
+  }
 
   if (loading) {
     return (
@@ -88,6 +120,19 @@ const HomePage: React.FC = () => {
         <Text className="text-3xl font-bold mb-4">
           Welcome, {userData?.name}
         </Text>
+        <View className="flex flex-row gap-1">
+          <TouchableOpacity onPress={handleUserRefresh} className="bg-purple-300 p-2">
+            <Text className="border-b text-xl">
+              Refresh User Info
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handlePullUpdate} className="bg-purple-300 p-2">
+            <Text className="border-b text-xl">
+              Get Latest Update
+            </Text>
+          </TouchableOpacity>
+        </View>
+
         {isTodayPracticed ? (
           <Text className="text-2xl font-semibold mb-4 text-green-600">
             You've done today's practice! Good job!
@@ -111,9 +156,6 @@ const HomePage: React.FC = () => {
         <View className="w-full p-4 bg-gray-100 rounded-lg shadow-md mb-3">
           <Text className="text-lg">
             Practiced Days: {userData?.practicedDates.length}
-          </Text>
-          <Text className="text-lg">
-            Words Practiced: {userData?.wordsPracticed.length}
           </Text>
         </View>
         <Button title="Sign Out" onPress={handleSignOut} />

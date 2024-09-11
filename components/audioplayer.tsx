@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { View, Button, Text, TouchableOpacity } from "react-native";
-import { Audio } from "expo-av";
+import { Audio, AVPlaybackStatus } from "expo-av";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPause, faPlay, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 
 interface AudioPlayerProps {
   audioUri: string;
   title: string;
+  size: number;
+  mode?: "regular" | "short"; // Optional mode prop, default to 'regular'
 }
 
-const AudioPlayer = ({ audioUri, title }: AudioPlayerProps) => {
+const AudioPlayer = ({
+  audioUri,
+  title,
+  size,
+  mode = "regular",
+}: AudioPlayerProps) => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
@@ -20,6 +27,8 @@ const AudioPlayer = ({ audioUri, title }: AudioPlayerProps) => {
         { uri: audioUri },
         { shouldPlay: true }
       );
+     // newSound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
+
       setSound(newSound);
       setIsPlaying(true);
     } else {
@@ -35,6 +44,19 @@ const AudioPlayer = ({ audioUri, title }: AudioPlayerProps) => {
     }
   };
 
+  // Event handler for playback status updates
+  // const onPlaybackStatusUpdate = (playbackStatus: AVPlaybackStatus) => {
+  //   if (!playbackStatus.isLoaded) {
+  //     // Update UI for when sound is not loaded
+  //     console.error("Playback status not loaded");
+  //   } else {
+  //     if (playbackStatus.didJustFinish) {
+  //       // Reset play state when audio finishes playing
+  //       setIsPlaying(false);
+  //     }
+  //   }
+  // };
+
   // Cleanup function to unload sound when component unmounts
   useEffect(() => {
     return sound
@@ -48,7 +70,11 @@ const AudioPlayer = ({ audioUri, title }: AudioPlayerProps) => {
     <View className="flex flex-row justify-between gap-2 mb-2 p-3">
       <Text className="text-xl font-semibold text-blue-700">{title}</Text>
       <TouchableOpacity onPress={playAudio}>
-        <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} size={32} color={"blue"} />
+        <FontAwesomeIcon
+          icon={mode === "short" ? faVolumeHigh : isPlaying ? faPause : faPlay}
+          size={size}
+          color={"blue"}
+        />
       </TouchableOpacity>
     </View>
   );

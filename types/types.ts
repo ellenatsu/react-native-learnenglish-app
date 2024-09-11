@@ -4,32 +4,30 @@ export interface UserData {
     name: string;
     email: string;
     practicedDates: string[]; // Array of dates (e.g., ["2024-08-19"])
-    wordsPracticed: Word[]; // Array of word IDs or word strings
-    bookmarkedItems: {
-      words: Word[];
-      sentences: string[];
-    };
+    bookmarkedWords: string[]; //Array of word strings
+    createdNotes: string[]; // Array of note IDs
   }
   
   export interface Lesson {
     id: string;
     title: string;
     content: string;
-    words: string[]; // Array of word IDs or word strings
+    words: string[]; // Array of word strings
     voiceTextFileUrl: string;
     voiceWordsFileUrl: string;
   }
   
-  export interface Word {
-    id: string;
-    name: string;
-    chinese: string;
-    english: string;
-  }
+  // export interface Word {
+  //   id: string;
+  //   name: string;
+  //   chinese: string;
+  //   english: string;
+  // }
 
-  export interface DictWord {
+  export interface LessonWord {
     word: string;
     meaning: string;
     phonetic: string;
+    audioUrl: string;
   }
   

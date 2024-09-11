@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } f
 import { router } from 'expo-router';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '@/utils/firebase/firebase';
+import { create } from 'zustand';
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -24,11 +25,8 @@ const SignUp: React.FC = () => {
             name: name,
             email: user.email,
             practicedDates: [],
-            wordsPracticed: [],
-            bookmarkedItems: {
-              words: [],
-              sentences: []
-            },
+            bookmarkedWords: [],
+            createdNotes: [],
         });
   
         console.log('User saved successfully');

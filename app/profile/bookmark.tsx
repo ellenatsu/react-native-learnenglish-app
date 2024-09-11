@@ -1,35 +1,22 @@
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
-import { UserData, Word } from "@/types/types";
-import { useCustomUserContext } from "@/hooks/useCustomUserContext";
+import { UserData, LessonWord } from "@/types/types";
+import { useUserStore } from "@/store/useUserStore";
+
 
 const BookmarkPage = () => {
   //retrieve user data
-  const { userData, loading } = useCustomUserContext();
-  const [bookmarkedWords, setBookmarkedWords] = useState<Word[]>([]);
-
+  const { userData, updateBookmarkedWords } = useUserStore();
+  const [bookmarkedWords, setBookmarkedWords] = useState<string[]>([]);
 
     // Use useEffect to set data
     useEffect(() => {
       if (userData) {
-        setBookmarkedWords(userData.bookmarkedItems.words || []);
+        setBookmarkedWords(userData.bookmarkedWords || []);
       }
     }, []);
 
-  //toggle bookmark
-    const toggleBookmark = async (currentWord: Word) => {
- //TODO: implement toggle bookmark
-    };
-    
 
-
-  if (loading) {
-    return (
-      <View className="flex-1 justify-center items-center bg-white">
-        <Text className="text-lg">Loading...</Text>
-      </View>
-    );
-  }
 
   if(!userData){
     return (
@@ -53,12 +40,13 @@ const BookmarkPage = () => {
     <Text className="text-3xl font-bold mb-4">Bookmarked Words</Text>
     <FlatList
       data={bookmarkedWords}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item}
       renderItem={({ item }) => (
         <View className="p-4 mb-2 bg-gray-100 rounded-lg">
-          <Text className="text-lg font-bold">{item.name}</Text>
-          <Text className="text-sm">Chinese: {item.chinese}</Text>
-          <Text className="text-sm">English: {item.english}</Text>
+          <Text className="text-lg font-bold">{item}</Text>
+          <TouchableOpacity
+            onPress={() => updateBookmarkedWords(item)}
+          ></TouchableOpacity>
         </View>
       )}
     />

@@ -1,9 +1,9 @@
 import { Stack } from "expo-router";
-import { UserProvider } from "@/hooks/useCustomUserContext";
+
 
 export default function RootLayout() {
   return (
-    <UserProvider>
+
       <Stack>
         <Stack.Screen name="index" />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -17,16 +17,8 @@ export default function RootLayout() {
         <Stack.Screen name="auth/signup" options={{ title: "Signup" }} />
 
         <Stack.Screen
-          name="practice/daily"
-          options={{ title: "Daily FlipCard Practice" }}
-        />
-        <Stack.Screen
-          name="practice/marked-words"
-          options={{ title: "Marked Words Practice" }}
-        />
-        <Stack.Screen
-          name="practice/all-words"
-          options={{ title: "All Words Practice" }}
+          name="practice/flipcard-practice"
+          options={{ title: "FlipCard Practice" }}
         />
         <Stack.Screen name="practice/finish" options={{ title: "Congrats!" }} />
 
@@ -35,10 +27,10 @@ export default function RootLayout() {
           options={{ title: "Bookmarked Words" }}
         />
         <Stack.Screen
-          name="profile/practiced-words"
-          options={{ title: "Practied All Words" }}
+          name="profile/allwords"
+          options={{ title: "All Words" }}
         />
       </Stack>
-    </UserProvider>
+
   );
 }
