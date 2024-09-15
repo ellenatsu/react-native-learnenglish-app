@@ -11,6 +11,10 @@ This is a mobile application built using **React Native**. The app is designed t
 - **Textbook Integration:** Lessons stored in a database that can be practiced and bookmarked.
 - **Authentication:** User accounts managed via Firebase Authentication.
 - **Data Storage:** All user-related data such as words, lessons, and practice progress is stored in Firebase Firestore.
+- Under developing features:
+- more textbooks
+- Searchbar
+- notes system
 
 ## Screenshots
 
