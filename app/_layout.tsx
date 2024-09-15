@@ -1,7 +1,34 @@
-import { Stack } from "expo-router";
+import { Stack,  useNavigationContainerRef } from "expo-router";
+import { useEffect } from 'react';
+import * as Sentry from '@sentry/react-native';
+import { isRunningInExpoGo } from 'expo';
 
+// Construct a new instrumentation instance. This is needed to communicate between the integration and React
+const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
-export default function RootLayout() {
+Sentry.init({
+  dsn: 'https://77f202d010891721a3bc6d0fcab98995@o4507947449909248.ingest.us.sentry.io/4507947452071936',
+  debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  integrations: [
+    new Sentry.ReactNativeTracing({
+      // Pass instrumentation to be used as `routingInstrumentation`
+      routingInstrumentation,
+      enableNativeFramesTracking: !isRunningInExpoGo(),
+      // ...
+    }),
+  ],
+});
+
+function RootLayout() {
+    // Capture the NavigationContainer ref and register it with the instrumentation.
+    const ref = useNavigationContainerRef();
+
+    useEffect(() => {
+      if (ref) {
+        routingInstrumentation.registerNavigationContainer(ref);
+      }
+    }, [ref]);
+
   return (
 
       <Stack>
@@ -34,3 +61,4 @@ export default function RootLayout() {
 
   );
 }
+export default Sentry.wrap(RootLayout);

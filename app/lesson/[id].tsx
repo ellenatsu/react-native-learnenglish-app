@@ -2,26 +2,20 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  Button,
   ScrollView,
   TouchableOpacity,
   Modal,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import {
-  collection,
   doc,
   getDoc,
-  getDocs,
-  query,
-  where,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase/firebase";
 import Markdown from "react-native-markdown-display";
 import { LessonWord } from "@/types/types";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
-  fa4,
   faArrowsRotate,
   faHandPointRight,
 } from "@fortawesome/free-solid-svg-icons";

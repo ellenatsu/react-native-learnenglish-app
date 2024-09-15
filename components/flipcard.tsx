@@ -97,7 +97,7 @@ const FlipCard = ({ wordList, modalMode=false } : FlipCardProps) => {
             icon={faStar}
             size={36}
             color={
-              bookmarkedWords.find((word) => word === currentWord.word)
+              bookmarkedWords.includes(currentWord.word)
                 ? "gold"
                 : "gray"
             }

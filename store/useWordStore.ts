@@ -4,6 +4,8 @@ import { db } from "@/utils/firebase/firebase"; // Firestore setup
 import { LessonWord } from "@/types/types"; // Your LessonWord type
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { cacheWordData } from "@/utils/cacheData";
+
 interface WordStore {
   words: LessonWord[];
   loading: boolean;
@@ -30,7 +32,7 @@ export const useWordStore = create<WordStore>((set) => ({
       const wordList: LessonWord[] = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
       })) as LessonWord[];
-      set({ words: wordList });
+      set({ words: wordList, loading: false });
     } catch (error) {
       console.log("Error fetching words:", error);
     } finally {
@@ -48,12 +50,13 @@ export const useWordStore = create<WordStore>((set) => ({
       const wordList: LessonWord[] = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
       })) as LessonWord[];
-      set({ words: wordList });
+      set({ words: wordList, loading: false });
       
-      await AsyncStorage.setItem("words", JSON.stringify(wordList));
+      await cacheWordData(wordList);
 
     } catch (error) {
       console.log("Error fetching words:", error);
+      set({ loading: false });
     } finally {
       set({ loading: false });
     }

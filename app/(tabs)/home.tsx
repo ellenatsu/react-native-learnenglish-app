@@ -1,15 +1,12 @@
 import { View, Text, Button, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Calendar } from "react-native-calendars";
-
 import { getLocalDate } from "@/utils/date";
-
 import { router } from "expo-router";
-import { auth, db } from "@/utils/firebase/firebase";
+import * as Sentry from "@sentry/react-native";
+
+import { auth} from "@/utils/firebase/firebase";
 import { useUserStore } from "@/store/useUserStore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { UserData } from "@/types/types";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowsRotate, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useWordStore } from "@/store/useWordStore";
@@ -27,12 +24,24 @@ const HomePage: React.FC = () => {
   const [isTodayPracticed, setIsTodayPracticed] = useState(false);
 
   //get user id
-  const userId = auth.currentUser?.uid || "";
+  const userId = auth.currentUser?.uid || ""; 
 
   //fetch user data
   useEffect(() => {
-    fetchUserData(userId); // Fetch user data on page load
-  }, [fetchUserData, userId]);
+   // Start a manual transaction
+  Sentry.startSpan(
+    {
+      name: "fetchUserData",
+    },
+    (span) => {
+      fetchUserData(userId);
+      // Finish the transaction
+      if (span) {
+        span.end();
+      }
+    }
+  )
+  }, [userId]);
 
   //fetch words
   useEffect(() => {
@@ -66,7 +75,25 @@ const HomePage: React.FC = () => {
 
       setMarkedDates(newMarkedDates);
     }
-  }, []);
+  }, [userData, todayDate]);
+  
+  //*** loading state sentry track */
+  useEffect(() => {
+    if (!loading && userData) {
+      Sentry.addBreadcrumb({
+        category: "loading",
+        message: "Loading finished, user data is available",
+        level: "info",
+      });
+    } else {
+      Sentry.addBreadcrumb({
+        category: "loading",
+        message: "Still loading user data",
+        level: "info",
+      });
+    }
+  }, [loading, userData]);
+  
 
   const handleSignOut = async () => {
     try {

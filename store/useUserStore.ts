@@ -1,8 +1,18 @@
 import { UserData } from "@/types/types";
 import { db } from "@/utils/firebase/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import {create } from "zustand";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { create } from "zustand";
+import * as Sentry from "@sentry/react-native";
+
+import { cacheUserData } from "@/utils/cacheData";
 
 // Define the store interface
 interface UserStore {
@@ -24,7 +34,6 @@ export const useUserStore = create<UserStore>((set) => ({
   // Set the full user data, typically after fetching from Firestore
   setUserData: (userData: UserData) => set({ userData }),
 
-
   // Fetch user data from Firestore
   fetchUserData: async (userId: string) => {
     set({ loading: true });
@@ -41,7 +50,8 @@ export const useUserStore = create<UserStore>((set) => ({
       const querySnapshot = await getDocs(q);
       //if cannot find user data
       if (querySnapshot.empty) {
-        console.log("No user data found");
+        console.log("No user data found in Firestore");
+        Sentry.captureMessage(`No user data found for userId: ${userId}`);
       } else {
         const userdoc = querySnapshot.docs[0];
         const fetchedData = {
@@ -49,16 +59,17 @@ export const useUserStore = create<UserStore>((set) => ({
           ...userdoc.data(),
         } as UserData;
         // Store data in Zustand
-        set({ userData: fetchedData , loading: false});
+        set({ userData: fetchedData, loading: false });
 
-        // Cache the fetched user data
-        await AsyncStorage.setItem(
-          `userData_${userId}`,
-          JSON.stringify(fetchedData)
-        );
+        // Attempt to cache the fetched data
+        await cacheUserData(userId, fetchedData); // Cache the fetched data
       }
     } catch (error) {
+      Sentry.captureException(error);
       console.error("Error fetching user:", error);
+      set({ loading: false });
+    } finally {
+      set({ loading: false });
     }
   },
 
@@ -68,13 +79,12 @@ export const useUserStore = create<UserStore>((set) => ({
     try {
       // Clear cache
       await AsyncStorage.removeItem(`userData_${userId}`);
-      
+
       const q = query(collection(db, "users"), where("uid", "==", userId));
       const querySnapshot = await getDocs(q);
       //if cannot find user data
       if (querySnapshot.empty) {
         console.log("No user data found");
-        
       } else {
         const userdoc = querySnapshot.docs[0];
         const fetchedData = {
@@ -82,13 +92,14 @@ export const useUserStore = create<UserStore>((set) => ({
           ...userdoc.data(),
         } as UserData;
         // Store data in Zustand
-        set({ userData: fetchedData });
+        set({ userData: fetchedData, loading: false });
 
         // resset cache
-        await AsyncStorage.setItem(`userData_${userId}`, JSON.stringify(fetchedData));
+        await cacheUserData(userId, fetchedData); // Cache the fetched data
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
+      set({ loading: false });
     } finally {
       set({ loading: false });
     }
@@ -98,17 +109,49 @@ export const useUserStore = create<UserStore>((set) => ({
   updateBookmarkedWords: (newWord: string) =>
     set((state) => {
       if (!state.userData) return state;
-      const bookmarkedWords  = state.userData.bookmarkedWords ?? [];
+
+      const bookmarkedWords = state.userData.bookmarkedWords ?? [];
       const updatedWords = bookmarkedWords.includes(newWord)
         ? bookmarkedWords.filter((word) => word !== newWord)
         : [...bookmarkedWords, newWord];
 
-      return {
+      // Update Zustand state first
+      const newState = {
         userData: {
           ...state.userData,
           bookmarkedWords: updatedWords,
         },
       };
+
+      // Persist the update to Firestore
+      const updateFirestore = async () => {
+        try {
+          const userDocRef = doc(db, "users", state.userData!.id);
+          await updateDoc(userDocRef, {
+            bookmarkedWords: updatedWords,
+          });
+
+          //track
+          // Capture success breadcrumb in Sentry
+          Sentry.addBreadcrumb({
+            category: "firestore",
+            message: `Bookmarked words successfully updated for user ${
+              state.userData!.id
+            }`,
+            level: "info",
+          });
+
+          console.log("Bookmarked words updated in Firestore successfully");
+        } catch (error) {
+          console.error("Error updating bookmarked words in Firestore:", error);
+          Sentry.captureException(error);
+        }
+      };
+
+      // Call Firestore update function
+      updateFirestore();
+
+      return newState; // Return the updated state
     }),
 
   // Update the practiced dates list
@@ -117,12 +160,35 @@ export const useUserStore = create<UserStore>((set) => ({
       if (!state.userData) return state;
       const { practicedDates } = state.userData;
 
-      return {
+      // Ensure no duplicates in practicedDates
+      const updatedDates = [...new Set([...practicedDates, newDate])];
+
+      // Update Zustand state
+      set({
         userData: {
           ...state.userData,
-          practicedDates: [...new Set([...practicedDates, newDate])], // Avoid duplicates
+          practicedDates: updatedDates,
         },
+      });
+
+      // Persist the update to Firestore
+      const updateFirestore = async () => {
+        try {
+          const userDocRef = doc(db, "users", state.userData!.id);
+          await updateDoc(userDocRef, {
+            practicedDates: updatedDates,
+          });
+          console.log("Practiced dates updated in Firestore successfully");
+        } catch (error) {
+          console.error("Error updating practiced dates in Firestore:", error);
+          Sentry.captureException(error);
+        }
       };
+
+      // Call Firestore update function
+      updateFirestore();
+
+      return state; // Return updated state
     }),
 
   // Logout function to clear user data
