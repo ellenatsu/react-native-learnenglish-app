@@ -7,7 +7,7 @@ import { isRunningInExpoGo } from 'expo';
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
 Sentry.init({
-  dsn: 'https://77f202d010891721a3bc6d0fcab98995@o4507947449909248.ingest.us.sentry.io/4507947452071936',
+  dsn: process.env.SENTRY_DSN,
   debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
   integrations: [
     new Sentry.ReactNativeTracing({
