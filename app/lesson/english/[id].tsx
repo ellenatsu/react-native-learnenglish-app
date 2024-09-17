@@ -51,7 +51,7 @@ const LessonPage: React.FC = () => {
       setLoading(true);
       try {
         //see if already cached
-        const cachedLesson = await AsyncStorage.getItem(`lesson_${id}`);
+        const cachedLesson = await AsyncStorage.getItem(`book1_lesson_${id}`);
         if (cachedLesson) {
           setLesson(JSON.parse(cachedLesson));
           setLoading(false);
@@ -84,7 +84,7 @@ const LessonPage: React.FC = () => {
         } as Lesson;
         setLesson(lesson);
         //cache the lesson
-        await AsyncStorage.setItem(`lesson_${id}`, JSON.stringify(lesson));
+        await AsyncStorage.setItem(`book1_lesson_${id}`, JSON.stringify(lesson));
       } else {
         // docSnap.data() will be undefined in this case
         console.log("No such lesson document!");

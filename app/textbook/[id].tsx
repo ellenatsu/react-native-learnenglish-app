@@ -4,20 +4,27 @@ import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { collection, query, getDocs } from "firebase/firestore";
-import "firebase/firestore";
-import { db } from "../../../utils/firebase/firebase";
+import { db } from "@/utils/firebase/firebase";
 
 interface Lesson {
   id: string;
   title: string;
-  words: string[];
 }
-const lessonsStoredCollection = {
-    "book1" : "lessons",
-    "book2" : "grammar-book"
-}
+
 const LessonList: React.FC = () => {
-  const { bookId } = useLocalSearchParams();
+  const { id }  = useLocalSearchParams();
+  let collectionName = "";
+
+  switch(id){
+    case "english":
+      collectionName = "lessons";
+      break;
+    case "grammar":
+      collectionName = "grammar-book";
+      break;
+    default:
+      collectionName = "lessons";
+  }
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
@@ -25,7 +32,7 @@ const LessonList: React.FC = () => {
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        const q = query(collection(db, "lessons"));
+        const q = query(collection(db, collectionName));
         const querySnapshot = await getDocs(q);
         const lessonsList = querySnapshot.docs.map((doc) => ({
           id: doc.id as string,
@@ -60,7 +67,7 @@ const LessonList: React.FC = () => {
         data={lessons}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => router.push(`/lesson/${item.id}`)}>
+          <TouchableOpacity onPress={() => router.push(`/lesson/${id}/${item.id}`)}>
             <View className="mb-4 p-4 border border-gray-300 rounded-lg bg-gray-100">
               <Text className="text-lg font-bold mb-2">
                 Lesson.{item.id} {item.title}

@@ -82,7 +82,7 @@ const TabsLayout = () => {
         <Tabs.Screen
           name="textbook"
           options={{
-            title: "Textbook",
+            title: "Textbooks",
             headerShown: true,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
