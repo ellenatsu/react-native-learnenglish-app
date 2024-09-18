@@ -14,7 +14,7 @@ import AudioPlayer from "@/components/audioplayer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useWordStore } from "@/store/useWordStore";
 import FlipCard from "@/components/flipcard";
-import { set } from "date-fns";
+import audioPaths from '@/constants/audiopath';
 
 interface Lesson {
   id: string;
@@ -44,6 +44,12 @@ const LessonPage: React.FC = () => {
 
   //for practice modal
   const [modalVisible, setModalVisible] = useState(false);
+  
+
+  //for local audio loading
+   // Fetch the corresponding audio from the object
+   const wordAudioUri = audioPaths[`L${id}Words`];
+   const textAudioUri = audioPaths[`L${id}Text`];
 
   // ************ Fetch & refetch lesson data from Firestore ************
   useEffect(() => {
@@ -172,7 +178,7 @@ const LessonPage: React.FC = () => {
 
         {lesson.voiceTextFileUrl && (
           <AudioPlayer
-            audioUri={lesson.voiceTextFileUrl}
+            audioUri={textAudioUri}
             title="Listen to Text"
             size={32}
           />
@@ -190,7 +196,7 @@ const LessonPage: React.FC = () => {
       <View className="mb-10">
         {lesson.voiceWordsFileUrl && (
           <AudioPlayer
-            audioUri={lesson.voiceWordsFileUrl}
+            audioUri={wordAudioUri}
             title="Listen to Words"
             size={32}
           />

@@ -19,12 +19,13 @@ const AudioPlayer = ({
 }: AudioPlayerProps) => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const test = require(`./assets/audio/L1words.m4a`);
 
   // Function to load and play audio
   const playAudio = async () => {
     if (!sound) {
       const { sound: newSound } = await Audio.Sound.createAsync(
-        { uri: audioUri },
+        { uri: test },
         { shouldPlay: true }
       );
      // newSound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);

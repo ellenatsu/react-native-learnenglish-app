@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowsRotate, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useWordStore } from "@/store/useWordStore";
 
+import AudioPlayer from "@/components/audioplayer";
+
 const HomePage: React.FC = () => {
   const todayDate = getLocalDate();
   //zustand user data
@@ -142,6 +144,7 @@ const HomePage: React.FC = () => {
         <Text className="text-3xl font-bold mb-4">
           Welcome, {userData?.name}
         </Text>
+        <AudioPlayer audioUri="./assets/audio/L1words" title="Listen to Text" size={32} />
 
         <TouchableOpacity
           onPress={handlePullUpdate}
