@@ -99,6 +99,21 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
+          name="chatbot"
+          options={{
+            title: "learning bot",
+            headerShown: true,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.chat2}
+                color={color}
+                name="Chat"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
           name="textbook"
           options={{
             title: "Textbooks",
