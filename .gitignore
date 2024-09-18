@@ -24,4 +24,7 @@ android/
 
 
 #data folder
+data/
+
 assets/audio/
+assets/data/

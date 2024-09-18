@@ -10,6 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowsRotate, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useWordStore } from "@/store/useWordStore";
 
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+import { Asset } from 'expo-asset';
 
 const HomePage: React.FC = () => {
   const todayDate = getLocalDate();
@@ -111,9 +114,16 @@ const HomePage: React.FC = () => {
     refreshUserData(userId);
   };
 
-  const handlePullUpdate = async () => {
-    refreshWords();
+  const handleSendFile = async () => {
+    const filePath = `${FileSystem.documentDirectory}theUser${todayDate}.json`;
+    try{
+      await FileSystem.writeAsStringAsync(filePath, JSON.stringify(userData));
+      await Sharing.shareAsync(filePath);
+    } catch (error) {
+      console.error("Error sharing file", error);
+    }
   };
+
 
   if (loading) {
     return (
@@ -143,11 +153,11 @@ const HomePage: React.FC = () => {
           Welcome, {userData?.name}
         </Text>
         <TouchableOpacity
-          onPress={handlePullUpdate}
+          onPress={handleSendFile}
           className="bg-purple-300 p-2"
         >
           <Text className="border-b text-xl">
-            Get Latest Update <FontAwesomeIcon icon={faDownload} />
+            Send User File
           </Text>
         </TouchableOpacity>
 
