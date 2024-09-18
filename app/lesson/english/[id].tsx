@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Modal,
-} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Modal } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import {
-  doc,
-  getDoc,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/utils/firebase/firebase";
 import Markdown from "react-native-markdown-display";
 import { LessonWord } from "@/types/types";
@@ -23,6 +14,7 @@ import AudioPlayer from "@/components/audioplayer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useWordStore } from "@/store/useWordStore";
 import FlipCard from "@/components/flipcard";
+import { set } from "date-fns";
 
 interface Lesson {
   id: string;
@@ -39,7 +31,16 @@ const LessonPage: React.FC = () => {
   const [lessonWordsList, setLessonWordsList] = useState<LessonWord[]>([]);
 
   const [loading, setLoading] = useState<boolean>(true);
-  const { id } = useLocalSearchParams();
+  const { id, q } = useLocalSearchParams();
+  const [searchWord, setSearchWord] = useState<string>("");
+
+  //for highlight search result, q: search word
+  useEffect(() => {
+    if (q) {
+      // If 'q' exists, trigger highlighting logic here
+      setSearchWord(q as string);
+    }
+  }, [q]);
 
   //for practice modal
   const [modalVisible, setModalVisible] = useState(false);
@@ -83,7 +84,10 @@ const LessonPage: React.FC = () => {
         } as Lesson;
         setLesson(lesson);
         //cache the lesson
-        await AsyncStorage.setItem(`book1_lesson_${id}`, JSON.stringify(lesson));
+        await AsyncStorage.setItem(
+          `book1_lesson_${id}`,
+          JSON.stringify(lesson)
+        );
       } else {
         // docSnap.data() will be undefined in this case
         console.log("No such lesson document!");
@@ -191,7 +195,6 @@ const LessonPage: React.FC = () => {
             size={32}
           />
         )}
-        {/* TODO: Add practice words button */}
         <TouchableOpacity
           className="bg-blue-400 items-center m-5"
           onPress={() => setModalVisible(true)}
@@ -200,35 +203,43 @@ const LessonPage: React.FC = () => {
             Go To Practice <FontAwesomeIcon icon={faHandPointRight} size={24} />
           </Text>
         </TouchableOpacity>
-        
-        <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}  
-        onRequestClose={() => setModalVisible(false)}  // Close modal on back button
-      >
-        <View style={styles.modalBackground}>
-          {/* Modal Content */}
-          <View style={styles.modalContent}>
-            <FlipCard wordList={lessonWordsList} modalMode={true} />
 
-            {/* Button to close modal */}
-            <TouchableOpacity
-              className="bg-black m-10 p-4 rounded-lg mt-5 items-center"
-              onPress={() => setModalVisible(false)}
-            >
-              <Text className="text-white text-lg">CLOSE</Text>
-            </TouchableOpacity>
+        <Modal
+          visible={modalVisible}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setModalVisible(false)} // Close modal on back button
+        >
+          <View style={styles.modalBackground}>
+            {/* Modal Content */}
+            <View style={styles.modalContent}>
+              <FlipCard wordList={lessonWordsList} modalMode={true} />
+
+              {/* Button to close modal */}
+              <TouchableOpacity
+                className="bg-black m-10 p-4 rounded-lg mt-5 items-center"
+                onPress={() => setModalVisible(false)}
+              >
+                <Text className="text-white text-lg">CLOSE</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
         <View className="flex gap-2">
           {lessonWordsList.map((word, index) => (
             <View
               className="flex flex-row items-baseline gap-1 border-dotted border-b border-gray-300 pr-2"
               key={index.toString()}
             >
-              <Text className="text-xl text-black">{word.word}</Text>
+              <Text
+                className={
+                  searchWord && word.word === searchWord
+                    ? "bg-yellow-400 text-xl text-black"
+                    : "text-xl text-black"
+                }
+              >
+                {word.word}
+              </Text>
               {word.phonetic && (
                 <Text className="text-base text-gray-500">
                   ({word.phonetic})
@@ -271,17 +282,17 @@ const markdownStyles = {
 const styles = {
   modalBackground: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',  // Semi-transparent background (50% opacity)
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background (50% opacity)
   },
   modalContent: {
-    width: '90%',
-    height: '70%',
-    backgroundColor: 'white',
+    width: "90%",
+    height: "70%",
+    backgroundColor: "white",
     padding: 5,
     borderRadius: 10,
-    elevation: 5,  // For shadow on Android
+    elevation: 5, // For shadow on Android
   },
 };
 

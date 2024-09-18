@@ -104,7 +104,7 @@ const LessonPage: React.FC = () => {
     <ScrollView>
       {/* Render the main content */}
       <View className="p-4 bg-white">
-        <Text className="text-2xl font-bold mb-4">Lesson {lesson.title}</Text>
+        <Text className="text-2xl font-bold mb-4">{lesson.id}. {lesson.title}</Text>
         <TouchableOpacity onPress={handleRefetch}>
           <Text className="pr-2 border-b border-gray-500">
             Refresh <FontAwesomeIcon icon={faArrowsRotate} />

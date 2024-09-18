@@ -95,13 +95,13 @@ function RootLayout() {
         <Stack.Screen
           name="lesson/english/[id]"
           options={({ route }) => ({
-            title: `Textbook lesson ${(route.params as { id: string })?.id}`,
+            title: `Lesson ${(route.params as { id: string })?.id}`,
           })}
         />
         <Stack.Screen
           name="lesson/grammar/[id]"
           options={({ route }) => ({
-            title: `Grammar lesson ${(route.params as { id: string })?.id}`,
+            title: `Grammar Lesson ${(route.params as { id: string })?.id}`,
           })}
         />
       </Stack>

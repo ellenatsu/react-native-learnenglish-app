@@ -47,19 +47,25 @@ const SearchModal = ({ visible, onClose }: SearchModalProps) => {
     }
   };
 
+  const handleClose = () => {
+    setInputValue("");
+    setResult(undefined);
+    onClose();
+  }
+
   return (
     <>
       <Modal
         visible={visible}
         animationType="slide"
         transparent={true}
-        onRequestClose={onClose}
+        onRequestClose={handleClose}
       >
         <View className="flex-1 justify-end bg-transparent">
           <View className="items-end w-full">
             <TouchableOpacity
               className="relative items-center m-2"
-              onPress={onClose}
+              onPress={handleClose}
             >
               <FontAwesomeIcon icon={faCircleXmark} size={36} color="black" />
             </TouchableOpacity>
@@ -70,20 +76,21 @@ const SearchModal = ({ visible, onClose }: SearchModalProps) => {
             <View className="flex-row items-center mb-4">
               <TextInput
                 className="flex-1 border bg-gray-100 rounded-lg p-3 text-lg"
-                placeholder="Search word..."
+                placeholder="Search..."
                 value={inputValue}
                 onChangeText={(e) => {
                   setInputValue(e);
                 }}
                 onSubmitEditing={handleSearch}
                 returnKeyType="search"
+                autoCapitalize="none"
               />
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 className="ml-2 p-3 bg-gray-500 rounded-lg"
                 onPress={handleSearch}
               >
                 <FontAwesomeIcon icon={faSearch} color="white" size={24} />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
 
             {/* Search Result Section */}
@@ -111,7 +118,11 @@ const SearchModal = ({ visible, onClose }: SearchModalProps) => {
                   <TouchableOpacity
                     className="bg-blue-400 rounded-lg p-2"
                     onPress={() => {
-                      router.push(`/lesson/english/${result.ref}`);
+                      router.replace({
+                        pathname: `/lesson/english/${result.ref}`,
+                        params: {q: result.word}
+                      });
+                      handleClose();
                     }}
                   >
                     <FontAwesomeIcon
