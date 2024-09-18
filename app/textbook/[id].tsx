@@ -3,50 +3,44 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { collection, query, getDocs } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase";
+import { useLessonsStore } from "@/store/useLessonsStore";
 
-interface Lesson {
+
+interface lessonList {
   id: string;
   title: string;
 }
-
 const LessonList: React.FC = () => {
   const { id }  = useLocalSearchParams();
-  let collectionName = "";
-
-  switch(id){
-    case "english":
-      collectionName = "lessons";
-      break;
-    case "grammar":
-      collectionName = "grammar-book";
-      break;
-    default:
-      collectionName = "lessons";
-  }
-  const [lessons, setLessons] = useState<Lesson[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [lessonlist, setLessonList] = useState<lessonList[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
+  const { engLessons, grammarLessons } = useLessonsStore();
+  
   useEffect(() => {
     const fetchLessons = async () => {
+      setLoading(true);
       try {
-        const q = query(collection(db, collectionName));
-        const querySnapshot = await getDocs(q);
-        const lessonsList = querySnapshot.docs.map((doc) => ({
-          id: doc.id as string,
-          ...doc.data(),
-        })) as Lesson[];
+        let data : lessonList[] = [];
+
+        switch(id){
+          case 'english':
+            engLessons.forEach((l) => data.push({id: l.id, title: l.title}));
+            break;
+          case 'grammar':
+            grammarLessons.forEach((l) => data.push({id: l.id, title: l.title}));;
+            break;
+        }
 
         // Sort the lessons by numeric part of the ID
-        lessonsList.sort((a, b) => {
+        data.sort((a, b) => {
           const numA = parseInt(a.id.replace(/\D/g, ""), 10); // Extract number from 'l1', 'l2', etc.
           const numB = parseInt(b.id.replace(/\D/g, ""), 10);
           return numA - numB; // Compare numerically
         });
 
-        setLessons(lessonsList);
+        setLessonList(data);
       } catch (error) {
         console.error("Error fetching lessons:", error);
       } finally {
@@ -64,7 +58,7 @@ const LessonList: React.FC = () => {
   return (
     <View className="pt-40 p-4 bg-white">
       <FlatList
-        data={lessons}
+        data={lessonlist}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => router.push(`/lesson/${id}/${item.id}`)}>

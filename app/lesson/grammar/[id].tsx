@@ -7,20 +7,13 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RenderHtml from "react-native-render-html";
+import { GrammarLesson } from "@/types/types";
+import { useLessonsStore } from "@/store/useLessonsStore";
 
-interface GrammarLesson {
-  id: string;
-  title: string;
-  content: string;
-  quiz: string;
-  answer: string;
-}
 
 const LessonPage: React.FC = () => {
   const [lesson, setLesson] = useState<GrammarLesson | null>(null);
@@ -29,6 +22,8 @@ const LessonPage: React.FC = () => {
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
   const { id } = useLocalSearchParams();
   const { width } = useWindowDimensions();
+
+  const { grammarLessons } = useLessonsStore();
 
   // ************ Fetch & refetch lesson data from Firestore ************
   useEffect(() => {
@@ -58,26 +53,19 @@ const LessonPage: React.FC = () => {
 
   const refetchLessons = async () => {
     try {
-      //force to fetch from database
-      const docRef = doc(db, "grammar-book", id as string);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const lesson = {
-          id: docSnap.id,
-          ...docSnap.data(),
-        } as GrammarLesson;
-        setLesson(lesson);
+      const curLesson = grammarLessons.find((l) => l.id === id);
+      if (curLesson) {
+        setLesson(curLesson);
+      } else {
+        setLesson(null);
+      }
 
         //cache the lesson
         await AsyncStorage.setItem(
           `book2_lesson_${id}`,
           JSON.stringify(lesson)
         );
-      } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such lesson document!");
-      }
+      
     } catch (error) {
       console.error("Error refetching lesson:", error);
     }

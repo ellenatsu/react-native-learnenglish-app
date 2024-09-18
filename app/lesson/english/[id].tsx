@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, TouchableOpacity, Modal } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase";
 import Markdown from "react-native-markdown-display";
 import { LessonWord } from "@/types/types";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -14,16 +12,8 @@ import AudioPlayer from "@/components/audioplayer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useWordStore } from "@/store/useWordStore";
 import FlipCard from "@/components/flipcard";
-import audioPaths from '@/constants/audiopath';
-
-interface Lesson {
-  id: string;
-  title: string;
-  text: string;
-  words: string[];
-  voiceTextFileUrl: string;
-  voiceWordsFileUrl: string;
-}
+import { useLessonsStore } from "@/store/useLessonsStore";
+import { Lesson } from "@/types/types";
 
 const LessonPage: React.FC = () => {
   const [lesson, setLesson] = useState<Lesson | null>(null);
@@ -33,6 +23,9 @@ const LessonPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const { id, q } = useLocalSearchParams();
   const [searchWord, setSearchWord] = useState<string>("");
+
+  //for local lessons.
+  const {  engLessons } = useLessonsStore();
 
   //for highlight search result, q: search word
   useEffect(() => {
@@ -45,11 +38,6 @@ const LessonPage: React.FC = () => {
   //for practice modal
   const [modalVisible, setModalVisible] = useState(false);
   
-
-  //for local audio loading
-   // Fetch the corresponding audio from the object
-   const wordAudioUri = audioPaths[`L${id}Words`];
-   const textAudioUri = audioPaths[`L${id}Text`];
 
   // ************ Fetch & refetch lesson data from Firestore ************
   useEffect(() => {
@@ -80,24 +68,20 @@ const LessonPage: React.FC = () => {
   const refetchLessons = async () => {
     try {
       //force to fetch from database
-      const docRef = doc(db, "lessons", id as string);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const lesson = {
-          id: docSnap.id,
-          ...docSnap.data(),
-        } as Lesson;
-        setLesson(lesson);
+      //load data from json
+      const curLesson = engLessons.find((l) => l.id === id);
+      if (curLesson) {
+        setLesson(curLesson);
+      } else {
+        setLesson(null);
+      }
+                    
         //cache the lesson
         await AsyncStorage.setItem(
           `book1_lesson_${id}`,
-          JSON.stringify(lesson)
+          JSON.stringify(curLesson)
         );
-      } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such lesson document!");
-      }
+      
     } catch (error) {
       console.error("Error refetching lesson:", error);
     }
@@ -178,7 +162,7 @@ const LessonPage: React.FC = () => {
 
         {lesson.voiceTextFileUrl && (
           <AudioPlayer
-            audioUri={textAudioUri}
+          audioKey={`L${id}Text`}
             title="Listen to Text"
             size={32}
           />
@@ -196,7 +180,7 @@ const LessonPage: React.FC = () => {
       <View className="mb-10">
         {lesson.voiceWordsFileUrl && (
           <AudioPlayer
-            audioUri={wordAudioUri}
+            audioKey={`L${id}Words`}
             title="Listen to Words"
             size={32}
           />

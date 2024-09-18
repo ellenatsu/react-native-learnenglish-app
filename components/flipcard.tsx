@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { collection, doc, getDocs, query, updateDoc } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase";
+
 import { LessonWord } from "@/types/types";
 import { useRouter } from "expo-router";
 import { getLocalDate } from "@/utils/date";

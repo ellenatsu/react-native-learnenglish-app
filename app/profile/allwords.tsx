@@ -1,15 +1,10 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
-
-import { collection, getDocs, query } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import React from "react";
 import AudioPlayer from "@/components/audioplayer";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faArrowsRotate, faStar } from "@fortawesome/free-solid-svg-icons";
 import { useWordStore } from "@/store/useWordStore";
 import { useUserStore } from "@/store/useUserStore";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const AllWordsPage = () => {
   //retrieve user data

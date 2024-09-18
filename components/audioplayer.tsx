@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { View, Button, Text, TouchableOpacity } from "react-native";
-import { Audio, AVPlaybackStatus } from "expo-av";
+import { Audio, AVPlaybackSource, AVPlaybackStatus } from "expo-av";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPause, faPlay, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
+import audioFiles from "@/constants/audiofiles";
 
 interface AudioPlayerProps {
-  audioUri: string;
+  audioKey: string;
   title: string;
   size: number;
   mode?: "regular" | "short"; // Optional mode prop, default to 'regular'
 }
 
 const AudioPlayer = ({
-  audioUri,
+  audioKey,
   title,
   size,
   mode = "regular",
 }: AudioPlayerProps) => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const test = require(`./assets/audio/L1words.m4a`);
 
+  const audio = audioFiles[audioKey] as AVPlaybackSource;
   // Function to load and play audio
   const playAudio = async () => {
     if (!sound) {
       const { sound: newSound } = await Audio.Sound.createAsync(
-        { uri: test },
+        audio,
         { shouldPlay: true }
       );
      // newSound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);

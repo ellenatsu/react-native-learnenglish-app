@@ -5,13 +5,11 @@ import { getLocalDate } from "@/utils/date";
 import { router } from "expo-router";
 import * as Sentry from "@sentry/react-native";
 
-import { auth} from "@/utils/firebase/firebase";
 import { useUserStore } from "@/store/useUserStore";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowsRotate, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { useWordStore } from "@/store/useWordStore";
 
-import AudioPlayer from "@/components/audioplayer";
 
 const HomePage: React.FC = () => {
   const todayDate = getLocalDate();
@@ -26,7 +24,7 @@ const HomePage: React.FC = () => {
   const [isTodayPracticed, setIsTodayPracticed] = useState(false);
 
   //get user id
-  const userId = auth.currentUser?.uid || ""; 
+  const userId = "4f5S2ifrlMOk5GjozhaftGq8y173"; 
 
   //fetch user data
   useEffect(() => {
@@ -98,15 +96,15 @@ const HomePage: React.FC = () => {
   
 
   const handleSignOut = async () => {
-    try {
-      await auth.signOut();
-      //zustand logout
-      logout();
-      console.log("sign out successful");
-      router.push("/auth/login");
-    } catch (error) {
-      console.log("error sign out", error);
-    }
+    // try {
+    //   await auth.signOut();
+    //   //zustand logout
+    //   logout();
+    //   console.log("sign out successful");
+    //   router.push("/auth/login");
+    // } catch (error) {
+    //   console.log("error sign out", error);
+    // }
   };
 
   const handleUserRefresh = () => {
@@ -144,8 +142,6 @@ const HomePage: React.FC = () => {
         <Text className="text-3xl font-bold mb-4">
           Welcome, {userData?.name}
         </Text>
-        <AudioPlayer audioUri="./assets/audio/L1words" title="Listen to Text" size={32} />
-
         <TouchableOpacity
           onPress={handlePullUpdate}
           className="bg-purple-300 p-2"
@@ -188,7 +184,6 @@ const HomePage: React.FC = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        <Button title="Sign Out" onPress={handleSignOut} />
       </View>
     </View>
   );

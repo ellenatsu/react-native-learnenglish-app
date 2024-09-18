@@ -17,6 +17,14 @@ export interface UserData {
     voiceWordsFileUrl: string;
   }
   
+  export interface GrammarLesson {
+    id: string;
+    title: string;
+    content: string;
+    quiz: string;
+    answer: string;
+  }
+  
   // export interface Word {
   //   id: string;
   //   name: string;

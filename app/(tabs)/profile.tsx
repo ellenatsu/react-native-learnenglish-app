@@ -20,6 +20,7 @@ const ProfilePage = () => {
 
   return (
     <View className="flex-1 p-4 bg-white">
+      <Text className="mt-10 pt-10 mb-10 text-3xl">User Profile</Text>
       <Text className="text-lg mb-2">Name: {userData?.name}</Text>
       <Text className="text-lg mb-2">Email: {userData?.email}</Text>
       <Text className="text-lg mb-2">

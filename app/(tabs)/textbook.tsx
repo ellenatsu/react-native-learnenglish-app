@@ -13,7 +13,9 @@ export default function TextbookList() {
 
   return (
     <ScrollView className="p-4">
-      <View className="flex flex-row flex-wrap gap-3 ">
+      <Text className="mt-10 pt-10 text-3xl">Textbooks</Text>
+      <View className="mt-10 pt-10 flex flex-row flex-wrap gap-3 ">
+        
         {textbooks.map((book) => (
           <TouchableOpacity
             key={book.id}
