@@ -36,6 +36,7 @@ export const useUserStore = create<UserStore>((set) => ({
 
   // Fetch user data from Firestore
   fetchUserData: async (userId: string) => {
+    if(!userId) return;
     set({ loading: true });
     try {
       const cachedUserData = await AsyncStorage.getItem(`userData_${userId}`);

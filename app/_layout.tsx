@@ -1,7 +1,11 @@
 import { Stack, useNavigationContainerRef } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as Sentry from "@sentry/react-native";
 import { isRunningInExpoGo } from "expo";
+import { TouchableOpacity } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import SearchModal from "@/components/searchmodal";
 
 // Construct a new instrumentation instance. This is needed to communicate between the integration and React
 const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
@@ -23,6 +27,16 @@ function RootLayout() {
   // Capture the NavigationContainer ref and register it with the instrumentation.
   const ref = useNavigationContainerRef();
 
+  //for global modal
+  const [isModalVisible, setModalVisible] = useState(false);
+  const handleSearch = () => {
+    setModalVisible(true); // Open the modal when the search icon is clicked
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false); // Close the modal
+  };
+
   useEffect(() => {
     if (ref) {
       routingInstrumentation.registerNavigationContainer(ref);
@@ -30,48 +44,71 @@ function RootLayout() {
   }, [ref]);
 
   return (
-    <Stack>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    <>
+      <Stack
+        screenOptions={{
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ marginRight: 15 }}
+              onPress={handleSearch}
+            >
+              <FontAwesomeIcon icon={faSearch} size={24} color="black" />
+            </TouchableOpacity>
+          ),
+          // Other header options (optional)
+          headerStyle: {
+            backgroundColor: "#fff", // Customize your header style here
+          },
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
-      {/* Authentication Routes */}
-      <Stack.Screen name="auth/login" options={{ title: "Login" }} />
-      <Stack.Screen name="auth/signup" options={{ title: "Signup" }} />
+        {/* Authentication Routes */}
+        <Stack.Screen name="auth/login" options={{ title: "Login" }} />
+        <Stack.Screen name="auth/signup" options={{ title: "Signup" }} />
 
-      {/* Practice */}
-      <Stack.Screen
-        name="practice/flipcard-practice"
-        options={{ title: "FlipCard Practice" }}
-      />
-      <Stack.Screen name="practice/finish" options={{ title: "Congrats!" }} />
+        {/* Practice */}
+        <Stack.Screen
+          name="practice/flipcard-practice"
+          options={{ title: "FlipCard Practice" }}
+        />
+        <Stack.Screen name="practice/finish" options={{ title: "Congrats!" }} />
 
-      {/* Profile */}
-      <Stack.Screen
-        name="profile/bookmark"
-        options={{ title: "Bookmarked Words" }}
-      />
-      <Stack.Screen name="profile/allwords" options={{ title: "All Words" }} />
+        {/* Profile */}
+        <Stack.Screen
+          name="profile/bookmark"
+          options={{ title: "Bookmarked Words" }}
+        />
+        <Stack.Screen
+          name="profile/allwords"
+          options={{ title: "All Words" }}
+        />
 
-      {/* Textbook & lesson */}
-      <Stack.Screen
-        name="textbook/[id]"
-        options={({ route }) => ({
-          title: `Textbook ${(route.params as { id: string })?.id}`,
-        })}
-      />
-      <Stack.Screen
-        name="lesson/english/[id]"
-        options={({ route }) => ({
-          title: `Textbook lesson ${(route.params as { id: string })?.id}`,
-        })}
-      />
-      <Stack.Screen
-        name="lesson/grammar/[id]"
-        options={({ route }) => ({
-          title: `Grammar lesson ${(route.params as { id: string })?.id}`,
-        })}
-      />
-    </Stack>
+        {/* Textbook & lesson */}
+        <Stack.Screen
+          name="textbook/[id]"
+          options={({ route }) => ({
+            title: `Textbook ${(route.params as { id: string })?.id}`,
+          })}
+        />
+        <Stack.Screen
+          name="lesson/english/[id]"
+          options={({ route }) => ({
+            title: `Textbook lesson ${(route.params as { id: string })?.id}`,
+          })}
+        />
+        <Stack.Screen
+          name="lesson/grammar/[id]"
+          options={({ route }) => ({
+            title: `Grammar lesson ${(route.params as { id: string })?.id}`,
+          })}
+        />
+      </Stack>
+
+      {/* Render the global SearchModal */}
+      <SearchModal visible={isModalVisible} onClose={handleModalClose} />
+    </>
   );
 }
 export default Sentry.wrap(RootLayout);

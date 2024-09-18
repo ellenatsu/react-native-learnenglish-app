@@ -21,7 +21,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import AudioPlayer from "@/components/audioplayer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { set } from "date-fns";
 import { useWordStore } from "@/store/useWordStore";
 import FlipCard from "@/components/flipcard";
 

@@ -1,8 +1,11 @@
-import React from "react";
-import { Tabs, Redirect } from "expo-router";
-import { Image, Text, View } from "react-native";
+import React, { useState } from "react";
+import { Tabs, Redirect, Stack } from "expo-router";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import icons from "../../constants/icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import SearchModal from "@/components/searchmodal";
 
 const TabIcon = ({
   icon,
@@ -34,6 +37,12 @@ const TabIcon = ({
 };
 
 const TabsLayout = () => {
+  //for global modal
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const handleModalClose = () => {
+    setModalVisible(false); // Close the modal
+  };
   return (
     <>
       <Tabs
@@ -47,6 +56,16 @@ const TabsLayout = () => {
             borderTopColor: "#232533",
             height: 84,
           },
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ marginRight: 15 }}
+              onPress={() => {
+                setModalVisible(true);
+              }}
+            >
+              <FontAwesomeIcon icon={faSearch} size={24} color="black" />
+            </TouchableOpacity>
+          ),
         }}
       >
         <Tabs.Screen
@@ -110,6 +129,8 @@ const TabsLayout = () => {
           }}
         />
       </Tabs>
+      {/* Render the global SearchModal */}
+      <SearchModal visible={isModalVisible} onClose={handleModalClose} />
     </>
   );
 };

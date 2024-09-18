@@ -2,7 +2,7 @@
   "expo": {
     "name": "RN-project",
     "slug": "RN-project",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "",
     "scheme": "myapp",
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "",
+        "foregroundImage": "pics/ic_launcher.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.ellenatsu.RNproject"
