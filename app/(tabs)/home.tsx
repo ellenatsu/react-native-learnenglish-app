@@ -105,17 +105,6 @@ const HomePage: React.FC = () => {
   }, [loading, userData]);
   
 
-  const handleSignOut = async () => {
-    // try {
-    //   await auth.signOut();
-    //   //zustand logout
-    //   logout();
-    //   console.log("sign out successful");
-    //   router.push("/auth/login");
-    // } catch (error) {
-    //   console.log("error sign out", error);
-    // }
-  };
 
   const handleUserRefresh = () => {
     refreshUserData(userId);

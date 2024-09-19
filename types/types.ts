@@ -37,6 +37,6 @@ export interface UserData {
     meaning: string;
     phonetic: string;
     audioUrl: string;
-    ref: string;
+    ref?: string;
   }
   

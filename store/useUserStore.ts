@@ -6,7 +6,7 @@ import * as Sentry from "@sentry/react-native";
 
 import { cacheUserData } from "@/utils/cacheData";
 import * as FileSystem from "expo-file-system";
-
+import userData from './data/theUser.json';
 // Define the store interface
 interface UserStore {
   userData: UserData | null;
@@ -41,13 +41,12 @@ export const useUserStore = create<UserStore>((set) => ({
 
 
       //load data from json
-      const parsedData = require("./data/theUser.json");
     
       // Store data in Zustand
-      set({ userData: parsedData, loading: false });
+      set({ userData: userData, loading: false });
 
       // Attempt to cache the fetched data
-      await cacheUserData(userId, parsedData); // Cache the fetched data
+      await cacheUserData(userId, userData); // Cache the fetched data
     } catch (error) {
       Sentry.captureException(error);
       console.error("Error fetching user:", error);
@@ -65,13 +64,12 @@ export const useUserStore = create<UserStore>((set) => ({
       await AsyncStorage.removeItem(`userData_${userId}`);
 
       //load data from json
-      const parsedData =  require("./data/theUser.json");
-      
+
       // Store data in Zustand
-      set({ userData: parsedData, loading: false });
+      set({ userData: userData, loading: false });
 
       // resset cache
-      await cacheUserData(userId, parsedData); // Cache the fetched data
+      await cacheUserData(userId, userData); // Cache the fetched data
     } catch (error) {
       console.error("Error fetching user data:", error);
       set({ loading: false });
