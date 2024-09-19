@@ -4,6 +4,8 @@ import { Audio, AVPlaybackSource, AVPlaybackStatus } from "expo-av";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPause, faPlay, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import audioFiles from "@/constants/audiofiles";
+import { Asset } from 'expo-asset';
+
 
 interface AudioPlayerProps {
   audioKey: string;
@@ -21,14 +23,25 @@ const AudioPlayer = ({
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-  const audio = audioFiles[audioKey] as AVPlaybackSource;
   // Function to load and play audio
   const playAudio = async () => {
     if (!sound) {
+      const audioAsset = Asset.fromModule(audioFiles[audioKey]);
+
+      if (!audioAsset) {
+        console.error('Audio file not found:', audioKey);
+        return;
+      }
+
+      // Ensure the asset is downloaded
+      await audioAsset.downloadAsync();
+
+      // Create and play the sound
       const { sound: newSound } = await Audio.Sound.createAsync(
-        audio,
+        { uri: audioAsset.localUri || '' },
         { shouldPlay: true }
       );
+
      // newSound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
 
       setSound(newSound);

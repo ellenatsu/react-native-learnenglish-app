@@ -23,6 +23,12 @@
     "production": {
       "android": {
         "buildType": "apk"
+      },
+      "env":{
+        "EXPO_PUBLIC_FIREBASE_API_KEY":"AIzaSyABvi7AWWTY6KTsla3HLVyr0ZjSW3YRffE",
+        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN":"rn-learn-english-app.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_APP_ID":"1:343237133742:web:660e854c7c4ac9b49d743f",
+        "EXPO_PUBLIC_SENTRY_DSN":"https://77f202d010891721a3bc6d0fcab98995@o4507947449909248.ingest.us.sentry.io/4507947452071936"
       }
     }
   },

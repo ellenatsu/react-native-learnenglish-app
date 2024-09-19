@@ -1,6 +1,6 @@
 import { AVPlaybackSource } from "expo-av";
 
-const audioFiles: { [key: string]: AVPlaybackSource  } = {
+const audioFiles: { [key: string]: any  } = {
     L1Words: require('../assets/audio/L1words.m4a'),
     L2Words: require('../assets/audio/L2words.m4a'),
     L3Words: require('../assets/audio/L3words.m4a'),

@@ -13,6 +13,7 @@ import { useWordStore } from "@/store/useWordStore";
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { Asset } from 'expo-asset';
+import { useLessonsStore } from "@/store/useLessonsStore";
 
 const HomePage: React.FC = () => {
   const todayDate = getLocalDate();
@@ -21,6 +22,7 @@ const HomePage: React.FC = () => {
     useUserStore();
 
   const { fetchWords, refreshWords } = useWordStore();
+  const { loadLessons} = useLessonsStore();
 
   //for calendar
   const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({});
@@ -50,6 +52,11 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     fetchWords();
   }, [fetchWords]);
+
+  //load lesson
+  useEffect(() => {
+    loadLessons();
+  }, [loadLessons]);
 
   // Use useEffect to update markedDates and isTodayPracticed when userData changes
   useEffect(() => {

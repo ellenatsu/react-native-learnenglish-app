@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { LessonWord } from "@/types/types"; // Your LessonWord type
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import * as FileSystem from "expo-file-system";
 import { cacheWordData } from "@/utils/cacheData";
 
 interface WordStore {
@@ -27,9 +27,12 @@ export const useWordStore = create<WordStore>((set) => ({
       }
 
       //load data from json
-      const wordDataJson = require("../assets/data/textbook-words.json");
-      set({ words: wordDataJson, loading: false });
+      const fileUri =
+        FileSystem.documentDirectory + "assets/data/textbook-words.json";
+      const lessonsData = await FileSystem.readAsStringAsync(fileUri);
+      const parsedData = JSON.parse(lessonsData);
 
+      set({ words: parsedData, loading: false });
     } catch (error) {
       console.log("Error fetching words:", error);
     } finally {
@@ -44,10 +47,14 @@ export const useWordStore = create<WordStore>((set) => ({
       await AsyncStorage.removeItem("words");
 
       //load data from json
-      const wordDataJson = require("../assets/data/textbook-words.json");
-      set({ words: wordDataJson, loading: false });
+      const fileUri =
+        FileSystem.documentDirectory + "assets/data/textbook-words.json";
+      const lessonsData = await FileSystem.readAsStringAsync(fileUri);
+      const parsedData = JSON.parse(lessonsData);
 
-      await cacheWordData(wordDataJson);
+      set({ words: parsedData, loading: false });
+
+      await cacheWordData(parsedData);
     } catch (error) {
       console.log("Error fetching words:", error);
       set({ loading: false });

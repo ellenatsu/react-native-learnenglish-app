@@ -61,12 +61,15 @@ export const useUserStore = create<UserStore>((set) => ({
       //   } as UserData;
 
       //load data from json
-      const userDataJson = require("../assets/data/theUser.json");
+      const fileUri = FileSystem.documentDirectory + "assets/data/theUser.json";
+      const lessonsData = await FileSystem.readAsStringAsync(fileUri);
+      const parsedData = JSON.parse(lessonsData);
+
       // Store data in Zustand
-      set({ userData: userDataJson, loading: false });
+      set({ userData: parsedData, loading: false });
 
       // Attempt to cache the fetched data
-      await cacheUserData(userId, userDataJson); // Cache the fetched data
+      await cacheUserData(userId, parsedData); // Cache the fetched data
     } catch (error) {
       Sentry.captureException(error);
       console.error("Error fetching user:", error);
@@ -84,13 +87,16 @@ export const useUserStore = create<UserStore>((set) => ({
       await AsyncStorage.removeItem(`userData_${userId}`);
 
       //load data from json
-      const userDataJson = require("../assets/data/userData.json");
+      //load data from json
+      const fileUri = FileSystem.documentDirectory + "assets/data/theUser.json";
+      const lessonsData = await FileSystem.readAsStringAsync(fileUri);
+      const parsedData = JSON.parse(lessonsData);
 
       // Store data in Zustand
-      set({ userData: userDataJson, loading: false });
+      set({ userData: parsedData, loading: false });
 
       // resset cache
-      await cacheUserData(userId, userDataJson); // Cache the fetched data
+      await cacheUserData(userId, parsedData); // Cache the fetched data
     } catch (error) {
       console.error("Error fetching user data:", error);
       set({ loading: false });
