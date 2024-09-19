@@ -8,7 +8,7 @@ import {
   faArrowsRotate,
   faHandPointRight,
 } from "@fortawesome/free-solid-svg-icons";
-import AudioPlayer from "@/components/audioplayer";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useWordStore } from "@/store/useWordStore";
 import FlipCard from "@/components/flipcard";
@@ -69,7 +69,7 @@ const LessonPage: React.FC = () => {
     try {
       //force to fetch from database
       //load data from json
-      const curLesson = engLessons.find((l) => l.id === id);
+      const curLesson = engLessons ? engLessons.find((l) => l.id === id) : null;
       if (curLesson) {
         setLesson(curLesson);
       } else {
@@ -160,13 +160,6 @@ const LessonPage: React.FC = () => {
       <View className="flex g-3 mb-6">
         <Text className="text-3xl font-bold mb-4">{lesson.title}</Text>
 
-        {lesson.voiceTextFileUrl && (
-          <AudioPlayer
-          audioKey={`L${id}Text`}
-            title="Listen to Text"
-            size={32}
-          />
-        )}
         <TouchableOpacity onPress={handleRefetch}>
           <Text className="pr-2 border-b border-gray-500">
             Refresh <FontAwesomeIcon icon={faArrowsRotate} />
@@ -178,13 +171,7 @@ const LessonPage: React.FC = () => {
       </View>
 
       <View className="mb-10">
-        {lesson.voiceWordsFileUrl && (
-          <AudioPlayer
-            audioKey={`L${id}Words`}
-            title="Listen to Words"
-            size={32}
-          />
-        )}
+
         <TouchableOpacity
           className="bg-blue-400 items-center m-5"
           onPress={() => setModalVisible(true)}
@@ -235,9 +222,7 @@ const LessonPage: React.FC = () => {
                   ({word.phonetic})
                 </Text>
               )}
-              {/* {word.audioUrl && (
-                <AudioPlayer audioUri={word.audioUrl} title="" size={16} />
-              )} */}
+
               <Text
                 className="pl-2 text-base text-gray-800"
                 style={{ flex: 1 }}

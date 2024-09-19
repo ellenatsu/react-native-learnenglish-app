@@ -26,10 +26,14 @@ const LessonList: React.FC = () => {
 
         switch(id){
           case 'english':
-            engLessons.forEach((l) => data.push({id: l.id, title: l.title}));
+            if (engLessons) {
+              engLessons.forEach((l) => data.push({id: l.id, title: l.title}));
+            }
             break;
           case 'grammar':
-            grammarLessons.forEach((l) => data.push({id: l.id, title: l.title}));;
+            if (grammarLessons) {
+              grammarLessons.forEach((l) => data.push({id: l.id, title: l.title}));
+            }
             break;
         }
 

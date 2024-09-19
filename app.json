@@ -12,10 +12,6 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "assets/audio/*.m4a",
-      "assets/data/*"
-    ],
     "ios": {
       "supportsTablet": true
     },
@@ -54,6 +50,10 @@
         "projectId": "86580d86-92cd-4f7c-99cd-f9daefe236c3"
       }
     },
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ],
+
     "owner": "ellenatsu"
   }
 }

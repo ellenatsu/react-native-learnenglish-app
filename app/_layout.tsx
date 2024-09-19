@@ -63,10 +63,7 @@ function RootLayout() {
       >
         <Stack.Screen name="index" />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-
-        {/* Authentication Routes */}
-        <Stack.Screen name="auth/login" options={{ title: "Login" }} />
-        <Stack.Screen name="auth/signup" options={{ title: "Signup" }} />
+\
 
         {/* Practice */}
         <Stack.Screen

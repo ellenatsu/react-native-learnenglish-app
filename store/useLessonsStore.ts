@@ -1,11 +1,13 @@
 import { create } from "zustand";
-import { GrammarLesson, Lesson,} from "@/types/types"; // Your LessonWord type
-import * as FileSystem from 'expo-file-system';
+import { GrammarLesson, Lesson } from "@/types/types"; // Your LessonWord type
+import englessonsData from './data/engLessons.json';
+import gralessonsData from './data/grammarBook.json';
+
 
 interface LessonsStore {
   engLessons: Lesson[] | null;
   grammarLessons: GrammarLesson[] | null;
-loadLessons: () => Promise<void>;
+  loadLessons: () => Promise<void>;
   loading: boolean;
 }
 
@@ -15,17 +17,14 @@ export const useLessonsStore = create<LessonsStore>((set) => ({
   loadLessons: async () => {
     set({ loading: true });
     try {
-      //load data from json
-      const engfileUri = FileSystem.documentDirectory + 'assets/data/eng-lessons.json';
-      const englessonsData = await FileSystem.readAsStringAsync(engfileUri);
-
-      const grafileUri = FileSystem.documentDirectory + 'assets/data/grammar-book.json';
-      const gralessonsData = await FileSystem.readAsStringAsync(grafileUri);
-
-      set({ engLessons: JSON.parse(englessonsData), grammarLessons: JSON.parse(gralessonsData),loading: false });
-
+      // Use the imported data directly
+      set({
+        engLessons: englessonsData,
+        grammarLessons: gralessonsData,
+        loading: false,
+      });
     } catch (error) {
-      console.log("Error fetching words:", error);
+      console.log('Error fetching lessons:', error);
     } finally {
       set({ loading: false });
     }

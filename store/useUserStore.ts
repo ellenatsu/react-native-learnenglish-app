@@ -1,14 +1,6 @@
 import { UserData } from "@/types/types";
-import { db } from "@/utils/firebase/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+
 import { create } from "zustand";
 import * as Sentry from "@sentry/react-native";
 
@@ -47,24 +39,10 @@ export const useUserStore = create<UserStore>((set) => ({
         return; // Exit early
       }
 
-      // const q = query(collection(db, "users"), where("uid", "==", userId));
-      // const querySnapshot = await getDocs(q);
-      // //if cannot find user data
-      // if (querySnapshot.empty) {
-      //   console.log("No user data found in Firestore");
-      //   Sentry.captureMessage(`No user data found for userId: ${userId}`);
-      // } else {
-      //   const userdoc = querySnapshot.docs[0];
-      //   const fetchedData = {
-      //     id: userdoc.id as string,
-      //     ...userdoc.data(),
-      //   } as UserData;
 
       //load data from json
-      const fileUri = FileSystem.documentDirectory + "assets/data/theUser.json";
-      const lessonsData = await FileSystem.readAsStringAsync(fileUri);
-      const parsedData = JSON.parse(lessonsData);
-
+      const parsedData = require("./data/theUser.json");
+    
       // Store data in Zustand
       set({ userData: parsedData, loading: false });
 
@@ -87,11 +65,8 @@ export const useUserStore = create<UserStore>((set) => ({
       await AsyncStorage.removeItem(`userData_${userId}`);
 
       //load data from json
-      //load data from json
-      const fileUri = FileSystem.documentDirectory + "assets/data/theUser.json";
-      const lessonsData = await FileSystem.readAsStringAsync(fileUri);
-      const parsedData = JSON.parse(lessonsData);
-
+      const parsedData =  require("./data/theUser.json");
+      
       // Store data in Zustand
       set({ userData: parsedData, loading: false });
 

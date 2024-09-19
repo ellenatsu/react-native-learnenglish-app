@@ -20,7 +20,6 @@ import {
   TouchableWithoutFeedback,
   ToastAndroid,
 } from "react-native";
-import AudioPlayer from "./audioplayer";
 
 interface SearchModalProps {
   visible: boolean;
@@ -97,14 +96,7 @@ const SearchModal = ({ visible, onClose }: SearchModalProps) => {
             {result ? (
               <View className="flex flex-column gap-2">
                 <Text className="text-xl font-semibold">{result.word}</Text>
-                {result.audioUrl && (
-                  <AudioPlayer
-                    audioUri={result.audioUrl}
-                    size={24}
-                    mode="short"
-                    title={""}
-                  />
-                )}
+
 
                 <Text className="text-lg text-gray-600">
                   {result.phonetic}

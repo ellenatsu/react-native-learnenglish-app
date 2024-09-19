@@ -11,7 +11,7 @@ export interface UserData {
   export interface Lesson {
     id: string;
     title: string;
-    content: string;
+    text: string;
     words: string[]; // Array of word strings
     voiceTextFileUrl: string;
     voiceWordsFileUrl: string;

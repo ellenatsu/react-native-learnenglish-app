@@ -1,6 +1,6 @@
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import React from "react";
-import AudioPlayer from "@/components/audioplayer";
+
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useWordStore } from "@/store/useWordStore";
 import { useUserStore } from "@/store/useUserStore";
@@ -38,9 +38,7 @@ const AllWordsPage = () => {
                   ({item.phonetic})
                 </Text>
               )}
-              {item.audioUrl && (
-                <AudioPlayer audioUri={item.audioUrl} title="" size={14} />
-              )}
+
             </View>
 
             <Text className="text-l text-gray-800 " style={{ flex: 1 }}>

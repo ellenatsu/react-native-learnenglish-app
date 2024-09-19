@@ -114,14 +114,7 @@ const FlipCard = ({ wordList, modalMode=false } : FlipCardProps) => {
                 <Text className="text-3xl font-bold text-center">
                   {currentWord.word}
                 </Text>
-                {currentWord.audioUrl && (
-                  <AudioPlayer
-                    audioUri={currentWord.audioUrl}
-                    title=""
-                    size={24}
-                    mode="short"
-                  />
-                )}
+
               </View>
 
               {currentWord.phonetic && (
