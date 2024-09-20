@@ -1,7 +1,6 @@
 import { Stack, useNavigationContainerRef } from "expo-router";
 import { useEffect, useState } from "react";
 
-import { isRunningInExpoGo } from "expo";
 import { TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -10,8 +9,6 @@ import SearchModal from "@/components/searchmodal";
 
 
 function RootLayout() {
-  // Capture the NavigationContainer ref and register it with the instrumentation.
-  const ref = useNavigationContainerRef();
 
   //for global modal
   const [isModalVisible, setModalVisible] = useState(false);
@@ -23,11 +20,6 @@ function RootLayout() {
     setModalVisible(false); // Close the modal
   };
 
-  useEffect(() => {
-    if (ref) {
-      routingInstrumentation.registerNavigationContainer(ref);
-    }
-  }, [ref]);
 
   return (
     <>
