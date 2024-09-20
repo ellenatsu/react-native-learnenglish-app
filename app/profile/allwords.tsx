@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useWordStore } from "@/store/useWordStore";
 import { useUserStore } from "@/store/useUserStore";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { cacheUserData } from "../../utils/cacheData";
 
 const AllWordsPage = () => {
   //retrieve user data
@@ -46,7 +47,15 @@ const AllWordsPage = () => {
             </Text>
             <TouchableOpacity
               className="pb-3"
-              onPress={() => updateBookmarkedWords(item.word)}
+              onPress={async () => {
+                updateBookmarkedWords(item.word);
+                try {
+                  await cacheUserData(userData.uid, userData);
+                } catch (error) {
+                  // Handle the error (optional)
+                  console.error("Failed to cache user data to update bookmark:", error);
+                }
+              }}
             >
               <FontAwesomeIcon
                 icon={faStar}

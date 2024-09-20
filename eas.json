@@ -14,7 +14,7 @@
         "buildType": "apk"
       },
       "env":{
-        "EXPO_PUBLIC_SENTRY_DSN":"https://77f202d010891721a3bc6d0fcab98995@o4507947449909248.ingest.us.sentry.io/4507947452071936"
+        "EXPO_PUBLIC_USERID":"4f5S2ifrlMOk5GjozhaftGq8y173"
       }
     },
     "production": {

@@ -8,6 +8,7 @@ import AudioPlayer from "./audioplayer";
 import { useUserStore } from "@/store/useUserStore";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { cacheUserData } from "../utils/cacheData";
 
 interface FlipCardProps {
   wordList: LessonWord[];
@@ -90,7 +91,15 @@ const FlipCard = ({ wordList, modalMode=false } : FlipCardProps) => {
         </Text>
         <TouchableOpacity
           className="p-2 "
-          onPress={() => updateBookmarkedWords(currentWord.word)}
+          onPress={async () => {
+            updateBookmarkedWords(currentWord.word);
+            try {
+              await cacheUserData(userData.uid, userData);
+            } catch (error) {
+              // Handle the error (optional)
+              console.error("Failed to cache user data to update bookmark:", error);
+            }
+          }}
         >
           <FontAwesomeIcon
             icon={faStar}

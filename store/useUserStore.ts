@@ -2,11 +2,11 @@ import { UserData } from "@/types/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { create } from "zustand";
-import * as Sentry from "@sentry/react-native";
 
 import { cacheUserData } from "@/utils/cacheData";
-import * as FileSystem from "expo-file-system";
-import userData from './data/theUser.json';
+import {userJsonData }  from '../constants/theUser';
+
+
 // Define the store interface
 interface UserStore {
   userData: UserData | null;
@@ -14,8 +14,8 @@ interface UserStore {
   setUserData: (userData: UserData) => void;
   fetchUserData: (userId: string) => Promise<void>;
   refreshUserData: (userId: string) => Promise<void>; // Function to refresh user data
-  updateBookmarkedWords: (newWord: string) => void;
-  updatePracticedDates: (newDate: string) => void;
+  updateBookmarkedWords: (newWord: string) => Promise<void>;
+  updatePracticedDates: (newDate: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -43,12 +43,11 @@ export const useUserStore = create<UserStore>((set) => ({
       //load data from json
     
       // Store data in Zustand
-      set({ userData: userData, loading: false });
+      set({ userData: userJsonData, loading: false });
 
       // Attempt to cache the fetched data
-      await cacheUserData(userId, userData); // Cache the fetched data
+      await cacheUserData(userId, userJsonData); // Cache the fetched data
     } catch (error) {
-      Sentry.captureException(error);
       console.error("Error fetching user:", error);
       set({ loading: false });
     } finally {
@@ -66,10 +65,10 @@ export const useUserStore = create<UserStore>((set) => ({
       //load data from json
 
       // Store data in Zustand
-      set({ userData: userData, loading: false });
+      set({ userData: userJsonData, loading: false });
 
       // resset cache
-      await cacheUserData(userId, userData); // Cache the fetched data
+      await cacheUserData(userId, userJsonData); // Cache the fetched data
     } catch (error) {
       console.error("Error fetching user data:", error);
       set({ loading: false });
@@ -79,7 +78,7 @@ export const useUserStore = create<UserStore>((set) => ({
   },
 
   // Update the bookmarked words list
-  updateBookmarkedWords: (newWord: string) =>
+  updateBookmarkedWords: async (newWord: string) =>
     set((state) => {
       if (!state.userData) return state;
 
@@ -96,26 +95,11 @@ export const useUserStore = create<UserStore>((set) => ({
         },
       };
 
-      // Persist the update to Json files
-      const updateToJson = async () => {
-        try {
-          await FileSystem.writeAsStringAsync(
-            "../assets/data/userData.json",
-            JSON.stringify(newState.userData, null, 2)
-          );
-          console.log("Bookmarked words updated in Json successfully");
-        } catch (error) {
-          Sentry.captureException(error);
-        }
-      };
-
-      updateToJson();
-
       return newState; // Return the updated state
     }),
 
   // Update the practiced dates list
-  updatePracticedDates: (newDate: string) =>
+  updatePracticedDates: async (newDate: string) =>
     set((state) => {
       if (!state.userData) return state;
       const { practicedDates } = state.userData;
@@ -130,21 +114,6 @@ export const useUserStore = create<UserStore>((set) => ({
           practicedDates: updatedDates,
         },
       };
-
-      // Persist the update to Json files
-      const updateToJson = async () => {
-        try {
-          await FileSystem.writeAsStringAsync(
-            "../assets/data/userData.json",
-            JSON.stringify(newState.userData, null, 2)
-          );
-          console.log("Bookmarked words updated in Json successfully");
-        } catch (error) {
-          Sentry.captureException(error);
-        }
-      };
-
-      updateToJson();
 
       return newState; // Return updated state
     }),

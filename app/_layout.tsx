@@ -1,27 +1,13 @@
 import { Stack, useNavigationContainerRef } from "expo-router";
 import { useEffect, useState } from "react";
-import * as Sentry from "@sentry/react-native";
+
 import { isRunningInExpoGo } from "expo";
 import { TouchableOpacity } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import SearchModal from "@/components/searchmodal";
 
-// Construct a new instrumentation instance. This is needed to communicate between the integration and React
-const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
-Sentry.init({
-  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-  debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
-  integrations: [
-    new Sentry.ReactNativeTracing({
-      // Pass instrumentation to be used as `routingInstrumentation`
-      routingInstrumentation,
-      enableNativeFramesTracking: !isRunningInExpoGo(),
-      // ...
-    }),
-  ],
-});
 
 function RootLayout() {
   // Capture the NavigationContainer ref and register it with the instrumentation.
@@ -108,4 +94,5 @@ function RootLayout() {
     </>
   );
 }
-export default Sentry.wrap(RootLayout);
+
+export default RootLayout;

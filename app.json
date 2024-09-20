@@ -3,7 +3,6 @@
     "name": "RN-project",
     "slug": "RN-project",
     "version": "1.5.0",
-    "sdkVersion": "51.0.31", // Replace with your SDK version
     "platforms": ["android"],
     "orientation": "portrait",
     "icon": "",
@@ -23,7 +22,6 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ellenatsu.RNproject",
-      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
@@ -31,16 +29,7 @@
       "favicon": "./assets/icons/home.png"
     },
     "plugins": [
-      "expo-router",
-      [
-        "@sentry/react-native/expo",
-        {
-          "organization": "ellen-cv",
-          "project": "rn-learn-english",
-          "url": "https://sentry.io/"
-        }
-      ],
-      "expo-asset"
+      "expo-router"
     ],
     "experiments": {
       "typedRoutes": true
@@ -53,9 +42,6 @@
         "projectId": "86580d86-92cd-4f7c-99cd-f9daefe236c3"
       }
     },
-    "assetBundlePatterns": [
-      "assets/**/*"
-    ],
 
     "owner": "ellenatsu"
   }

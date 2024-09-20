@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { UserData, LessonWord } from "@/types/types";
 import { useUserStore } from "@/store/useUserStore";
+import { cacheUserData } from "../../utils/cacheData";
 
 
 const BookmarkPage = () => {
@@ -38,7 +39,15 @@ const BookmarkPage = () => {
         <View className="p-4 mb-2 bg-gray-100 rounded-lg">
           <Text className="text-lg font-bold">{item}</Text>
           <TouchableOpacity
-            onPress={() => updateBookmarkedWords(item)}
+            onPress={async () => {
+              updateBookmarkedWords(item);
+              try {
+                await cacheUserData(userData.uid, userData);
+              } catch (error) {
+                // Handle the error (optional)
+                console.error("Failed to cache user data to update bookmark:", error);
+              }
+            }}
           ></TouchableOpacity>
         </View>
       )}

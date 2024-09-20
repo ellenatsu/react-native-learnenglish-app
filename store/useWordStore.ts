@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { LessonWord } from "@/types/types"; // Your LessonWord type
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { cacheWordData } from "@/utils/cacheData";
-import wordsData from './data/textbookWords.json';
+import {wordsData} from '../constants/textbookWords';
 
 
 interface WordStore {

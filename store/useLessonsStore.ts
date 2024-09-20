@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { GrammarLesson, Lesson } from "@/types/types"; // Your LessonWord type
-import englessonsData from './data/engLessons.json';
-import gralessonsData from './data/grammarBook.json';
+import { englessonsData }  from '../constants/engLessons';
+import { gralessonsData } from '../constants/grammarBook';
 
 
 interface LessonsStore {
