@@ -5,7 +5,6 @@ import { getLocalDate } from "@/utils/date";
 import { router } from "expo-router";
 import * as Sentry from "@sentry/react-native";
 
-import { auth} from "@/utils/firebase/firebase";
 import { useUserStore } from "@/store/useUserStore";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowsRotate, faDownload } from "@fortawesome/free-solid-svg-icons";
@@ -23,8 +22,8 @@ const HomePage: React.FC = () => {
   const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({});
   const [isTodayPracticed, setIsTodayPracticed] = useState(false);
 
-  //get user id
-  const userId = auth.currentUser?.uid || ""; 
+  //TODO: get user id (implement Auth)
+  const userId = "IpHNykE9t4Wr5n0p55L1"
 
   //fetch user data
   useEffect(() => {
@@ -97,7 +96,7 @@ const HomePage: React.FC = () => {
 
   const handleSignOut = async () => {
     try {
-      await auth.signOut();
+      //TODO: implement logout
       //zustand logout
       logout();
       console.log("sign out successful");

@@ -1,18 +1,11 @@
 import { UserData } from "@/types/types";
-import { db } from "@/utils/firebase/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+
 import { create } from "zustand";
 import * as Sentry from "@sentry/react-native";
 
 import { cacheUserData } from "@/utils/cacheData";
+import axios from "axios";
 
 // Define the store interface
 interface UserStore {
@@ -27,7 +20,7 @@ interface UserStore {
 }
 
 // Create the Zustand store
-export const useUserStore = create<UserStore>((set) => ({
+export const useUserStore = create<UserStore>((set, get) => ({
   userData: null,
   loading: false, //for refresh user data
 
@@ -36,7 +29,7 @@ export const useUserStore = create<UserStore>((set) => ({
 
   // Fetch user data from Firestore
   fetchUserData: async (userId: string) => {
-    if(!userId) return;
+    if (!userId) return;
     set({ loading: true });
     try {
       const cachedUserData = await AsyncStorage.getItem(`userData_${userId}`);
@@ -44,27 +37,18 @@ export const useUserStore = create<UserStore>((set) => ({
       if (cachedUserData) {
         // Use cached data
         set({ userData: JSON.parse(cachedUserData), loading: false });
-        return; // Exit early
+        return;
       }
 
-      const q = query(collection(db, "users"), where("uid", "==", userId));
-      const querySnapshot = await getDocs(q);
-      //if cannot find user data
-      if (querySnapshot.empty) {
-        console.log("No user data found in Firestore");
-        Sentry.captureMessage(`No user data found for userId: ${userId}`);
-      } else {
-        const userdoc = querySnapshot.docs[0];
-        const fetchedData = {
-          id: userdoc.id as string,
-          ...userdoc.data(),
-        } as UserData;
-        // Store data in Zustand
-        set({ userData: fetchedData, loading: false });
+      //TODO: query user data from server
+      const response = await axios.get(`http://10.0.0.77:3000/users/${userId}`);
+      console.log("user data", await response.data);
+      const fetchedData: UserData = await response.data;
+      // Store data in Zustand
+      set({ userData: fetchedData, loading: false });
 
-        // Attempt to cache the fetched data
-        await cacheUserData(userId, fetchedData); // Cache the fetched data
-      }
+      // Attempt to cache the fetched data
+      await cacheUserData(userId, fetchedData); // Cache the fetched data
     } catch (error) {
       Sentry.captureException(error);
       console.error("Error fetching user:", error);
@@ -81,23 +65,16 @@ export const useUserStore = create<UserStore>((set) => ({
       // Clear cache
       await AsyncStorage.removeItem(`userData_${userId}`);
 
-      const q = query(collection(db, "users"), where("uid", "==", userId));
-      const querySnapshot = await getDocs(q);
-      //if cannot find user data
-      if (querySnapshot.empty) {
-        console.log("No user data found");
-      } else {
-        const userdoc = querySnapshot.docs[0];
-        const fetchedData = {
-          id: userdoc.id as string,
-          ...userdoc.data(),
-        } as UserData;
-        // Store data in Zustand
-        set({ userData: fetchedData, loading: false });
-
-        // resset cache
-        await cacheUserData(userId, fetchedData); // Cache the fetched data
-      }
+      //TODO: same thing from above, fetch data from backend server
+      const response = await axios.get(
+        "http://10.0.0.77:3000/users/IpHNykE9t4Wr5n0p55L1"
+      );
+      console.log("user data", await response.data);
+      const fetchedData: UserData = await response.data;
+      // Store data in Zustand
+      set({ userData: fetchedData, loading: false });
+      // Attempt to cache the fetched data
+      await cacheUserData(userId, fetchedData); // Cache the fetched data
     } catch (error) {
       console.error("Error fetching user data:", error);
       set({ loading: false });
@@ -106,91 +83,69 @@ export const useUserStore = create<UserStore>((set) => ({
     }
   },
 
-  // Update the bookmarked words list
-  updateBookmarkedWords: (newWord: string) =>
-    set((state) => {
-      if (!state.userData) return state;
+  //TODO: rewrite the logic to change bookmark in backend server
+  updateBookmarkedWords: async (newWord: string) => {
+    const state = get();
 
-      const bookmarkedWords = state.userData.bookmarkedWords ?? [];
-      const updatedWords = bookmarkedWords.includes(newWord)
+    if (!state.userData) return;
+
+    const bookmarkedWords = state.userData.bookmarkedWords ?? [];
+    const isBookmarked = bookmarkedWords.includes(newWord);
+
+    // Post to the backend server first
+    try {
+      await axios.post(
+        `http://10.0.0.77:3000/users/${state.userData.id}/updateBookmarkedWords`,
+        {
+          word: newWord,
+          action: isBookmarked ? "remove" : "add",
+        }
+      );
+
+      // Update the state after successful server update
+      const updatedWords = isBookmarked
         ? bookmarkedWords.filter((word) => word !== newWord)
         : [...bookmarkedWords, newWord];
 
-      // Update Zustand state first
-      const newState = {
+      set({
         userData: {
           ...state.userData,
           bookmarkedWords: updatedWords,
         },
-      };
-
-      // Persist the update to Firestore
-      const updateFirestore = async () => {
-        try {
-          const userDocRef = doc(db, "users", state.userData!.id);
-          await updateDoc(userDocRef, {
-            bookmarkedWords: updatedWords,
-          });
-
-          //track
-          // Capture success breadcrumb in Sentry
-          Sentry.addBreadcrumb({
-            category: "firestore",
-            message: `Bookmarked words successfully updated for user ${
-              state.userData!.id
-            }`,
-            level: "info",
-          });
-
-          console.log("Bookmarked words updated in Firestore successfully");
-        } catch (error) {
-          console.error("Error updating bookmarked words in Firestore:", error);
-          Sentry.captureException(error);
-        }
-      };
-
-      // Call Firestore update function
-      updateFirestore();
-
-      return newState; // Return the updated state
-    }),
+      });
+    } catch (error) {
+      console.error("Error updating bookmarked words on server:", error);
+      // Optionally handle the error in the UI
+    }
+  },
 
   // Update the practiced dates list
-  updatePracticedDates: (newDate: string) =>
-    set((state) => {
-      if (!state.userData) return state;
-      const { practicedDates } = state.userData;
+  updatePracticedDates: async (newDate: string) => {
+    const state = get();
+    if (!state.userData) return state;
+    const { practicedDates } = state.userData;
 
-      // Ensure no duplicates in practicedDates
-      const updatedDates = [...new Set([...practicedDates, newDate])];
+    // Ensure no duplicates in practicedDates
+    const updatedDates = [...new Set([...practicedDates, newDate])];
 
-      // Update Zustand state
+    //post to server first
+    try {
+      await axios.post(`http://10.0.0.77:3000/users/${state.userData.id}/addDate`, {
+        date: newDate,
+      });
+
+      // // Update the state after successful server update
       set({
         userData: {
           ...state.userData,
           practicedDates: updatedDates,
         },
       });
-
-      // Persist the update to Firestore
-      const updateFirestore = async () => {
-        try {
-          const userDocRef = doc(db, "users", state.userData!.id);
-          await updateDoc(userDocRef, {
-            practicedDates: updatedDates,
-          });
-          console.log("Practiced dates updated in Firestore successfully");
-        } catch (error) {
-          console.error("Error updating practiced dates in Firestore:", error);
-          Sentry.captureException(error);
-        }
-      };
-
-      // Call Firestore update function
-      updateFirestore();
-
-      return state; // Return updated state
-    }),
+    } catch (error) {
+      console.error("Error updating practiced dates on server:", error);
+      // Optionally handle the error in the UI
+    }
+  },
 
   // Logout function to clear user data
   logout: () => set({ userData: null }),

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
-import {  signInWithEmailAndPassword } from "firebase/auth";
 
 import { router } from 'expo-router';
-import { auth, } from '@/utils/firebase/firebase';
+
 
 
 
@@ -13,17 +12,7 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState('');
 
   const handleLogin = async () => {
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      // Navigate to the main part of the app or show success message
-      const user = userCredential.user;
-
-      //console.log("user", user);
-      router.push('/home');
-    } catch (error) {
-        console.log("error sign in", error);
-    }
+     //TODO: post login to backend server
   };
 
   return (

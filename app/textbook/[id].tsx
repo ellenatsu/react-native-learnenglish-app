@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { collection, query, getDocs } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase";
+import axios from "axios";
 
 interface Lesson {
   id: string;
@@ -17,13 +16,13 @@ const LessonList: React.FC = () => {
 
   switch(id){
     case "english":
-      collectionName = "lessons";
+      collectionName = "mainLessons";
       break;
     case "grammar":
-      collectionName = "grammar-book";
+      collectionName = "grammarLessons";
       break;
     default:
-      collectionName = "lessons";
+      collectionName = "mainLessons";
   }
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -32,12 +31,10 @@ const LessonList: React.FC = () => {
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        const q = query(collection(db, collectionName));
-        const querySnapshot = await getDocs(q);
-        const lessonsList = querySnapshot.docs.map((doc) => ({
-          id: doc.id as string,
-          ...doc.data(),
-        })) as Lesson[];
+        //TODO: query lessons from server
+        const response = await axios.get(`http://10.0.0.77:3000/${collectionName}`);
+
+        const lessonsList: Lesson[] = await response.data;
 
         // Sort the lessons by numeric part of the ID
         lessonsList.sort((a, b) => {

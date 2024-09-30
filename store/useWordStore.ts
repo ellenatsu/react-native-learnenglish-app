@@ -1,8 +1,7 @@
 import { create } from "zustand";
-import { getDocs, collection } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase"; // Firestore setup
 import { LessonWord } from "@/types/types"; // Your LessonWord type
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 import { cacheWordData } from "@/utils/cacheData";
 
@@ -21,17 +20,15 @@ export const useWordStore = create<WordStore>((set) => ({
   fetchWords: async () => {
     set({ loading: true });
     try {
-        //check cache
-        const cachedWords = await AsyncStorage.getItem("words");
-        if (cachedWords) {
-          set({ words: JSON.parse(cachedWords) });
-          return;
-        }
-        
-      const querySnapshot = await getDocs(collection(db, "textbook-words"));
-      const wordList: LessonWord[] = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-      })) as LessonWord[];
+      //check cache
+      const cachedWords = await AsyncStorage.getItem("words");
+      if (cachedWords) {
+        set({ words: JSON.parse(cachedWords) });
+        return;
+      }
+      //fetch from server
+      const response = await axios.get("http://10.0.0.77:3000/words");
+      const wordList = response.data;
       set({ words: wordList, loading: false });
     } catch (error) {
       console.log("Error fetching words:", error);
@@ -45,15 +42,13 @@ export const useWordStore = create<WordStore>((set) => ({
     try {
       //remove cache
       await AsyncStorage.removeItem("words");
-
-      const querySnapshot = await getDocs(collection(db, "textbook-words"));
-      const wordList: LessonWord[] = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-      })) as LessonWord[];
+      //fetch from server
+      const response = await axios.get("http://localhost:3000/words");
+      console.log("words", response.data);
+      const wordList = response.data;
       set({ words: wordList, loading: false });
-      
-      await cacheWordData(wordList);
 
+      await cacheWordData(wordList);
     } catch (error) {
       console.log("Error fetching words:", error);
       set({ loading: false });

@@ -7,12 +7,11 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RenderHtml from "react-native-render-html";
+import axios from "axios";
 
 interface GrammarLesson {
   id: string;
@@ -58,26 +57,24 @@ const LessonPage: React.FC = () => {
 
   const refetchLessons = async () => {
     try {
-      //force to fetch from database
-      const docRef = doc(db, "grammar-book", id as string);
-      const docSnap = await getDoc(docRef);
+      //TODO: query grammar lesson from server
+      //fetch from server
+      const response = await axios.get(`http://10.0.0.77:3000/grammarLessons/${id}`);
+      const lesson: GrammarLesson = response.data;
 
-      if (docSnap.exists()) {
-        const lesson = {
-          id: docSnap.id,
-          ...docSnap.data(),
-        } as GrammarLesson;
-        setLesson(lesson);
+      // if (docSnap.exists()) {
+      //   const lesson = {
+      //     id: docSnap.id,
+      //     ...docSnap.data(),
+      //   } as GrammarLesson;
+      //   setLesson(lesson);
 
-        //cache the lesson
-        await AsyncStorage.setItem(
-          `book2_lesson_${id}`,
-          JSON.stringify(lesson)
-        );
-      } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such lesson document!");
-      }
+      //cache the lesson
+      await AsyncStorage.setItem(`book2_lesson_${id}`, JSON.stringify(lesson));
+      // } else {
+      //   // docSnap.data() will be undefined in this case
+      //   console.log("No such lesson document!");
+      // }
     } catch (error) {
       console.error("Error refetching lesson:", error);
     }
@@ -104,7 +101,9 @@ const LessonPage: React.FC = () => {
     <ScrollView>
       {/* Render the main content */}
       <View className="p-4 bg-white">
-        <Text className="text-2xl font-bold mb-4">{lesson.id}. {lesson.title}</Text>
+        <Text className="text-2xl font-bold mb-4">
+          {lesson.id}. {lesson.title}
+        </Text>
         <TouchableOpacity onPress={handleRefetch}>
           <Text className="pr-2 border-b border-gray-500">
             Refresh <FontAwesomeIcon icon={faArrowsRotate} />

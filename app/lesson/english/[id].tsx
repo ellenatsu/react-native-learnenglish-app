@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, TouchableOpacity, Modal } from "react-native";
 import { useLocalSearchParams } from "expo-router";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/utils/firebase/firebase";
 import Markdown from "react-native-markdown-display";
 import { LessonWord } from "@/types/types";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -10,25 +8,22 @@ import {
   faArrowsRotate,
   faHandPointRight,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 import AudioPlayer from "@/components/audioplayer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useWordStore } from "@/store/useWordStore";
 import FlipCard from "@/components/flipcard";
-import { set } from "date-fns";
 
 interface Lesson {
   id: string;
   title: string;
   text: string;
-  words: string[];
+  Words: LessonWord[];
   voiceTextFileUrl: string;
   voiceWordsFileUrl: string;
 }
 
 const LessonPage: React.FC = () => {
   const [lesson, setLesson] = useState<Lesson | null>(null);
-  const { words, fetchWords } = useWordStore();
-  const [lessonWordsList, setLessonWordsList] = useState<LessonWord[]>([]);
 
   const [loading, setLoading] = useState<boolean>(true);
   const { id, q } = useLocalSearchParams();
@@ -73,77 +68,22 @@ const LessonPage: React.FC = () => {
 
   const refetchLessons = async () => {
     try {
-      //force to fetch from database
-      const docRef = doc(db, "lessons", id as string);
-      const docSnap = await getDoc(docRef);
+      //TODO: query lesson with id from server
+      //fetch from server
+      const response = await axios.get(`http://10.0.0.77:3000/mainLessons/${id}`);
 
-      if (docSnap.exists()) {
-        const lesson = {
-          id: docSnap.id,
-          ...docSnap.data(),
-        } as Lesson;
-        setLesson(lesson);
-        //cache the lesson
+      const lesson: Lesson = await response.data;
+
+      setLesson(lesson);
+      //   //cache the lesson
         await AsyncStorage.setItem(
           `book1_lesson_${id}`,
           JSON.stringify(lesson)
         );
-      } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such lesson document!");
-      }
+
     } catch (error) {
       console.error("Error refetching lesson:", error);
     }
-  };
-
-  // ************ build words list with details from words store  ************
-  useEffect(() => {
-    if (lesson) {
-      buildLessonWordsList(); // Build the words list once the lesson is set
-    }
-  }, [lesson, words]);
-  //fetch words in dictionary and get better definition
-  const buildLessonWordsList = async () => {
-    if (!lesson) {
-      return;
-    }
-
-    if (!words || words.length === 0) {
-      console.error("No words available in the store, start fetching....");
-      fetchWords();
-      return;
-    }
-
-    const cachedLessonWords = await AsyncStorage.getItem(
-      `lessonWords_${lesson.id}`
-    );
-
-    // If lesson words are already cached, use them
-    if (cachedLessonWords) {
-      setLessonWordsList(JSON.parse(cachedLessonWords));
-      return;
-    }
-
-    const lessonWords = lesson.words;
-    const lessonWordsList: LessonWord[] = [];
-
-    lessonWords.forEach((word) => {
-      const wordDetails = words.find((w) => w.word === word);
-      if (wordDetails) {
-        lessonWordsList.push(wordDetails);
-      }
-    });
-
-    // Cache the lessonWordsList after building it
-    if (lessonWordsList.length > 0) {
-      await AsyncStorage.setItem(
-        `lessonWords_${lesson.id}`,
-        JSON.stringify(lessonWordsList)
-      );
-    }
-
-    setLessonWordsList(lessonWordsList);
   };
 
   // ************ Handle refetching lesson data ********
@@ -152,8 +92,7 @@ const LessonPage: React.FC = () => {
       return;
     }
     //clear cache and list before refetch
-    setLessonWordsList([]);
-    await AsyncStorage.removeItem(`lessonWords_${lesson.id}`);
+    await AsyncStorage.removeItem(`book1_lesson_${id}`);
     await refetchLessons();
   };
 
@@ -213,7 +152,7 @@ const LessonPage: React.FC = () => {
           <View style={styles.modalBackground}>
             {/* Modal Content */}
             <View style={styles.modalContent}>
-              <FlipCard wordList={lessonWordsList} modalMode={true} />
+              <FlipCard wordList={lesson.Words} modalMode={true} />
 
               {/* Button to close modal */}
               <TouchableOpacity
@@ -226,7 +165,7 @@ const LessonPage: React.FC = () => {
           </View>
         </Modal>
         <View className="flex gap-2">
-          {lessonWordsList.map((word, index) => (
+          {lesson.Words.map((word, index) => (
             <View
               className="flex flex-row items-baseline gap-1 border-dotted border-b border-gray-300 pr-2"
               key={index.toString()}

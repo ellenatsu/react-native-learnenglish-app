@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
-import React, { useEffect, useState } from "react";
-import { UserData, LessonWord } from "@/types/types";
+import React from "react";
 import { useUserStore } from "@/store/useUserStore";
 
 

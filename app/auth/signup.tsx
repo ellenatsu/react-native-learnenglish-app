@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { router } from 'expo-router';
-import { addDoc, collection } from 'firebase/firestore';
-import { auth, db } from '@/utils/firebase/firebase';
+
 import { create } from 'zustand';
 
 const SignUp: React.FC = () => {
@@ -13,27 +11,27 @@ const SignUp: React.FC = () => {
   const [error, setError] = useState('');
 
   const handleSignUp = async () => {
-
+    //TODO: post signup to backend server
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // Navigate to the main part of the app or show success message
-      const user = userCredential.user;
-      //create user in database
-      try {
-        await addDoc(collection(db, 'users'), {
-            uid: user.uid,
-            name: name,
-            email: user.email,
-            practicedDates: [],
-            bookmarkedWords: [],
-            createdNotes: [],
-        });
+    //   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    //   // Navigate to the main part of the app or show success message
+    //   const user = userCredential.user;
+    //   //create user in database
+    //   try {
+    //     await addDoc(collection(db, 'users'), {
+    //         uid: user.uid,
+    //         name: name,
+    //         email: user.email,
+    //         practicedDates: [],
+    //         bookmarkedWords: [],
+    //         createdNotes: [],
+    //     });
   
-        console.log('User saved successfully');
+    //     console.log('User saved successfully');
 
-      } catch (error) {
-        console.error('Error uploading lesson:', error);
-      }
+    //   } catch (error) {
+    //     console.error('Error uploading lesson:', error);
+    //   }
       
       router.push('/home');
     } catch (error) {
