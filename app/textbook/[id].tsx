@@ -32,7 +32,7 @@ const LessonList: React.FC = () => {
     const fetchLessons = async () => {
       try {
         //TODO: query lessons from server
-        const response = await axios.get(`http://10.0.0.77:3000/${collectionName}`);
+        const response = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/${collectionName}`);
 
         const lessonsList: Lesson[] = await response.data;
 

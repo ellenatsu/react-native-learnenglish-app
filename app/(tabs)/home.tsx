@@ -12,35 +12,20 @@ import { useWordStore } from "@/store/useWordStore";
 
 const HomePage: React.FC = () => {
   const todayDate = getLocalDate();
-  //zustand user data
-  const { userData, fetchUserData, refreshUserData, loading, logout } =
-    useUserStore();
-
+  //zustand user data, should already have data from login
+  const { userData, refreshUserData, loading, logout } = useUserStore();
   const { fetchWords, refreshWords } = useWordStore();
 
   //for calendar
   const [markedDates, setMarkedDates] = useState<{ [date: string]: any }>({});
   const [isTodayPracticed, setIsTodayPracticed] = useState(false);
 
-  //TODO: get user id (implement Auth)
-  const userId = "IpHNykE9t4Wr5n0p55L1"
 
-  //fetch user data
-  useEffect(() => {
-   // Start a manual transaction
-  Sentry.startSpan(
-    {
-      name: "fetchUserData",
-    },
-    (span) => {
-      fetchUserData(userId);
-      // Finish the transaction
-      if (span) {
-        span.end();
-      }
-    }
-  )
-  }, [userId]);
+  //redirect to login if not logged in
+  const userId = userData?.id;
+  if(!userId) {
+    router.push("/auth/login");
+  }
 
   //fetch words
   useEffect(() => {
@@ -96,7 +81,6 @@ const HomePage: React.FC = () => {
 
   const handleSignOut = async () => {
     try {
-      //TODO: implement logout
       //zustand logout
       logout();
       console.log("sign out successful");
@@ -107,7 +91,9 @@ const HomePage: React.FC = () => {
   };
 
   const handleUserRefresh = () => {
-    refreshUserData(userId);
+    if (userId) {
+      refreshUserData(userId);
+    }
   };
 
   const handlePullUpdate = async () => {

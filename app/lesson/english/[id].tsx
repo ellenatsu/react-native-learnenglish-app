@@ -70,7 +70,7 @@ const LessonPage: React.FC = () => {
     try {
       //TODO: query lesson with id from server
       //fetch from server
-      const response = await axios.get(`http://10.0.0.77:3000/mainLessons/${id}`);
+      const response = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/mainLessons/${id}`);
 
       const lesson: Lesson = await response.data;
 

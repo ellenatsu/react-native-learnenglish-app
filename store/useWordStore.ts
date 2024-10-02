@@ -27,7 +27,7 @@ export const useWordStore = create<WordStore>((set) => ({
         return;
       }
       //fetch from server
-      const response = await axios.get("http://10.0.0.77:3000/words");
+      const response = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/words`);
       const wordList = response.data;
       set({ words: wordList, loading: false });
     } catch (error) {

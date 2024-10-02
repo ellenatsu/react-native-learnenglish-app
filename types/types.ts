@@ -1,6 +1,6 @@
 export interface UserData {
-    id: string;
-    uid: string;
+    id: string; //identify ID .
+    uid: string; //move out from firebase, now no use.
     name: string;
     email: string;
     practicedDates: string[]; // Array of dates (e.g., ["2024-08-19"])
@@ -17,12 +17,6 @@ export interface UserData {
     voiceWordsFileUrl: string;
   }
   
-  // export interface Word {
-  //   id: string;
-  //   name: string;
-  //   chinese: string;
-  //   english: string;
-  // }
 
   export interface LessonWord {
     word: string;

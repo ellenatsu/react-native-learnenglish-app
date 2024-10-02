@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Button, Text, TouchableOpacity, Alert } from 'react-native';
 import { router } from 'expo-router';
 
 import { create } from 'zustand';
+import { useUserStore } from '@/store/useUserStore';
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,32 +11,18 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSignUp = async () => {
-    //TODO: post signup to backend server
-    try {
-    //   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    //   // Navigate to the main part of the app or show success message
-    //   const user = userCredential.user;
-    //   //create user in database
-    //   try {
-    //     await addDoc(collection(db, 'users'), {
-    //         uid: user.uid,
-    //         name: name,
-    //         email: user.email,
-    //         practicedDates: [],
-    //         bookmarkedWords: [],
-    //         createdNotes: [],
-    //     });
-  
-    //     console.log('User saved successfully');
+  const { register } = useUserStore();
 
-    //   } catch (error) {
-    //     console.error('Error uploading lesson:', error);
-    //   }
-      
-      router.push('/home');
+  const handleSignUp = async () => {
+    if (!email || !password || !name ) {
+      Alert.alert('Error', 'Please fill in all fields.');
+      return;
+    }
+    try {
+      await register(email, password, name);
+      router.push('/home'); // Redirect to Home on successful signup
     } catch (error) {
-        console.log("error sign in", error);
+      Alert.alert('Signup Failed An error occurred.');
     }
   };
 

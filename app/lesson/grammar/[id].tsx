@@ -59,22 +59,12 @@ const LessonPage: React.FC = () => {
     try {
       //TODO: query grammar lesson from server
       //fetch from server
-      const response = await axios.get(`http://10.0.0.77:3000/grammarLessons/${id}`);
+      const response = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/grammarLessons/${id}`);
       const lesson: GrammarLesson = response.data;
-
-      // if (docSnap.exists()) {
-      //   const lesson = {
-      //     id: docSnap.id,
-      //     ...docSnap.data(),
-      //   } as GrammarLesson;
-      //   setLesson(lesson);
 
       //cache the lesson
       await AsyncStorage.setItem(`book2_lesson_${id}`, JSON.stringify(lesson));
-      // } else {
-      //   // docSnap.data() will be undefined in this case
-      //   console.log("No such lesson document!");
-      // }
+
     } catch (error) {
       console.error("Error refetching lesson:", error);
     }
