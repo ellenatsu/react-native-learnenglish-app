@@ -44,18 +44,6 @@ const AudioPlayer = ({
     }
   };
 
-  // Event handler for playback status updates
-  // const onPlaybackStatusUpdate = (playbackStatus: AVPlaybackStatus) => {
-  //   if (!playbackStatus.isLoaded) {
-  //     // Update UI for when sound is not loaded
-  //     console.error("Playback status not loaded");
-  //   } else {
-  //     if (playbackStatus.didJustFinish) {
-  //       // Reset play state when audio finishes playing
-  //       setIsPlaying(false);
-  //     }
-  //   }
-  // };
 
   // Cleanup function to unload sound when component unmounts
   useEffect(() => {

@@ -28,6 +28,8 @@ const LessonPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const { id, q } = useLocalSearchParams();
   const [searchWord, setSearchWord] = useState<string>("");
+  const lessonAudio = `${process.env.EXPO_PUBLIC_BACKEND_URL}/audio/download/L${id}text`;
+  const wordAudio = `${process.env.EXPO_PUBLIC_BACKEND_URL}/audio/download/L${id}words`;
 
   //for highlight search result, q: search word
   useEffect(() => {
@@ -111,7 +113,7 @@ const LessonPage: React.FC = () => {
 
         {lesson.voiceTextFileUrl && (
           <AudioPlayer
-            audioUri={lesson.voiceTextFileUrl}
+            audioUri={lessonAudio}
             title="Listen to Text"
             size={32}
           />
@@ -126,14 +128,7 @@ const LessonPage: React.FC = () => {
         </View>
       </View>
 
-      <View className="mb-10">
-        {lesson.voiceWordsFileUrl && (
-          <AudioPlayer
-            audioUri={lesson.voiceWordsFileUrl}
-            title="Listen to Words"
-            size={32}
-          />
-        )}
+      <View className="mb-10">        
         <TouchableOpacity
           className="bg-blue-400 items-center m-5"
           onPress={() => setModalVisible(true)}
@@ -165,6 +160,9 @@ const LessonPage: React.FC = () => {
           </View>
         </Modal>
         <View className="flex gap-2">
+        {lesson.voiceWordsFileUrl && (
+            <AudioPlayer audioUri={wordAudio} title="Listen to Words" size={16} />
+        )}
           {lesson.Words.map((word, index) => (
             <View
               className="flex flex-row items-baseline gap-1 border-dotted border-b border-gray-300 pr-2"
@@ -183,10 +181,7 @@ const LessonPage: React.FC = () => {
                 <Text className="text-base text-gray-500">
                   ({word.phonetic})
                 </Text>
-              )}
-              {/* {word.audioUrl && (
-                <AudioPlayer audioUri={word.audioUrl} title="" size={16} />
-              )} */}
+              )}            
               <Text
                 className="pl-2 text-base text-gray-800"
                 style={{ flex: 1 }}

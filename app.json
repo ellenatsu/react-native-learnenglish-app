@@ -34,12 +34,19 @@
         {
           "organization": "ellen-cv",
           "project": "rn-learn-english",
-          // If you are using a self-hosted instance, update the value of the url property
-          // to point towards your self-hosted instance. For example, https://self-hosted.example.com/.
+
+
           "url": "https://sentry.io/"
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true // ? enable HTTP requests
+          }
+        }
       ]
-      
     ],
     "experiments": {
       "typedRoutes": true

@@ -39,19 +39,29 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
       if (token && userData) {
         const decodedToken = parseJwt(token);
-        const currentTime = Math.floor(Date.now() / 1000);
 
-        if (decodedToken.exp && decodedToken.exp < currentTime) {
-          // Token has expired
+        // Check if decoding was successful and decodedToken has an exp property
+        if (decodedToken && decodedToken.exp) {
+          const currentTime = Math.floor(Date.now() / 1000);
+
+          if (decodedToken.exp < currentTime) {
+            // Token has expired
+            await get().logout();
+            return;
+          }
+          // Update Zustand state
+          set({ userData: JSON.parse(userData), token });
+        } else {
+          // Handle case where token is invalid or cannot be parsed
+          console.log("error: Invalid token");
           await get().logout();
-          return;
         }
-
-        // Update Zustand state
-        set({ userData: JSON.parse(userData), token });
+      }else {
+        // Handle case where no token or userData is found
+        console.log("No token or user data found");
       }
     } catch (error) {
-      console.error("Error initializing user:", error);
+      console.log("Error initializing user:", error);
       // Optionally, clear storage or handle errors
     }
   },
@@ -195,7 +205,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
           password,
         }
       );
-      console.log("login resp" , response.data);
+      console.log("login resp", response.data);
 
       //get token and userdata
       const { token, userdata } = response.data;
