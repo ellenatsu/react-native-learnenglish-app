@@ -73,7 +73,12 @@ function RootLayout() {
           name="practice/flipcard-practice"
           options={{ title: "FlipCard Practice" }}
         />
+        <Stack.Screen
+          name="practice/multichoice-practice"
+          options={{ title: "Multichoice Practice" }}
+        />
         <Stack.Screen name="practice/finish" options={{ title: "Congrats!" }} />
+        <Stack.Screen name="practice/summary" options={{ title: "Congrats!" }} />
 
         {/* Profile */}
         <Stack.Screen

@@ -10,9 +10,12 @@ interface WordStore {
   loading: boolean;
   fetchWords: () => Promise<void>;
   refreshWords: () => Promise<void>;
+  //for multiple choices
+  getRandomWords: (count: number) => LessonWord[];
+  getWordsFromLessons: (start: number, end: number) => LessonWord[];
 }
 
-export const useWordStore = create<WordStore>((set) => ({
+export const useWordStore = create<WordStore>((set, get) => ({
   words: [],
   loading: false,
 
@@ -27,7 +30,9 @@ export const useWordStore = create<WordStore>((set) => ({
         return;
       }
       //fetch from server
-      const response = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/words`);
+      const response = await axios.get(
+        `${process.env.EXPO_PUBLIC_BACKEND_URL}/words`
+      );
       const wordList = response.data;
       set({ words: wordList, loading: false });
     } catch (error) {
@@ -55,5 +60,20 @@ export const useWordStore = create<WordStore>((set) => ({
     } finally {
       set({ loading: false });
     }
+  },
+
+  // Get random words
+  getRandomWords: (count) => {
+    const allWords = get().words;
+    return allWords.sort(() => 0.5 - Math.random()).slice(0, count);
+  },
+
+  // Get words from specific lessons
+  getWordsFromLessons: (start, end) => {
+    const allWords = get().words;
+    return allWords.filter((word) => {
+      const lessonNumber = parseInt(word.ref); // Assuming `ref` contains lesson info
+      return lessonNumber >= start && lessonNumber <= end;
+    });
   },
 }));

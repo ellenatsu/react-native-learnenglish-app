@@ -1,6 +1,7 @@
 import { ActivityIndicator, KeyboardAvoidingView, Platform } from "react-native";
 import React, { useState } from "react";
 import { View, Text, Button, TextInput, ScrollView } from "react-native";
+import Markdown from "react-native-markdown-display";
 
 interface ChatMessage {
   sender: "user" | "bot";
@@ -26,7 +27,7 @@ const ChatbotPage = () => {
 
     try {
       // Send the user's input to the backend AI API
-      const response = await fetch("http://10.0.0.77:3000/ai/chat", {
+      const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/ai/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -80,13 +81,20 @@ const ChatbotPage = () => {
                   : "self-start bg-gray-200"
               }`}
             >
-              <Text
+              {message.sender === "user" ? (
+                <Text
                 className={`${
                   message.sender === "user" ? "text-white" : "text-black"
                 }`}
               >
                 {message.content}
               </Text>
+
+              ) : (
+                <Markdown style={markdownStyles}>{message.content}</Markdown>
+              )}
+              
+              
             </View>
           ))}
         </ScrollView>
@@ -108,5 +116,19 @@ const ChatbotPage = () => {
     </KeyboardAvoidingView>
   );
 };
-
+const markdownStyles = {
+  body: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: "#333",
+  },
+  heading1: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  paragraph: {
+    marginBottom: 10,
+  },
+};
 export default ChatbotPage;
