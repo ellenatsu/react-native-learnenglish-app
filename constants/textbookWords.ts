@@ -2,180 +2,217 @@ import { LessonWord } from "@/types/types";
 export const wordsData : LessonWord[] = [
   {
     "id": "0MpZnvCqOl6z1Fkjj8Ph",
-    "audioUrl": "",
     "ref": "1",
+    "phonetic": "",
     "meaning": "非常",
-    "word": "very much",
-    "phonetic": ""
+    "audioUrl": "",
+    "word": "very much"
   },
   {
     "id": "1MUQFFdEIBCshJQHYUAU",
-    "meaning": "茶杯",
     "word": "cup",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/cup-us.mp3",
     "phonetic": "/kʌp/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/cup-us.mp3"
+    "meaning": "茶杯"
   },
   {
     "id": "1MZ8xiW3urPtI4IIB33u",
-    "ref": "7",
-    "meaning": "名字",
+    "phonetic": "/neɪm/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/name-1-us.mp3",
     "word": "name",
-    "phonetic": "/neɪm/"
+    "meaning": "名字",
+    "ref": "7"
   },
   {
     "id": "1v5VAJSq6zBq9LccczjU",
     "meaning": "大的",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/large-us.ogg",
-    "phonetic": "/ˈlɑːd͡ʒ/",
-    "word": "large"
+    "word": "large",
+    "ref": "22",
+    "phonetic": "/ˈlɑːd͡ʒ/"
   },
   {
     "id": "28BmANUnZgic2s6q5Shz",
-    "ref": "12",
+    "word": "mother",
+    "meaning": "母亲",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/mother-us.mp3",
     "phonetic": "/ˈmʌðə/",
-    "meaning": "母亲",
-    "word": "mother"
+    "ref": "12"
   },
   {
     "id": "2HZVkcLCNiO9DhrEiKun",
     "phonetic": "/meɪk/",
-    "meaning": "v.做;使 n.(产品)制造方法",
+    "word": "make",
     "ref": "6",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/make-us.mp3",
-    "word": "make"
+    "meaning": "v.做;使 n.(产品)制造方法",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/make-us.mp3"
+  },
+  {
+    "id": "2Nw7W1k5Gs3YdOCDG384",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/armchair-us.mp3",
+    "ref": "27",
+    "word": "armchair",
+    "meaning": "扶手椅",
+    "phonetic": "/ˈɑː(r)mtʃɛə(r)/"
   },
   {
     "id": "2ZTGOp3HfE2mTyjVmXck",
     "phonetic": "/siː/",
-    "meaning": "看见",
-    "word": "see",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/see-us.mp3",
+    "word": "see",
+    "meaning": "看见",
     "ref": "9"
   },
   {
     "id": "32t64fjKalNnV9bgXRzS",
-    "meaning": " 办公室 ",
-    "ref": "17",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/office-us.mp3",
     "phonetic": "/ˈɔfɪs/",
-    "word": "office"
+    "ref": "17",
+    "word": "office",
+    "meaning": " 办公室 "
   },
   {
     "id": "3QbYX8NpKH4w9vb87yeZ",
-    "phonetic": "/pəˈhæps/",
+    "ref": "11",
     "meaning": "大概",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/perhaps-us.mp3",
+    "phonetic": "/pəˈhæps/",
     "word": "perhaps",
-    "ref": "11"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/perhaps-us.mp3"
+  },
+  {
+    "id": "3X33lAOIotUaDKly0UwY",
+    "phonetic": "/ˈtɛləˌvɪʒən/",
+    "meaning": "电视机 (TV)",
+    "word": "television",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/television-us.mp3",
+    "ref": "24"
   },
   {
     "id": "3oWnPkUi1Ymn37ZwLFTV",
-    "word": "blue",
+    "phonetic": "/bluː/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/blue-us.mp3",
-    "ref": "11",
     "meaning": "蓝色的",
-    "phonetic": "/bluː/"
+    "word": "blue",
+    "ref": "11"
+  },
+  {
+    "id": "3smqhVCnYaqbuoNWIX0C",
+    "meaning": "电冰箱 ",
+    "word": "fridge",
+    "phonetic": "/fɹɪd͡ʒ/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/fridge-uk.mp3",
+    "ref": "25"
   },
   {
     "id": "41PZ1kWsRVA0GX8wUrd4",
-    "word": "shirt",
     "phonetic": "/ʃɜːt/",
-    "meaning": "衬衣",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/shirt-us.mp3",
-    "ref": "2"
+    "meaning": "衬衣",
+    "ref": "2",
+    "word": "shirt"
   },
   {
     "id": "45HvyJC5O63Xwl1o8k3I",
-    "ref": "15",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/girl-us.mp3",
-    "meaning": "女孩",
+    "phonetic": "/ɡɵːl/",
     "word": "girl",
-    "phonetic": "/ɡɵːl/"
+    "meaning": "女孩",
+    "ref": "15"
   },
   {
     "id": "4YXXWMl138AlORIe3933",
-    "word": "open",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/open-us.mp3",
+    "ref": "20",
+    "word": "open",
     "phonetic": "/ˈoʊ.pən/",
-    "meaning": "开着的",
-    "ref": "20"
+    "meaning": "开着的"
   },
   {
     "id": "4ZuUm0gMQXVDnmhOSQ2U",
-    "word": "me",
-    "meaning": "我(宾格)",
     "ref": "1",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/me-1-us.mp3",
     "phonetic": "/mi/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/me-1-us.mp3"
+    "word": "me",
+    "meaning": "我(宾格)"
   },
   {
     "id": "4ZvHqPcPyBnabHLkiBL4",
-    "meaning": "尖的",
     "word": "sharp",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/sharp-us.mp3",
-    "phonetic": "/ʃɑːp/"
+    "phonetic": "/ʃɑːp/",
+    "meaning": "尖的",
+    "ref": "22",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/sharp-us.mp3"
   },
   {
     "id": "4vleADeW3xpZ2LlJ4GIt",
-    "phonetic": "/ˈɒrɪndʒ/",
     "audioUrl": "",
     "ref": "16",
+    "phonetic": "/ˈɒrɪndʒ/",
     "meaning": "橙色的",
     "word": "orange"
   },
   {
     "id": "4z3sVGJTFQzzR8uOglUw",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/fork-us.mp3",
+    "ref": "22",
     "phonetic": "/fɔːk/",
     "word": "fork",
-    "meaning": "叉子",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/fork-us.mp3"
+    "meaning": "叉子"
   },
   {
     "id": "50GV9fdZspHPItvcDxfo",
-    "phonetic": "",
-    "ref": "5",
+    "meaning": "韩国人",
     "word": "Korean",
     "audioUrl": "",
-    "meaning": "韩国人"
+    "phonetic": "",
+    "ref": "5"
   },
   {
     "id": "5Kw8wRRXnt4GJ0hVDMNC",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/english-us.mp3",
-    "phonetic": "/ˈɪŋ.ɡlɪʃ/",
+    "word": "english",
     "meaning": "英国的",
-    "word": "english"
+    "phonetic": "/ˈɪŋ.ɡlɪʃ/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/english-us.mp3"
   },
   {
     "id": "5tzyu2ls1PhWoyq1sHoB",
     "phonetic": "/fʊl/",
-    "word": "full",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/full-us.mp3",
-    "meaning": "满的"
+    "word": "full",
+    "meaning": "满的",
+    "ref": "22"
   },
   {
     "id": "5wiILWWUJSwr1t93nYKD",
+    "phonetic": "/hat/",
     "ref": "13",
     "meaning": "帽子",
     "word": "hat",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/hat-us.mp3",
-    "phonetic": "/hat/"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/hat-us.mp3"
   },
   {
     "id": "65H14LgKm5useijS1B0J",
-    "word": "knife",
-    "meaning": "刀子",
+    "ref": "22",
     "phonetic": "/naɪf/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/knife-us.mp3"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/knife-us.mp3",
+    "word": "knife",
+    "meaning": "刀子"
   },
   {
     "id": "6vFUoPc4XRwZq2PB6nWA",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/come-1-us.mp3",
-    "ref": "13",
+    "word": "come",
     "meaning": "来",
-    "phonetic": "/kʌm/",
-    "word": "come"
+    "ref": "13",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/come-1-us.mp3",
+    "phonetic": "/kʌm/"
+  },
+  {
+    "id": "8GJVvH0ev67ZNPPgRocC",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/middle-us.mp3",
+    "meaning": "中间",
+    "phonetic": "/ˈmɪdəl/",
+    "word": "middle",
+    "ref": "25"
   },
   {
     "id": "9PnE4ca6StCIJprGXCyy",
@@ -187,799 +224,974 @@ export const wordsData : LessonWord[] = [
   },
   {
     "id": "A4EyDjSpbGvxmIiGVBGw",
-    "ref": "10",
     "word": "hot",
+    "ref": "10",
     "phonetic": "/hɒt/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/hot-us.mp3",
-    "meaning": "热"
+    "meaning": "热",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/hot-us.mp3"
   },
   {
     "id": "A5ZyoTeuX5yDInTmUKFP",
-    "ref": "16",
-    "word": "red",
-    "meaning": "红色的",
     "phonetic": "/rɛd/",
+    "meaning": "红色的",
+    "word": "red",
+    "ref": "16",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/red-us.mp3"
   },
   {
     "id": "AcgjjuQnWdU1XFXTUthz",
-    "meaning": "工作",
-    "phonetic": "/d͡ʒɒb/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/job-us.mp3",
+    "word": "job",
+    "phonetic": "/d͡ʒɒb/",
     "ref": "7",
-    "word": "job"
+    "meaning": "工作"
   },
   {
     "id": "AyrbsaZOG5bDFjayYj5Z",
-    "phonetic": "/seɪlz-rɛps/",
     "word": "sales reps",
     "meaning": "推销员",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/sales-us.mp3",
-    "ref": "17"
+    "ref": "17",
+    "phonetic": "/seɪlz-rɛps/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/sales-us.mp3"
+  },
+  {
+    "id": "BIbdIIqyRUK1hPcvq62Q",
+    "ref": "24",
+    "word": "bed",
+    "phonetic": "/bed/",
+    "meaning": "床",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/bed-us.mp3"
   },
   {
     "id": "BbD4oyaxyAeuHDfTaaTr",
-    "word": "number",
-    "meaning": "号码",
     "ref": "3",
-    "phonetic": "/ˈnʌmbə/",
-    "audioUrl": ""
+    "word": "number",
+    "audioUrl": "",
+    "meaning": "号码",
+    "phonetic": "/ˈnʌmbə/"
   },
   {
     "id": "BlyfZ17qza0LyRRM3EQ2",
-    "phonetic": "/ˈɛmpti/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/empty-us.mp3",
-    "meaning": "空的",
-    "word": "empty"
+    "word": "empty",
+    "phonetic": "/ˈɛmpti/",
+    "ref": "22",
+    "meaning": "空的"
   },
   {
     "id": "CWxL5DRJINv082jx272B",
-    "ref": "12",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/sister-us.mp3",
     "word": "sister",
+    "ref": "12",
     "phonetic": "/ˈsɪs.tə/",
     "meaning": "姐，妹  "
   },
   {
     "id": "Cf7nulGjK7kSO0RZxRsu",
-    "ref": "10",
-    "word": "short",
-    "meaning": "矮的；(of)缺乏，不足",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/short-us.mp3",
-    "phonetic": "/ʃoːt/"
+    "word": "short",
+    "ref": "10",
+    "phonetic": "/ʃoːt/",
+    "meaning": "矮的；(of)缺乏，不足"
   },
   {
     "id": "ChfN2jczMtY60bObltzX",
     "meaning": "伞",
+    "ref": "3",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/umbrella-us.mp3",
     "phonetic": "/ʌmˈbɹɛlə/",
-    "word": "umbrella",
-    "ref": "3"
+    "word": "umbrella"
+  },
+  {
+    "id": "CpXHTdtI5m0uBWWwI7qf",
+    "phonetic": "/ɪˈlɛktrɪk/",
+    "word": "electric",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/electric-us.mp3",
+    "meaning": "带电的,可通电的",
+    "ref": "25"
+  },
+  {
+    "id": "D1nG6NzheM3IFOvLkWXD",
+    "ref": "23",
+    "phonetic": "/ɔn/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/on-us.mp3",
+    "word": "on",
+    "meaning": "在…上"
+  },
+  {
+    "id": "DPPtyMT7wP6GmDxSiVyL",
+    "ref": "25",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/right-us.mp3",
+    "word": "right",
+    "phonetic": "/raɪt/",
+    "meaning": "右边"
   },
   {
     "id": "DYK36VAdNzYDsZeAaP8d",
     "ref": "20",
-    "phonetic": "/ˈɡrænfɑːðə/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/grandfather-us.mp3",
-    "meaning": "祖父, 外祖父",
-    "word": "grandfather"
+    "word": "grandfather",
+    "phonetic": "/ˈɡrænfɑːðə/",
+    "meaning": "祖父, 外祖父"
   },
   {
     "id": "EJodVr3q9CNyE4995dHv",
-    "ref": "12",
     "meaning": "兄，弟",
+    "phonetic": "/ˈbrʌð.ɚ/",
+    "ref": "12",
     "word": "brother",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/brother-us.mp3",
-    "phonetic": "/ˈbrʌð.ɚ/"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/brother-us.mp3"
   },
   {
     "id": "Egb28edgkCNBrNHJevtN",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/box-us.mp3",
-    "phonetic": "/bɑks/",
+    "ref": "22",
     "meaning": "盒子",
-    "word": "box"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/box-us.mp3",
+    "word": "box",
+    "phonetic": "/bɑks/"
   },
   {
     "id": "FQn6HX64wLaoG2Btd4dM",
-    "word": "smart",
-    "ref": "13",
     "meaning": "时髦的，巧妙的",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/smart-us.mp3",
-    "phonetic": "/smɑːt/"
+    "word": "smart",
+    "phonetic": "/smɑːt/",
+    "ref": "13"
+  },
+  {
+    "id": "FU6S4FD0gBEWmcpvra08",
+    "audioUrl": "",
+    "ref": "24",
+    "meaning": "梳妆台",
+    "phonetic": "/ˈdrɛsɪŋ ˌteɪbəl/",
+    "word": "dressing table"
   },
   {
     "id": "FYqRCAmJUFit0cStPio4",
     "meaning": "法国人",
     "ref": "5",
-    "phonetic": "/frɛnt͡ʃ/",
     "word": "French",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/french-us.mp3"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/french-us.mp3",
+    "phonetic": "/frɛnt͡ʃ/"
+  },
+  {
+    "id": "FnC9cC7gv0uL9BiS5Ov2",
+    "word": "stereo",
+    "meaning": " 立体声音响",
+    "phonetic": "/ˈstɛrioʊ/",
+    "audioUrl": "",
+    "ref": "24"
   },
   {
     "id": "H5HKQUXjJpYaXmVzJlei",
-    "ref": "19",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/thirsty-us.mp3",
     "phonetic": "/ˈθɜː(r)st.i/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/thirsty-us.mp3",
     "word": "thirsty",
-    "meaning": "渴"
+    "meaning": "渴",
+    "ref": "19"
   },
   {
     "id": "HUAMmz3DIu0rdbCbEeSw",
-    "ref": "20",
-    "meaning": "小的",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/small-us.mp3",
     "word": "small",
-    "phonetic": "/smɔl/"
+    "meaning": "小的",
+    "phonetic": "/smɔl/",
+    "ref": "20",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/small-us.mp3"
   },
   {
     "id": "IH0YBRK6SbYNr0wYXY9a",
-    "word": "Japanese",
-    "meaning": "日本人",
-    "ref": "5",
     "audioUrl": "",
-    "phonetic": ""
+    "meaning": "日本人",
+    "word": "Japanese",
+    "phonetic": "",
+    "ref": "5"
   },
   {
     "id": "IT0XXXJ9cx7zCY4GlloS",
-    "ref": "9",
-    "meaning": "今天",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/today-us.mp3",
+    "ref": "9",
     "word": "today",
+    "meaning": "今天",
     "phonetic": "/təˈdeɪ/"
+  },
+  {
+    "id": "IbicYBei8Hr1f3kCNIR5",
+    "ref": "24",
+    "audioUrl": "",
+    "word": "Mrs",
+    "meaning": "夫人",
+    "phonetic": "/ˈmɪsɪz/"
   },
   {
     "id": "IzlqrKP9m1JQvhzxSv6v",
     "ref": "9",
+    "meaning": "谢谢",
     "phonetic": "/θæŋks/",
-    "word": "thanks",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/thanks-us.ogg",
-    "meaning": "谢谢"
+    "word": "thanks"
   },
   {
     "id": "J73ky6LlH8ywSMXEyfLb",
-    "phonetic": "/bɪɡ/",
-    "meaning": "大的",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/big-us.ogg",
+    "ref": "20",
     "word": "big",
-    "ref": "20"
+    "phonetic": "/bɪɡ/",
+    "meaning": "大的"
   },
   {
     "id": "J7gXWIe5mXSrWD4WL06F",
+    "meaning": "好",
+    "ref": "9",
     "phonetic": "/fæːn/",
     "word": "fine",
-    "ref": "9",
-    "meaning": "好",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/fine-1-au.mp3"
   },
   {
     "id": "JRfRHxZLz7jlFsg2Gk03",
-    "ref": "3",
     "word": "here",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/here-us.mp3",
+    "phonetic": "/hiːr/",
     "meaning": "这里",
-    "phonetic": "/hiːr/"
+    "ref": "3"
+  },
+  {
+    "id": "JcToVy1T2MgiLPZdzHJb",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/wall-us.mp3",
+    "ref": "27",
+    "word": "wall",
+    "phonetic": "/wɔːl/",
+    "meaning": "墙"
   },
   {
     "id": "Jg0Im5wotQ10oF1i1pXN",
     "meaning": "狗",
-    "ref": "14",
     "phonetic": "/dɔɡ/",
+    "ref": "14",
     "word": "dog",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/dog-us.mp3"
   },
   {
     "id": "JgYq76fo7vBkMLI4gXML",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/black-uk.mp3",
     "ref": "16",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/black-uk.mp3",
     "meaning": "黑色的",
-    "word": "black",
-    "phonetic": "/blak/"
+    "phonetic": "/blak/",
+    "word": "black"
   },
   {
     "id": "KLmrmDguGGf7gEVKOyPZ",
-    "ref": "10",
-    "word": "thin",
-    "phonetic": "/ˈθɪn/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/thin-us.mp3",
+    "ref": "10",
+    "phonetic": "/ˈθɪn/",
+    "word": "thin",
     "meaning": "瘦"
   },
   {
     "id": "LjvcMZZW9u5DamxHGDqH",
-    "meaning": "罐头",
-    "phonetic": "/tɪn/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/tin-us.mp3",
-    "word": "tin"
+    "phonetic": "/tɪn/",
+    "meaning": "罐头 (can)",
+    "word": "tin",
+    "ref": "22"
   },
   {
     "id": "LsKlkx9c7ATHqJQcbyXg",
-    "ref": "20",
     "phonetic": "/ˈɡræn(d)ˌmʌðə(r)/",
     "meaning": "祖母, 外祖母",
+    "ref": "20",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/grandmother-us.mp3",
     "word": "grandmother"
   },
   {
     "id": "MVsXeAl4mMWuOp5eFWjB",
+    "meaning": "年轻的",
     "word": "young",
     "ref": "10",
-    "meaning": "年轻的",
-    "phonetic": "/jʌŋ/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/young-us.mp3"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/young-us.mp3",
+    "phonetic": "/jʌŋ/"
+  },
+  {
+    "id": "NBzt6IT1yDmKFmLShUPY",
+    "ref": "27",
+    "meaning": " 门",
+    "word": "door",
+    "phonetic": "/dɔː/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/door-us.mp3"
   },
   {
     "id": "NQGnnw7cUjySigme0z6L",
-    "meaning": "动词现在第三人称单数",
     "ref": "1",
+    "phonetic": "",
     "audioUrl": "",
     "word": "is",
-    "phonetic": ""
+    "meaning": "动词现在第三人称单数"
   },
   {
     "id": "NRPrw8wnkvvGxLtTbVyR",
-    "phonetic": "/ˈleɪzi/",
     "meaning": "懒惰的",
-    "word": "lazy",
+    "ref": "10",
+    "phonetic": "/ˈleɪzi/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/lazy-us.mp3",
-    "ref": "10"
+    "word": "lazy"
   },
   {
     "id": "NdPGctxgjMb3otWiYrt5",
     "phonetic": "/mʌm/",
-    "audioUrl": "",
     "meaning": "妈妈 (儿语Mum)",
     "ref": "19",
-    "word": "mom"
+    "word": "mom",
+    "audioUrl": ""
   },
   {
     "id": "NnX9TU7WBou5jKzFoIr9",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/long-au.mp3",
     "phonetic": "/ˈlɔːŋ/",
-    "meaning": "长的",
     "ref": "20",
+    "meaning": "长的",
     "word": "long"
   },
   {
     "id": "ORWwg82VoylYy5oHgFLe",
-    "word": "green",
-    "meaning": "绿色 ",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/green-us.mp3",
     "ref": "13",
-    "phonetic": "/ɡriːn/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/green-us.mp3"
+    "meaning": "绿色 ",
+    "word": "green",
+    "phonetic": "/ɡriːn/"
   },
   {
     "id": "OXRylCNVPebPeZpK1YO4",
-    "phonetic": "/kæt͡ʃ/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/catch-us.mp3",
-    "ref": "11",
+    "phonetic": "/kæt͡ʃ/",
     "word": "catch",
+    "ref": "11",
     "meaning": "抓住"
   },
   {
     "id": "OyXiTM1U2q4evBmyxsFu",
     "ref": "20",
     "phonetic": "/lʌɪt/",
+    "meaning": "轻的, 光线, 光",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/light-us.mp3",
-    "word": "light",
-    "meaning": "轻的, 光线, 光"
+    "word": "light"
   },
   {
     "id": "PHOP0F9R7RiZOn7HXhzu",
-    "word": "student",
+    "meaning": "学生",
     "phonetic": "/ˈstjuː.dənt/",
     "ref": "5",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/student-us.mp3",
-    "meaning": "学生"
+    "word": "student",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/student-us.mp3"
   },
   {
     "id": "PbzGhRMwjU0qinbot5cM",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/these-us.mp3",
     "phonetic": "/ðiːz/",
-    "ref": "16",
     "word": "these",
-    "meaning": "这些",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/these-us.mp3"
+    "ref": "16",
+    "meaning": "这些"
   },
   {
     "id": "PfV4dDJjOfZDTboGv57c",
-    "word": "tourist",
-    "phonetic": "/ˈtʊərɪst/",
     "meaning": " 旅游者",
+    "phonetic": "/ˈtʊərɪst/",
+    "word": "tourist",
     "audioUrl": "",
     "ref": "15"
   },
   {
     "id": "Pr9PbqYdI8ygCbqxNuqo",
-    "ref": "16",
+    "meaning": "俄罗斯人 ",
     "word": "Russian",
-    "phonetic": "/ˈrʌʃ(ə)n/",
     "audioUrl": "",
-    "meaning": "俄罗斯人 "
+    "ref": "16",
+    "phonetic": "/ˈrʌʃ(ə)n/"
   },
   {
     "id": "Pze2EZyQcYem3deHSVaW",
-    "ref": "1",
-    "word": "pardon",
+    "meaning": "请再说一遍",
     "phonetic": "/ˈpɑr.dən/",
+    "ref": "1",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/pardon-us.mp3",
-    "meaning": "请再说一遍"
+    "word": "pardon"
   },
   {
     "id": "QRJ5XQLuxBbpEHuC9E25",
     "phonetic": "/tuː/",
     "word": "too",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/too-us.mp3",
+    "ref": "5",
     "meaning": "也",
-    "ref": "5"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/too-us.mp3"
   },
   {
     "id": "Qm5YUIu7Tj5hAi9Lodvp",
-    "ref": "2",
-    "phonetic": "/ˈpɛnsɪl/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/pencil-us.mp3",
+    "ref": "2",
     "meaning": "铅笔",
+    "phonetic": "/ˈpɛnsɪl/",
     "word": "pencil"
   },
   {
+    "id": "QxmaHX6wl9GJh6HeptH0",
+    "phonetic": "/ˈkɪtʃɪn/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/kitchen-us.mp3",
+    "word": "kitchen",
+    "meaning": "厨房",
+    "ref": "25"
+  },
+  {
     "id": "RBTOAhtVNhhRvUvMpEr7",
-    "phonetic": "/blaʊs/",
-    "meaning": "女衬衫",
     "ref": "12",
+    "audioUrl": "",
+    "meaning": "女衬衫",
     "word": "blouse",
-    "audioUrl": ""
+    "phonetic": "/blaʊs/"
   },
   {
     "id": "RXPUS4zKu7PBT5y1VooW",
-    "word": "busy",
     "meaning": "忙",
-    "phonetic": "/ˈbɪzi/",
     "ref": "10",
+    "word": "busy",
+    "phonetic": "/ˈbɪzi/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/busy-us.mp3"
   },
   {
     "id": "SIMcvAu4ItbUYuDkVdDX",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/father-us.mp3",
-    "phonetic": "/ˈfaːðə/",
     "ref": "12",
-    "meaning": "父亲",
-    "word": "father"
+    "word": "father",
+    "phonetic": "/ˈfaːðə/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/father-us.mp3",
+    "meaning": "父亲"
   },
   {
     "id": "T0dNhJ3R8ltAxepbJld7",
-    "phonetic": "/ˈlɪtl̩/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/little-us.mp3",
+    "phonetic": "/ˈlɪtl̩/",
     "meaning": "小的",
-    "word": "little"
+    "word": "little",
+    "ref": "22"
   },
   {
     "id": "T8NLXGr2DJ4if6Rwbe7o",
-    "ref": "2",
     "word": "coat",
-    "phonetic": "/kəʊt/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/coat-us.mp3",
+    "phonetic": "/kəʊt/",
+    "ref": "2",
     "meaning": "上衣"
   },
   {
     "id": "TKcpUBqz97EDTIA4saNJ",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/five-us.mp3",
-    "phonetic": "/faɪv/",
-    "ref": "3",
+    "meaning": "五",
     "word": "five",
-    "meaning": "五"
+    "ref": "3",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/five-us.mp3",
+    "phonetic": "/faɪv/"
+  },
+  {
+    "id": "TUC0TFQLjfYdWtyqUUXo",
+    "phonetic": "/ˈlɪvɪŋ rʊm/",
+    "meaning": "客厅",
+    "ref": "27",
+    "word": "living room",
+    "audioUrl": ""
+  },
+  {
+    "id": "Tp6XMZQstcG2Ptk6F56S",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/table-us.mp3",
+    "phonetic": "/ˈteɪbəl/",
+    "ref": "24",
+    "meaning": "桌子",
+    "word": "table"
   },
   {
     "id": "U6MwaLWIeRSomEuggZ4a",
     "ref": "17",
     "meaning": "雇员 ",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/employee-us.mp3",
     "phonetic": "/ɪmˈplɔɪiː/",
-    "word": "employee"
+    "word": "employee",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/employee-us.mp3"
   },
   {
     "id": "UFMGe5V33v5OrLnkGwQd",
-    "meaning": "家庭主妇",
-    "audioUrl": "",
-    "ref": "8",
+    "word": "housewife",
     "phonetic": "",
-    "word": "housewife"
+    "audioUrl": "",
+    "meaning": "家庭主妇",
+    "ref": "8"
+  },
+  {
+    "id": "ULqkQaiAgJuEv0xOcJY7",
+    "meaning": "课桌",
+    "word": "desk",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/desk-us.mp3",
+    "phonetic": "/dɛsk/",
+    "ref": "24"
   },
   {
     "id": "V3NUZREFU6fxXTfFPdAI",
     "ref": "21",
-    "meaning": "一个",
     "word": "one",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/one-us.mp3",
+    "meaning": "一个",
     "phonetic": "/wʌn/"
   },
   {
     "id": "VKlefEVuf5hv3BJn4gYm",
-    "phonetic": "/miːt/",
+    "ref": "5",
     "meaning": "遇见",
+    "phonetic": "/miːt/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/meet-us.mp3",
-    "word": "meet",
-    "ref": "5"
+    "word": "meet"
+  },
+  {
+    "id": "VN7vCsv47YLH4CAqunX2",
+    "audioUrl": "",
+    "phonetic": "/mæɡəˈziːn/",
+    "meaning": "杂志",
+    "word": "magazine",
+    "ref": "24"
   },
   {
     "id": "VRzouxvBFNqZuEwqfYH8",
+    "ref": "2",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/watch-uk.mp3",
     "meaning": "手表",
     "word": "watch",
-    "phonetic": "/wɒt͡ʃ/",
-    "ref": "2"
+    "phonetic": "/wɒt͡ʃ/"
   },
   {
     "id": "VvoIXqXAqHouDykZdzJF",
-    "meaning": "钝的",
     "phonetic": "/blʌnt/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/blunt-us.mp3",
-    "word": "blunt"
+    "word": "blunt",
+    "ref": "22",
+    "meaning": "钝的"
   },
   {
     "id": "W5r2LCdPHVjsFsGS50NM",
-    "ref": "20",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/shoe-us.mp3",
     "phonetic": "/ʃuː/",
     "word": "shoe",
-    "meaning": "鞋子"
+    "ref": "20",
+    "meaning": "鞋子",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/shoe-us.mp3"
   },
   {
     "id": "WSfUlPImwfDRAJ9YAN3L",
-    "word": "operator",
     "ref": "7",
-    "phonetic": "/ˈɒpəˌreɪtə/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/operator-uk.mp3",
-    "meaning": "操作人员"
+    "meaning": "操作人员",
+    "word": "operator",
+    "phonetic": "/ˈɒpəˌreɪtə/"
   },
   {
     "id": "XdMnvkgpLF2DruVkTp5M",
     "meaning": "机械师",
-    "word": "mechanic",
-    "phonetic": "/məˈkænɪk/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/mechanic-us.mp3",
-    "ref": "8"
+    "word": "mechanic",
+    "ref": "8",
+    "phonetic": "/məˈkænɪk/"
   },
   {
     "id": "XlAzRNojvey34OzuqEjM",
+    "ref": "22",
     "phonetic": "/ɡlɑːs/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/glass-us.mp3",
+    "meaning": "杯子",
     "word": "glass",
-    "meaning": "杯子"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/glass-us.mp3"
   },
   {
     "id": "YTR64eFP2Pm7JRGwFAgL",
-    "meaning": "小汽车",
-    "word": "car",
     "phonetic": "/kɑː/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/car-us.mp3",
-    "ref": "2"
+    "ref": "2",
+    "word": "car",
+    "meaning": "小汽车",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/car-us.mp3"
+  },
+  {
+    "id": "YWrXUhhki83kaXZyxs6g",
+    "meaning": " 靠近",
+    "phonetic": "/nɪə/",
+    "ref": "27",
+    "word": "near",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/near-us.mp3"
   },
   {
     "id": "YkZRJd63KLyWT9HeaTFV",
-    "ref": "5",
+    "word": "morning",
+    "meaning": "早上",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/morning-us.mp3",
     "phonetic": "/ˈmɔːnɪŋ/",
-    "word": "morning",
-    "meaning": "早上"
+    "ref": "5"
   },
   {
     "id": "ZEyWmnaYa492Md1BzeoK",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/skirt-us.mp3",
-    "meaning": "裙子",
     "word": "skirt",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/skirt-us.mp3",
+    "ref": "2",
     "phonetic": "/skɜːt/",
-    "ref": "2"
+    "meaning": "裙子"
   },
   {
     "id": "ZJ4tObrMkVlzleO0Bwmr",
     "word": "engineer",
-    "meaning": "工程师",
-    "phonetic": "/ˌɛnd͡ʒɪˈnɪə/",
+    "ref": "7",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/engineer-us.mp3",
-    "ref": "7"
+    "phonetic": "/ˌɛnd͡ʒɪˈnɪə/",
+    "meaning": "工程师"
   },
   {
     "id": "ZkX7QJBijtwaXteZHFUq",
-    "ref": "19",
+    "phonetic": "/taɪəd/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/tired-us.mp3",
     "meaning": "累",
     "word": "tired",
-    "phonetic": "/taɪəd/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/tired-us.mp3"
+    "ref": "19"
+  },
+  {
+    "id": "ZpdZge29EFqColHzKEEE",
+    "ref": "24",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/plate-uk.mp3",
+    "phonetic": "/pleɪt/",
+    "word": "plate",
+    "meaning": "盘子"
   },
   {
     "id": "ZtPWn9SikgI4ASyoE8Fi",
-    "meaning": "先生",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/sir-us.mp3",
     "word": "sir",
-    "ref": "3",
     "phonetic": "/ˈsə(r)/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/sir-us.mp3"
+    "meaning": "先生",
+    "ref": "3"
   },
   {
     "id": "a9gX2IogResnTY2Vedyu",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/pen.mp3",
-    "ref": "2",
-    "meaning": "钢笔",
     "word": "pen",
+    "ref": "2",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/pen.mp3",
+    "meaning": "钢笔",
     "phonetic": "/pɛn/"
   },
   {
     "id": "aB5DXgsde4zG6j06Bmc8",
-    "meaning": "谁的",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/whose-us.mp3",
+    "word": "whose",
     "phonetic": "/huːz/",
     "ref": "11",
-    "word": "whose"
+    "meaning": "谁的",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/whose-us.mp3"
   },
   {
     "id": "bNDoqfiTKxcrJmiTvPR0",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/how-us.mp3",
-    "word": "how",
-    "ref": "9",
+    "meaning": "怎么",
     "phonetic": "/hæŏ/",
-    "meaning": "怎么"
+    "word": "how",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/how-us.mp3",
+    "ref": "9"
   },
   {
     "id": "bhGEEKMe8enSsI2BBkAf",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/nice-us.mp3",
-    "phonetic": "/naɪs/",
-    "ref": "5",
     "meaning": "美好的",
-    "word": "nice"
+    "word": "nice",
+    "ref": "5",
+    "phonetic": "/naɪs/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/nice-us.mp3"
+  },
+  {
+    "id": "bhqrM8uDEh1r5qgtl7yC",
+    "word": "window",
+    "ref": "27",
+    "meaning": "窗户",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/window-us.mp3",
+    "phonetic": "/ˈwɪndəʊ/"
   },
   {
     "id": "bkaeL3wt3QtkfAycw6Ty",
-    "ref": "15",
-    "phonetic": "/frɛnd/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/friend-us.mp3",
     "word": "friend",
+    "phonetic": "/frɛnd/",
     "meaning": "朋友",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/friend-us.mp3"
+    "ref": "15"
   },
   {
     "id": "cardgDzPPzOB327q3X24",
-    "phonetic": "/hɜː/ ",
     "word": "her",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/her-us.mp3",
+    "meaning": "她的",
     "ref": "12",
-    "meaning": "她的"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/her-us.mp3",
+    "phonetic": "/hɜː/ "
   },
   {
     "id": "ceAafsNzyonTAgunZbIo",
-    "phonetic": "/skuːl/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/school-uk.mp3",
-    "word": "school",
     "ref": "4",
-    "meaning": "学校"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/school-uk.mp3",
+    "meaning": "学校",
+    "phonetic": "/skuːl/",
+    "word": "school"
   },
   {
     "id": "clAs01Bmo3LmenDufl7r",
-    "phonetic": "/ˈsɔri/",
-    "meaning": "对不起",
+    "word": "sorry",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/sorry-ca.mp3",
     "ref": "3",
-    "word": "sorry"
+    "meaning": "对不起",
+    "phonetic": "/ˈsɔri/"
+  },
+  {
+    "id": "cnSK1GOpgk1mcit8Pvdr",
+    "word": "left",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/left-1-us.mp3",
+    "phonetic": "/lɛft/",
+    "ref": "25",
+    "meaning": "左边"
   },
   {
     "id": "d7Pk7AYgQvrkfJODZ5W9",
-    "phonetic": "/ɡreɪ/",
-    "meaning": "灰色的 ",
-    "ref": "16",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/grey-us.mp3",
-    "word": "grey"
+    "ref": "16",
+    "word": "grey",
+    "meaning": "灰色的 ",
+    "phonetic": "/ɡreɪ/"
   },
   {
     "id": "eDtMMcmbjwtDBLjcXJsk",
     "word": "new",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/new-us.ogg",
+    "phonetic": "/njʉː/",
     "ref": "5",
-    "meaning": "新的",
-    "phonetic": "/njʉː/"
+    "meaning": "新的"
+  },
+  {
+    "id": "eLUPwGR2vRLviEGemd3B",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/picture-us.mp3",
+    "meaning": "图片",
+    "word": "picture",
+    "phonetic": "/ˈpɪktʃə/",
+    "ref": "27"
   },
   {
     "id": "eVmHEnZyGLBkd0rdoPUL",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/danish-uk.mp3",
-    "phonetic": "/ˈdeɪ.nɪʃ/",
     "ref": "15",
     "word": "Danish",
-    "meaning": "丹麦人"
+    "meaning": "丹麦人",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/danish-uk.mp3",
+    "phonetic": "/ˈdeɪ.nɪʃ/"
   },
   {
     "id": "ehtZyFXWHy9VdDclAwCy",
     "phonetic": "/ˈɪŋ.ɡlɪʃ/",
-    "meaning": "英国人",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/english-us.mp3",
     "ref": "6",
-    "word": "English"
+    "word": "English",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/english-us.mp3",
+    "meaning": "英国人"
   },
   {
     "id": "ez8gpmQqQYTLcgT1atpd",
+    "meaning": "好, 可以",
+    "ref": "19",
     "phonetic": "/raɪt/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/right-us.mp3",
-    "meaning": "好, 可以",
-    "word": "right",
-    "ref": "19"
+    "word": "right"
+  },
+  {
+    "id": "fJttqEwQxlbS7FCngEFm",
+    "meaning": "地板",
+    "phonetic": "/flɔːr/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/floor-us.mp3",
+    "word": "floor",
+    "ref": "24"
   },
   {
     "id": "fS20BjJRH3k0nXYzs6YD",
-    "phonetic": "/fæt/",
     "ref": "10",
-    "meaning": "胖",
     "word": "fat",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/fat-us.mp3"
+    "phonetic": "/fæt/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/fat-us.mp3",
+    "meaning": "胖"
   },
   {
     "id": "fedWG4Hu1KpqC5qcFa2V",
-    "word": "bottle",
     "meaning": " 瓶子",
+    "ref": "22",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/bottle-ca.mp3",
+    "word": "bottle",
     "phonetic": "/ˈbɑ.təl/"
   },
   {
     "id": "g3acLHggMjMfs67TSOaX",
+    "audioUrl": "",
+    "meaning": "美国人 ",
     "phonetic": "/əˈmerɪkən/",
     "word": "American",
-    "audioUrl": "",
-    "ref": "6",
-    "meaning": "美国人 "
+    "ref": "6"
   },
   {
     "id": "g6rk6vOlYcvOq2pr3p05",
-    "word": "keyboard",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/keyboard-us.mp3",
     "ref": "7",
+    "phonetic": "/ˈkiːbɔːd/",
     "meaning": "键盘",
-    "phonetic": "/ˈkiːbɔːd/"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/keyboard-us.mp3",
+    "word": "keyboard"
   },
   {
     "id": "h2artq4qtoz16GUEwn9m",
-    "ref": "9",
-    "meaning": "再见",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/goodbye-us.mp3",
+    "meaning": "再见",
     "phonetic": "/ɡədˈbaɪ/",
+    "ref": "9",
     "word": "goodbye"
   },
   {
     "id": "h8UzM0ACH4AKxKIiDxeL",
+    "word": "american",
     "phonetic": "",
     "meaning": "美国的；美国人",
-    "word": "american",
     "audioUrl": ""
   },
   {
     "id": "hANGML6laBWxsDxeUXbJ",
-    "phonetic": "/nɔːˈwiːdʒ(ə)n/ ",
-    "meaning": "挪威人",
+    "ref": "15",
     "audioUrl": "",
+    "meaning": "挪威人",
     "word": "Norwegian",
-    "ref": "15"
+    "phonetic": "/nɔːˈwiːdʒ(ə)n/ "
   },
   {
     "id": "hNHmFaLs2l3ks2ENL0se",
-    "meaning": "事情",
     "word": "matter",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/matter-us.mp3",
+    "meaning": "事情",
     "ref": "19",
     "phonetic": "/ˈmætə/"
+  },
+  {
+    "id": "hzJGBx8dBjmNaS2MsTie",
+    "meaning": "架子",
+    "audioUrl": "",
+    "phonetic": "/ʃɛlf/",
+    "ref": "23",
+    "word": "shelf"
   },
   {
     "id": "i75pwv3DITNu1ju9ekSz",
     "phonetic": "/keɪs/",
     "ref": "14",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/case-us.mp3",
     "meaning": "箱子",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/case-us.mp3",
     "word": "case"
   },
   {
     "id": "iBpXomeMd3wAoEG2uqlU",
-    "word": "boy",
     "meaning": "男孩",
+    "phonetic": "/bɔɪ/",
     "ref": "19",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/boy-us.mp3",
-    "phonetic": "/bɔɪ/"
+    "word": "boy",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/boy-us.mp3"
   },
   {
     "id": "iF0zvNKkflVyh3JE11AZ",
-    "word": "hard-working",
-    "ref": "17",
+    "audioUrl": "",
     "meaning": "勤奋的",
     "phonetic": "/hɑːd-ˈwɜːkɪŋ/",
-    "audioUrl": ""
+    "word": "hard-working",
+    "ref": "17"
   },
   {
     "id": "iQ0p5gBZGzsC1do2mF2H",
-    "meaning": "干净",
-    "word": "clean",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/clean-us.mp3",
-    "ref": "10",
-    "phonetic": "/kleːn/"
+    "word": "clean",
+    "meaning": "干净",
+    "phonetic": "/kleːn/",
+    "ref": "10"
   },
   {
     "id": "j6NPrXRfwHgbXQNDC4Tf",
-    "meaning": "be动词现在时第一人称单数",
     "phonetic": "/e̞m/",
-    "word": "am",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/i-1-us.mp3",
+    "word": "am",
+    "meaning": "be动词现在时第一人称单数",
     "ref": "7"
   },
   {
     "id": "jHQCMhljeT2oLRPJ8oBD",
-    "word": "handbag",
-    "ref": "1",
     "phonetic": "/ˈhæm.bəɡ/",
+    "meaning": "（女用）手提包",
     "audioUrl": "",
-    "meaning": "（女用）手提包"
+    "word": "handbag",
+    "ref": "1"
   },
   {
     "id": "jYngBysXmj1lIjIRHWj8",
-    "meaning": "荷兰人",
-    "phonetic": "/dʌtʃ/",
+    "ref": "16",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/dutch-us.mp3",
     "word": "Dutch",
-    "ref": "16"
+    "meaning": "荷兰人",
+    "phonetic": "/dʌtʃ/"
   },
   {
     "id": "k2JgcTqFjWG7j1Ln3gCA",
-    "ref": "4",
-    "word": "teacher",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/teacher-us.mp3",
-    "phonetic": "/ˈtiːt͡ʃə/",
-    "meaning": "老师"
+    "word": "teacher",
+    "meaning": "老师",
+    "ref": "4",
+    "phonetic": "/ˈtiːt͡ʃə/"
   },
   {
     "id": "kCanJB8YExe4tSBhwECW",
-    "audioUrl": "",
-    "meaning": "意大利的",
-    "phonetic": "/ɪˈtæljən/",
     "ref": "6",
-    "word": "Italian"
+    "phonetic": "/ɪˈtæljən/",
+    "word": "Italian",
+    "meaning": "意大利的",
+    "audioUrl": ""
   },
   {
     "id": "kXcd9v98mIwDEnYjuJWJ",
+    "ref": "15",
     "word": "officer",
     "meaning": "官员",
     "phonetic": "/ˈɑfɪsɚ/",
-    "ref": "15",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/officer-us.mp3"
   },
   {
     "id": "kbJuGQngCuBEARjjEgeM",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/my-us.mp3",
-    "word": "my",
     "ref": "3",
+    "phonetic": "/mi/",
     "meaning": "pron.我的",
-    "phonetic": "/mi/"
+    "word": "my",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/my-us.mp3"
   },
   {
     "id": "kwkXdQ7aEnCzNm17F7i8",
-    "ref": "13",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/color-us.mp3",
+    "phonetic": "/ˈkʌl.ə(r)/",
     "word": "color",
-    "meaning": "颜色 ",
-    "phonetic": "/ˈkʌl.ə(r)/"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/color-us.mp3",
+    "ref": "13",
+    "meaning": "颜色 "
   },
   {
     "id": "l325rmQJNVZsXAbPdzvy",
+    "word": "dirty",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/dirty-us.mp3",
-    "phonetic": "/ˈdɜːti/",
-    "meaning": "脏的",
     "ref": "10",
-    "word": "dirty"
+    "meaning": "脏的",
+    "phonetic": "/ˈdɜːti/"
   },
   {
     "id": "lMfc6iIFtccI5NRYBGVj",
+    "word": "yellow ",
     "phonetic": "/ˈjɛləʊ/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/yellow-us.mp3",
-    "meaning": "黄色的",
-    "word": "yellow "
+    "meaning": "黄色的"
   },
   {
     "id": "lvMkZtRK523LkdBXMn1u",
     "meaning": "老",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/old-us.mp3",
     "ref": "10",
-    "phonetic": "/ˈɒʊld/",
-    "word": "old"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/old-us.mp3",
+    "word": "old",
+    "phonetic": "/ˈɒʊld/"
   },
   {
     "id": "mKeD2yha0oq5n7mxH741",
-    "meaning": "哪一个",
     "word": "which",
+    "meaning": "哪一个",
     "ref": "21",
     "phonetic": "/wɪt͡ʃ/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/which-us.mp3"
@@ -987,247 +1199,271 @@ export const wordsData : LessonWord[] = [
   {
     "id": "mxv6w79I6GJDSWjdaSXp",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/tall-us.mp3",
-    "ref": "10",
+    "word": "tall",
     "phonetic": "/tɔːl/",
     "meaning": "(身材)高的",
-    "word": "tall"
+    "ref": "10"
   },
   {
     "id": "nHLRFlyU0ebWZpUK1mAg",
+    "word": "German",
     "audioUrl": "",
-    "phonetic": "/ˈd͡ʒɜː.mən/",
-    "meaning": "德国人",
     "ref": "5",
-    "word": "German"
+    "phonetic": "/ˈd͡ʒɜː.mən/",
+    "meaning": "德国人"
   },
   {
     "id": "nYGLa4RkpI8OSSDTvY68",
-    "meaning": "理发师",
-    "ref": "8",
     "audioUrl": "",
     "phonetic": "/ˈherˌdresər/",
-    "word": "hairdresser"
-  },
-  {
-    "id": "ngGE5kCS8AX1QqNsk1Xv",
-    "word": "tie",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/tie-us.mp3",
-    "meaning": "领带",
-    "ref": "12",
-    "phonetic": "/taɪ/"
-  },
-  {
-    "id": "oGF9NFEJiJkHmohWXrGK",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/police-us.mp3",
-    "phonetic": "/pəˈliːs/",
-    "word": "police",
-    "meaning": "警察",
+    "meaning": "理发师",
+    "word": "hairdresser",
     "ref": "8"
   },
   {
+    "id": "ngGE5kCS8AX1QqNsk1Xv",
+    "meaning": "领带",
+    "phonetic": "/taɪ/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/tie-us.mp3",
+    "word": "tie",
+    "ref": "12"
+  },
+  {
+    "id": "oGF9NFEJiJkHmohWXrGK",
+    "ref": "8",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/police-us.mp3",
+    "phonetic": "/pəˈliːs/",
+    "word": "police",
+    "meaning": "警察"
+  },
+  {
     "id": "ocUioh85MqJbsXuKbslr",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/what-us.mp3",
     "phonetic": "/wɔt/",
+    "ref": "7",
     "word": "what",
     "meaning": "什么",
-    "ref": "7"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/what-us.mp3"
   },
   {
     "id": "oesKcItU223tzENyxQpQ",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/ticket-us.mp3",
-    "meaning": "票",
-    "phonetic": "/ˈtɪkɪt/",
     "ref": "3",
+    "phonetic": "/ˈtɪkɪt/",
+    "meaning": "票",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/ticket-us.mp3",
     "word": "ticket"
   },
   {
     "id": "osUu59CmRdTR3IR5u08j",
-    "meaning": "相同的 ",
     "phonetic": "/seɪm/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/same-us.mp3",
     "ref": "13",
-    "word": "same"
+    "word": "same",
+    "meaning": "相同的 ",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/same-us.mp3"
   },
   {
     "id": "p5iO36n2Oz0D1nzwhOpQ",
-    "phonetic": "/ˈhevi/",
-    "meaning": "重的",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/heavy-1-us.mp3",
+    "ref": "20",
+    "phonetic": "/ˈhevi/",
     "word": "heavy",
-    "ref": "20"
+    "meaning": "重的"
   },
   {
     "id": "pANIjVRwy9R5nQxOCoFE",
+    "phonetic": "/-ˈnæl.ti/",
     "meaning": "国籍",
     "word": "nationality",
-    "phonetic": "/-ˈnæl.ti/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/nationality-us.mp3",
-    "ref": "7"
+    "ref": "7",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/nationality-us.mp3"
   },
   {
     "id": "pCo9dXOMnjiJLJ6277LV",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/white-us.mp3",
-    "phonetic": "/waɪt/",
-    "meaning": "白色的 ",
     "word": "white",
-    "ref": "11"
+    "phonetic": "/waɪt/",
+    "ref": "11",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/white-us.mp3",
+    "meaning": "白色的 "
   },
   {
     "id": "pOJZuiQqS8WfChLwwITF",
-    "phonetic": "",
     "meaning": "中国人",
     "audioUrl": "",
+    "phonetic": "",
     "word": "Chinese",
     "ref": "5"
   },
   {
     "id": "pPZmRp1cLnZC5YSDIPnj",
-    "ref": "4",
-    "phonetic": "/sɒn/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/son-us.mp3",
-    "meaning": "儿子",
-    "word": "son"
+    "phonetic": "/sɒn/",
+    "ref": "4",
+    "word": "son",
+    "meaning": "儿子"
   },
   {
     "id": "pkIoMC65LnYoudDXnRMQ",
     "phonetic": "/buːk/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/book-us.mp3",
     "meaning": "书",
-    "word": "book",
-    "ref": "2"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/book-us.mp3",
+    "ref": "2",
+    "word": "book"
   },
   {
     "id": "ppsYB5JztnhvdRgrjNZ9",
-    "word": "shut",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/shut-us.mp3",
-    "ref": "20",
     "meaning": "关着的",
-    "phonetic": "/ʃʌt/"
+    "phonetic": "/ʃʌt/",
+    "ref": "20",
+    "word": "shut"
   },
   {
     "id": "q6fjsnf91pW78d34Hog5",
+    "meaning": "空中乘务员",
     "word": "flight attendant",
     "audioUrl": "",
-    "meaning": "空中乘务员",
-    "ref": "8",
-    "phonetic": ""
+    "phonetic": "",
+    "ref": "8"
   },
   {
     "id": "qBMLuhl0jlvMXhCX189v",
-    "ref": "2",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/dress-us.mp3",
-    "phonetic": "/dɹɛs/",
     "meaning": "连衣裙",
+    "phonetic": "/dɹɛs/",
+    "ref": "2",
     "word": "dress"
   },
   {
     "id": "qWZc74dUKy15C4cv0cAN",
-    "meaning": "请",
-    "word": "please",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/please-us.mp3",
     "ref": "3",
+    "word": "please",
+    "meaning": "请",
     "phonetic": "/pliːz/"
   },
   {
     "id": "qXbiqAZ1tiyJrJes9hMV",
-    "word": "thank you",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/thank%20you-us.mp3",
     "phonetic": "/ˈθæŋk ˌju/",
     "ref": "1",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/thank%20you-us.mp3",
+    "word": "thank you",
     "meaning": "感谢你（们）"
   },
   {
     "id": "qvEfV4q8NZnSUIR2dLHm",
-    "ref": "19",
+    "phonetic": "/ˈʧɪldrən/",
+    "word": "children",
     "meaning": "孩子们 (child 的复数)",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/children-us.mp3",
-    "phonetic": "/ˈʧɪldrən/",
-    "word": "children"
+    "ref": "19"
+  },
+  {
+    "id": "rAyDM0dHU4zxqSOUx6Em",
+    "ref": "24",
+    "word": "cupboard",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/cupboard-us.mp3",
+    "meaning": "食橱",
+    "phonetic": "/ˈkʌbəd/"
+  },
+  {
+    "id": "rZBlcXSQLtuqUzTfvtIi",
+    "phonetic": "/ˈkʊkər/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/cooker-uk.mp3",
+    "ref": "25",
+    "word": "cooker",
+    "meaning": " 炉子,炊具"
   },
   {
     "id": "rgmh7N53thGLsA3bDEDB",
-    "audioUrl": "",
     "ref": "6",
-    "phonetic": "",
     "meaning": "瑞典的",
-    "word": "Swedish"
+    "word": "Swedish",
+    "phonetic": "",
+    "audioUrl": ""
   },
   {
     "id": "rsZlvVAA547DDRKIwpqW",
-    "phonetic": "/ɡʊ(d)/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/good-us.mp3",
-    "meaning": "好",
+    "ref": "5",
     "word": "good",
-    "ref": "5"
+    "meaning": "好",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/good-us.mp3",
+    "phonetic": "/ɡʊ(d)/"
   },
   {
     "id": "sAQrloKbcTGs6TbhegbT",
     "meaning": " 助手",
-    "word": "assistant",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/assistant-us.mp3",
     "ref": "17",
-    "phonetic": "/əˈsɪstənt/"
+    "phonetic": "/əˈsɪstənt/",
+    "word": "assistant"
   },
   {
     "id": "sBSpbwCtIHtYBu42JaPj",
-    "word": "excuse",
-    "phonetic": "/ɪkˈskjuːz/",
     "audioUrl": "",
+    "ref": "1",
     "meaning": "原谅",
-    "ref": "1"
+    "phonetic": "/ɪkˈskjuːz/",
+    "word": "excuse"
   },
   {
     "id": "sYwtqdcbPJ0WK5mhS8Hh",
-    "word": "postman",
-    "meaning": "邮递员",
     "ref": "8",
+    "meaning": "邮递员",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/postman-us.mp3",
+    "word": "postman",
     "phonetic": "/ˈpəʊsmən/"
   },
   {
     "id": "skZo6u1Ukt3Ilk1dsYPf",
     "ref": "10",
-    "word": "cold",
-    "phonetic": "/kɔʊld/",
     "meaning": "冷",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/cold-us.mp3"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/cold-us.mp3",
+    "phonetic": "/kɔʊld/",
+    "word": "cold"
+  },
+  {
+    "id": "t0HrhvLGdHeQ2ZFh9Qe9",
+    "word": "where",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/where-us.mp3",
+    "meaning": "在哪里",
+    "ref": "26",
+    "phonetic": "/weər/"
   },
   {
     "id": "t5iVooDXVN6j3le3wLpF",
     "phonetic": "",
     "meaning": "你的，你们的",
+    "audioUrl": "",
     "word": "your",
-    "ref": "1",
-    "audioUrl": ""
+    "ref": "1"
   },
   {
     "id": "tAAXVoc2KPh158xHby3s",
-    "word": "well",
     "phonetic": "/wɛl/",
     "meaning": "身体好",
     "ref": "9",
+    "word": "well",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/well-us.mp3"
   },
   {
     "id": "tCa0eA74XmVXvxZV0etD",
-    "meaning": "先生（用于姓名前）",
-    "word": "Mister",
+    "phonetic": "/ˈmɪstə(r)/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/mister-us.mp3",
-    "phonetic": "/ˈmɪstə(r)/"
+    "meaning": "先生（用于姓名前）",
+    "word": "Mister"
   },
   {
     "id": "u6azvoz5YoXX8wp0nBJG",
-    "ref": "15",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/brown-us.mp3",
+    "word": "brown",
     "meaning": "棕色的",
-    "phonetic": "/braʊn/",
-    "word": "brown"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/brown-us.mp3",
+    "ref": "15",
+    "phonetic": "/braʊn/"
   },
   {
     "id": "uQK0bsE0P6vTjKQxcIiN",
-    "phonetic": "/s(j)uːt/",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/suit-us.mp3",
     "ref": "4",
+    "phonetic": "/s(j)uːt/",
     "word": "suit",
     "meaning": "一套衣服"
   },
@@ -1235,143 +1471,184 @@ export const wordsData : LessonWord[] = [
     "id": "uSaWC8mYkba79jhahTTA",
     "word": "taxi driver",
     "audioUrl": "",
-    "phonetic": "",
     "meaning": "出租车司机",
-    "ref": "8"
+    "ref": "8",
+    "phonetic": ""
   },
   {
     "id": "uYUOdHJHbblYWHOlUeQl",
+    "phonetic": "/ˈlʌvli/",
     "meaning": "可爱的，秀丽的",
     "ref": "13",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/lovely-us.mp3",
     "word": "lovely",
-    "phonetic": "/ˈlʌvli/"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/lovely-us.mp3"
+  },
+  {
+    "id": "uiUAay0FBwmnB5URhfPo",
+    "meaning": "...的（表示从属关系）",
+    "ref": "25",
+    "word": "of",
+    "phonetic": "/ɔv/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/of-1-us-stressed.mp3"
   },
   {
     "id": "urBw88jriNGYTtxsSOuT",
-    "meaning": "他的",
     "phonetic": "/ˈhɪz/",
+    "meaning": "他的",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/his-1-us.mp3",
     "ref": "12",
-    "word": "his",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/his-1-us.mp3"
+    "word": "his"
+  },
+  {
+    "id": "vDAhVdu50Ym9q68Q37EU",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/cigarette-us.mp3",
+    "meaning": "香烟",
+    "ref": "24",
+    "phonetic": "/ˌsɪɡəˈrɛt/",
+    "word": "cigarette"
+  },
+  {
+    "id": "w2hL6xftfpLZm0o1RsLW",
+    "meaning": "报纸",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/newspaper-us.mp3",
+    "ref": "24",
+    "phonetic": "/ˈnjuːzˌpeɪpə/",
+    "word": "newspaper"
+  },
+  {
+    "id": "wK2w0lVb0JcuNTTKDiin",
+    "phonetic": "/ɪn/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/in-us-stressed.mp3",
+    "word": "in",
+    "meaning": "在……里",
+    "ref": "26"
   },
   {
     "id": "wZgbqIKVit2q0eXwcecD",
-    "phonetic": "/mæn/",
-    "ref": "17",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/man-us.mp3",
     "word": "man",
-    "meaning": "男人"
+    "phonetic": "/mæn/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/man-us.mp3",
+    "meaning": "男人",
+    "ref": "17"
   },
   {
     "id": "x3J1sobyZqiBSvKZaNno",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/spoon-us.mp3",
+    "ref": "22",
     "meaning": "勺子",
     "phonetic": "/spuːn/",
     "word": "spoon"
   },
   {
     "id": "xFHfHHlyCbRcGWPz1AKe",
-    "word": "sit down",
-    "meaning": "坐下",
     "audioUrl": "",
+    "meaning": "坐下",
     "ref": "19",
+    "word": "sit down",
     "phonetic": "/sɪt-daʊn/"
   },
   {
     "id": "xGmpMF3DRmOnRodRihCJ",
-    "word": "passport",
-    "ref": "15",
-    "meaning": "护照",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/passport-us.mp3",
+    "ref": "15",
+    "word": "passport",
+    "meaning": "护照",
     "phonetic": "/ˈpɑːspɔːt/"
   },
   {
     "id": "xYg0x3aivMEUKPwdS0Lw",
-    "ref": "2",
-    "phonetic": "/hʌʊs/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/house-1-us.mp3",
+    "word": "house",
     "meaning": "房子",
-    "word": "house"
+    "phonetic": "/hʌʊs/",
+    "ref": "2",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/house-1-us.mp3"
   },
   {
     "id": "yCJnEmDv0QPfxsDPD2We",
-    "meaning": "女人",
-    "phonetic": "/ˈwʊmɘn/",
+    "ref": "10",
     "word": "woman",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/woman-us.mp3",
-    "ref": "10"
+    "phonetic": "/ˈwʊmɘn/",
+    "meaning": "女人",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/woman-us.mp3"
   },
   {
     "id": "yPSSu5Xh1gsnT850RZQQ",
-    "meaning": "楼上",
     "ref": "13",
-    "phonetic": "/ˈʌpˌstɛəz/",
     "word": "upstairs",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/upstairs-us.mp3"
+    "phonetic": "/ˈʌpˌstɛəz/",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/upstairs-us.mp3",
+    "meaning": "楼上"
   },
   {
     "id": "ye0or2pcej5Wb4SJcBLk",
-    "word": "ice cream",
-    "phonetic": "/aɪs-ˈkriːm/ ",
     "audioUrl": "",
+    "word": "ice cream",
     "meaning": "冰淇淋",
-    "ref": "19"
+    "ref": "19",
+    "phonetic": "/aɪs-ˈkriːm/ "
   },
   {
     "id": "yerAaLbM1cdtB0rdWavv",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/hello-au.mp3",
     "meaning": "喂,你好",
     "ref": "9",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/hello-au.mp3",
     "phonetic": "/həˈloʊ/",
     "word": "hello"
   },
   {
     "id": "yhQhXL64VLXbCbxb8ax2",
+    "meaning": "护士",
     "ref": "8",
     "word": "nurse",
     "phonetic": "/nɜːs/",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/nurse-us.mp3",
-    "meaning": "护士"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/nurse-us.mp3"
   },
   {
     "id": "yr1n2k7TVlBTUrNDyWNb",
     "word": "carpet",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/carpet-us.mp3",
     "phonetic": "/ˈkɑː(r)pɪt/",
-    "ref": "14",
-    "meaning": "地毯"
+    "meaning": "地毯",
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/carpet-us.mp3",
+    "ref": "14"
+  },
+  {
+    "id": "ytrJBATUwwWFrLnsXhg8",
+    "meaning": "房间",
+    "word": "room",
+    "ref": "25",
+    "phonetic": "/ruːm/",
+    "audioUrl": ""
   },
   {
     "id": "yuQKwVVBnSMCAOJTL7qf",
-    "ref": "15",
     "meaning": "海关",
-    "phonetic": "/ˈkʌstəmz/",
     "word": "customs",
-    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/customs-us.mp3"
+    "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/customs-us.mp3",
+    "ref": "15",
+    "phonetic": "/ˈkʌstəmz/"
   },
   {
     "id": "zUd2G7OE5pXkqKRsXiAM",
-    "word": "yellow",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/yellow-us.mp3",
-    "meaning": "黄色的",
+    "word": "yellow",
+    "ref": "16",
     "phonetic": "/jɛlə/",
-    "ref": "16"
+    "meaning": "黄色的"
   },
   {
     "id": "zYgjsHcg8Xe8hq6GOOQ1",
-    "word": "daughter",
-    "ref": "4",
-    "meaning": "女儿",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/daughter-us.mp3",
+    "word": "daughter",
+    "meaning": "女儿",
+    "ref": "4",
     "phonetic": "/ˈdɑ.tɚ/"
   },
   {
     "id": "zzDL6OImDkHdM7IhyB8S",
-    "meaning": "小姐",
     "audioUrl": "https://api.dictionaryapi.dev/media/pronunciations/en/miss-us.mp3",
     "word": "Miss",
+    "ref": "5",
     "phonetic": "/mɪs/",
-    "ref": "5"
+    "meaning": "小姐"
   }
 ]
