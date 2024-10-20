@@ -17,19 +17,26 @@ const FlipCardPracticePage: React.FC = () => {
     const fetchAllWords = async () => {
       setLoading(true);
 
+            // Logging to debug mode and bookmarkedWords
+            console.log("Mode:", mode);
+            console.log("User Bookmarked Words:", userData?.bookmarkedWords);
+      
+
       if (mode === "all") {
         setWordsList(words);
       } else if (mode === "bookmarked") {
-        const bookmarkedWords = userData?.bookmarkedWords || [];
+        const bookmarkedWords:string[] = userData?.bookmarkedWords || [];
         setWordsList(
-          wordsList.filter((word) => bookmarkedWords.includes(word.word))
+          words.filter((word: LessonWord ) => 
+            bookmarkedWords.some((bookmarkedWord) => bookmarkedWord === word.word)
+          )
         );
       }
       setLoading(false);
     };
 
     fetchAllWords();
-  }, []);
+  }, [mode, userData, words]);
 
   if (loading) {
     return <Text>Loading...</Text>;
@@ -37,7 +44,7 @@ const FlipCardPracticePage: React.FC = () => {
   return (
     <View className="flex-1">
       {/* Render FlipCard component with the fetched words */}
-      <FlipCard wordList={words} />
+      <FlipCard wordList={wordsList} />
     </View>
   );
 };

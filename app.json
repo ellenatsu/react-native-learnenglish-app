@@ -34,8 +34,6 @@
         {
           "organization": "ellen-cv",
           "project": "rn-learn-english",
-
-
           "url": "https://sentry.io/"
         }
       ],
@@ -43,7 +41,7 @@
         "expo-build-properties",
         {
           "android": {
-            "usesCleartextTraffic": true // ? enable HTTP requests
+            "usesCleartextTraffic": true
           }
         }
       ]
@@ -59,6 +57,12 @@
         "projectId": "86580d86-92cd-4f7c-99cd-f9daefe236c3"
       }
     },
-    "owner": "ellenatsu"
+    "owner": "ellenatsu",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/86580d86-92cd-4f7c-99cd-f9daefe236c3"
+    }
   }
 }

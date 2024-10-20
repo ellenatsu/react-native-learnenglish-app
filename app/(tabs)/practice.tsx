@@ -35,7 +35,10 @@ const PracticePage: React.FC = () => {
         <TouchableOpacity
           className="bg-blue-400 w-auto p-3 rounded-md"
           onPress={() =>
-            router.push("/practice/flipcard-practice?mode=bookmarked")
+            router.push({
+              pathname: "/practice/flipcard-practice",
+              params: { mode: "bookmarked"}, 
+          })
           }
         >
           <Text className="text-white text-xl text-center">Marked Words</Text>
@@ -43,7 +46,10 @@ const PracticePage: React.FC = () => {
 
         <TouchableOpacity
           className="bg-blue-500 w-auto p-3 rounded-md"
-          onPress={() => router.push("practice/flipcard-practice?mode=all")}
+          onPress={() => router.push(({
+            pathname: "/practice/flipcard-practice",
+            params: { mode: "all"}, 
+        }))}
         >
           <Text className="text-white text-xl text-center">All Words</Text>
         </TouchableOpacity>
