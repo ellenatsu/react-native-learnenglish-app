@@ -5,6 +5,9 @@ import { useWordStore } from "@/store/useWordStore";
 import { useState } from "react";
 import { LessonWord } from "@/types/types";
 import { useEffect } from "react";
+import AudioPlayer from "@/components/audioplayer";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 
 const BookmarkPage = () => {
@@ -20,6 +23,7 @@ const BookmarkPage = () => {
         bookmarkedWords.some((bookmarkedWord) => bookmarkedWord === word.word)
       )
     );
+    console.log(wordList);
   }, [words, bookmarkedWords]);
 
   if(!userData){

@@ -17,18 +17,19 @@ const FlipCardPracticePage: React.FC = () => {
     const fetchAllWords = async () => {
       setLoading(true);
 
-            // Logging to debug mode and bookmarkedWords
-            console.log("Mode:", mode);
-            console.log("User Bookmarked Words:", userData?.bookmarkedWords);
-      
+      // Logging to debug mode and bookmarkedWords
+      console.log("Mode:", mode);
+      console.log("User Bookmarked Words:", userData?.bookmarkedWords);
 
       if (mode === "all") {
         setWordsList(words);
       } else if (mode === "bookmarked") {
-        const bookmarkedWords:string[] = userData?.bookmarkedWords || [];
+        const bookmarkedWords: string[] = userData?.bookmarkedWords || [];
         setWordsList(
-          words.filter((word: LessonWord ) => 
-            bookmarkedWords.some((bookmarkedWord) => bookmarkedWord === word.word)
+          words.filter((word: LessonWord) =>
+            bookmarkedWords.some(
+              (bookmarkedWord) => bookmarkedWord === word.word
+            )
           )
         );
       }
